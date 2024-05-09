@@ -16,8 +16,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lvce-editor/lvce-editor.git",
-    "directory": "packages/search-process"
+    "url": "https://github.com/lvce-editor/search-process.git"
   },
   "engines": {
     "node": ">=18"
