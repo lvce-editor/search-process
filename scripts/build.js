@@ -64,6 +64,10 @@ await cp(join(root, "src"), join(root, "dist", "src"), {
   recursive: true,
 });
 
+await cp(join(root, "bin"), join(root, "dist", "bin"), {
+  recursive: true,
+});
+
 const version = await getVersion();
 
 const packageJson = await readJson(join(root, "package.json"));
