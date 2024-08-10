@@ -1,8 +1,7 @@
 import { expect, test } from '@jest/globals'
-import { mkdtemp } from 'node:fs/promises'
+import { mkdtemp, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, sep } from 'node:path'
-import { writeFile } from '../src/parts/FileSystem/FileSystem.js'
 import * as TextSearchResultType from '../src/parts/TextSearchResultType/TextSearchResultType.js'
 
 const TextSearch = await import('../src/parts/TextSearch/TextSearch.js')
@@ -35,7 +34,18 @@ test(
 `,
     )
     const options = {
-      ripGrepArgs: ['--smart-case', '--stats', '--json', '--threads', '1', '--ignore-case', '--fixed-strings', '--', 'Document', '.'],
+      ripGrepArgs: [
+        '--smart-case',
+        '--stats',
+        '--json',
+        '--threads',
+        '1',
+        '--ignore-case',
+        '--fixed-strings',
+        '--',
+        'Document',
+        '.',
+      ],
       searchDir: tmpDir,
     }
     expect(await TextSearch.search(options)).toEqual({
