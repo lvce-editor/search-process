@@ -24,10 +24,10 @@
   },
   "dependencies": {
     "@lvce-editor/assert": "^1.2.0",
-    "@lvce-editor/ipc": "^9.4.0",
-    "@lvce-editor/json-rpc": "^1.4.0",
+    "@lvce-editor/ipc": "^10.0.2",
+    "@lvce-editor/json-rpc": "^3.0.0",
     "@lvce-editor/verror": "^1.4.0",
-    "execa": "^9.3.0"
+    "execa": "^9.3.1"
   },
   "optionalDependencies": {
     "@lvce-editor/ripgrep": "^1.2.0"
@@ -97,7 +97,7 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "prettier": "^3.3.3",
-    "ts-jest": "^29.2.4",
+    "ts-jest": "^29.2.5",
     "typescript": "^5.5.4"
   },
   "prettier": {
