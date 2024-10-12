@@ -48,6 +48,7 @@ test(
       ],
       searchDir: tmpDir,
     }
+    // @ts-ignore
     expect(await TextSearch.search(options)).toEqual({
       results: [
         {
