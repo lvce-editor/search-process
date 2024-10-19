@@ -16,7 +16,9 @@
     "strict": true,
     "useUnknownInCatchVariables": false,
     "composite": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "strictBuiltinIteratorReturn": true,
+    "noUncheckedSideEffectImports": true
   },
   "include": ["src", "test"]
 }
