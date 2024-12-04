@@ -1,4 +1,4 @@
-import * as CommandMap from '../CommandMap/CommandMap.ts'
+import * as CommandMap from '../CommandMap/CommandMap.js'
 import * as IpcChild from '../IpcChild/IpcChild.js'
 import * as IpcChildType from '../IpcChildType/IpcChildType.js'
 
