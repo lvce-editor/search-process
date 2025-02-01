@@ -31,7 +31,7 @@
     "execa": "^9.5.2"
   },
   "optionalDependencies": {
-    "@lvce-editor/ripgrep": "^1.5.0"
+    "@lvce-editor/ripgrep": "^1.6.0"
   },
   "xo": {
     "rules": {
