@@ -24,11 +24,12 @@ const options = {
     },
   },
   external: [
-    'electron',
-    'ws',
+    '@lvce-editor/ripgrep',
     '@lvce-editor/rpc',
     '@lvce-editor/verror',
+    'electron',
     'execa',
+    'ws',
   ],
   plugins: [
     babel({
