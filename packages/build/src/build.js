@@ -63,28 +63,30 @@ await bundleJs()
 
 const version = await getVersion()
 
-// const packageJson = await readJson(join(root, 'packages', 'preview-process', 'package.json'))
+const packageJson = await readJson(
+  join(root, 'packages', 'search-process', 'package.json'),
+)
 
-// delete packageJson.scripts
-// delete packageJson.devDependencies
-// delete packageJson.prettier
-// delete packageJson.jest
-// delete packageJson.xo
-// delete packageJson.directories
-// delete packageJson.nodemonConfig
-// packageJson.version = version
-// packageJson.main = 'dist/index.js'
+delete packageJson.scripts
+delete packageJson.devDependencies
+delete packageJson.prettier
+delete packageJson.jest
+delete packageJson.xo
+delete packageJson.directories
+delete packageJson.nodemonConfig
+packageJson.version = version
+packageJson.main = 'dist/index.js'
 
-// await writeJson(join(dist, 'package.json'), packageJson)
+await writeJson(join(dist, 'package.json'), packageJson)
 
-// await mkdir(join(dist, 'bin'))
-// await writeFile(
-//   join(dist, 'bin', 'previewProcess.js'),
-//   `#!/usr/bin/env node
+await mkdir(join(dist, 'bin'))
+await writeFile(
+  join(dist, 'bin', 'searchProcess.js'),
+  `#!/usr/bin/env node
 
-// import '../dist/index.js'
-// `,
-// )
+import '../dist/index.js'
+`,
+)
 
 await cp(join(root, 'README.md'), join(dist, 'README.md'))
 await cp(join(root, 'LICENSE'), join(dist, 'LICENSE'))

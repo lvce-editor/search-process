@@ -5,7 +5,7 @@ import {
   NodeWebSocketRpcClient,
   NodeWorkerRpcClient,
 } from '@lvce-editor/rpc'
-import * as IpcChildType from '../IpcChildType/IpcChildType.js'
+import * as IpcChildType from '../IpcChildType/IpcChildType.ts'
 
 export const getModule = (method) => {
   switch (method) {

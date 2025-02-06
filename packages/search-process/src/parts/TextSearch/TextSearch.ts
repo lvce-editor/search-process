@@ -1,8 +1,8 @@
 import * as CollectTextSearchStdout from '../CollectTextSearchStdout/CollectTextSearchStdout.ts'
 import * as ProcessExitEventType from '../ProcessExitEventType/ProcessExitEventType.ts'
 import * as RipGrep from '../RipGrep/RipGrep.ts'
-import { TextSearchError } from '../TextSearchError/TextSearchError.js'
-import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToExit.js'
+import { TextSearchError } from '../TextSearchError/TextSearchError.ts'
+import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToExit.ts'
 
 // TODO update vscode-ripgrep when https://github.com/mhinz/vim-grepper/issues/244, https://github.com/BurntSushi/ripgrep/issues/1892 is fixed
 
@@ -15,15 +15,27 @@ import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToE
 // TODO update client
 // TODO not always run nice, maybe configure nice via flag/options
 
-export const search = async ({ searchDir = '', maxSearchResults = 20_000, ripGrepArgs = [] } = {}) => {
+export const search = async ({
+  searchDir = '',
+  maxSearchResults = 20_000,
+  ripGrepArgs = [],
+} = {}) => {
   const charsBefore = 26
   const charsAfter = 50
   const childProcess = RipGrep.spawn(ripGrepArgs, {
     cwd: searchDir,
   })
-  const pipeLinePromise = CollectTextSearchStdout.collectStdout(childProcess, maxSearchResults, charsBefore, charsAfter)
+  const pipeLinePromise = CollectTextSearchStdout.collectStdout(
+    childProcess,
+    maxSearchResults,
+    charsBefore,
+    charsAfter,
+  )
   const closePromise = WaitForProcessToExit.waitForProcessToExit(childProcess)
-  const [pipeLineResult, exitResult] = await Promise.all([pipeLinePromise, closePromise])
+  const [pipeLineResult, exitResult] = await Promise.all([
+    pipeLinePromise,
+    closePromise,
+  ])
   if (exitResult.type === ProcessExitEventType.Error) {
     throw new TextSearchError(exitResult.event)
   }

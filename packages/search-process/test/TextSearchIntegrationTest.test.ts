@@ -2,15 +2,15 @@ import { expect, test } from '@jest/globals'
 import { mkdtemp, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, sep } from 'node:path'
-import * as TextSearchResultType from '../src/parts/TextSearchResultType/TextSearchResultType.js'
+import * as TextSearchResultType from '../src/parts/TextSearchResultType/TextSearchResultType.ts'
 
-const TextSearch = await import('../src/parts/TextSearch/TextSearch.js')
+const TextSearch = await import('../src/parts/TextSearch/TextSearch.ts')
 
 const getTmpDir = () => {
   return mkdtemp(join(tmpdir(), 'foo-'))
 }
 
-const fixPath = (path) => {
+const fixPath = (path: string) => {
   return path.replaceAll('/', sep)
 }
 

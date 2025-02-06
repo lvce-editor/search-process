@@ -1,6 +1,6 @@
 import * as Assert from '../Assert/Assert.ts'
-import * as IpcChild from '../IpcChild/IpcChild.js'
-import * as IpcChildType from '../IpcChildType/IpcChildType.js'
+import * as IpcChild from '../IpcChild/IpcChild.ts'
+import * as IpcChildType from '../IpcChildType/IpcChildType.ts'
 
 export const handleElectronMessagePort = async (messagePort, ...params) => {
   Assert.object(messagePort)

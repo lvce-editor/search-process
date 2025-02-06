@@ -9,7 +9,7 @@ import { root } from './root.js'
  * @type {import('rollup').RollupOptions}
  */
 const options = {
-  input: join(root, 'src/searchProcessMain.js'),
+  input: join(root, 'packages/search-process/src/searchProcessMain.ts'),
   preserveEntrySignatures: 'strict',
   treeshake: {
     propertyReadSideEffects: false,
@@ -24,11 +24,13 @@ const options = {
     },
   },
   external: [
-    'electron',
-    'ws',
+    '@lvce-editor/ripgrep',
     '@lvce-editor/rpc',
+    '@lvce-editor/assert',
     '@lvce-editor/verror',
+    'electron',
     'execa',
+    'ws',
   ],
   plugins: [
     babel({
