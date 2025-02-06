@@ -16,12 +16,7 @@ import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts
 // TODO update client
 // TODO not always run nice, maybe configure nice via flag/options
 
-export const collectStdout = async (
-  childProcess,
-  maxSearchResults,
-  charsBefore,
-  charsAfter,
-) => {
+export const collectStdout = async (childProcess, maxSearchResults, charsBefore, charsAfter) => {
   const allSearchResults = Object.create(null)
   let buffer = ''
   let stats = {}
@@ -47,12 +42,7 @@ export const collectStdout = async (
         break
       case RipGrepParsedLineType.Match:
         const remaining = maxSearchResults - numberOfResults
-        const matches = ToTextSearchResult.toTextSearchResult(
-          parsedLine,
-          remaining,
-          charsBefore,
-          charsAfter,
-        )
+        const matches = ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)
         numberOfResults += matches.length
         allSearchResults[data.path.text].push(...matches)
         break

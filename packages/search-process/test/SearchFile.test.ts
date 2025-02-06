@@ -61,9 +61,7 @@ test('searchFile - error - ripgrep could not be found', async () => {
   }
   expect(await SearchFile.searchFile(options)).toBe(``)
   expect(Logger.info).toHaveBeenCalledTimes(1)
-  expect(Logger.info).toHaveBeenCalledWith(
-    '[shared-process] ripgrep could not be found at "/test/rg"',
-  )
+  expect(Logger.info).toHaveBeenCalledWith('[shared-process] ripgrep could not be found at "/test/rg"')
 })
 
 test('searchFile - error', async () => {
@@ -76,7 +74,5 @@ test('searchFile - error', async () => {
   }
   expect(await SearchFile.searchFile(options)).toBe(``)
   expect(Logger.error).toHaveBeenCalledTimes(1)
-  expect(Logger.error).toHaveBeenCalledWith(
-    new TypeError(`x is not a function`),
-  )
+  expect(Logger.error).toHaveBeenCalledWith(new TypeError(`x is not a function`))
 })

@@ -17,22 +17,17 @@ jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.ts', () => {
   }
 })
 
-jest.unstable_mockModule(
-  '../src/parts/ToTextSearchResult/ToTextSearchResult.ts',
-  () => {
-    return {
-      toTextSearchResult: jest.fn(() => {
-        throw new Error('not implemented')
-      }),
-    }
-  },
-)
+jest.unstable_mockModule('../src/parts/ToTextSearchResult/ToTextSearchResult.ts', () => {
+  return {
+    toTextSearchResult: jest.fn(() => {
+      throw new Error('not implemented')
+    }),
+  }
+})
 
 const TextSearch = await import('../src/parts/TextSearch/TextSearch.ts')
 const RipGrep = await import('../src/parts/RipGrep/RipGrep.ts')
-const ToTextSearchResult = await import(
-  '../src/parts/ToTextSearchResult/ToTextSearchResult.ts'
-)
+const ToTextSearchResult = await import('../src/parts/ToTextSearchResult/ToTextSearchResult.ts')
 
 test('search - no results', async () => {
   // @ts-ignore

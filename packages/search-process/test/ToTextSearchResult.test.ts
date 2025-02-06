@@ -29,14 +29,7 @@ test('toTextSearchResult - match with bytes', () => {
   const remaining = ''
   const charsBefore = 20
   const charsAfter = 50
-  expect(
-    ToTextSearchResult.toTextSearchResult(
-      parsedLine,
-      remaining,
-      charsBefore,
-      charsAfter,
-    ),
-  ).toEqual([
+  expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
       end: 8,
       lineNumber: 220,
@@ -73,14 +66,7 @@ test.skip('toTextSearchResult - match with text', () => {
   const remaining = ''
   const charsBefore = 20
   const charsAfter = 50
-  expect(
-    ToTextSearchResult.toTextSearchResult(
-      parsedLine,
-      remaining,
-      charsBefore,
-      charsAfter,
-    ),
-  ).toEqual([
+  expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
       end: 24,
       lineNumber: 151,
@@ -115,14 +101,9 @@ test('toTextSearchResult - match without text or bytes', () => {
   const remaining = ''
   const charsBefore = 20
   const charsAfter = 50
-  expect(() =>
-    ToTextSearchResult.toTextSearchResult(
-      parsedLine,
-      remaining,
-      charsBefore,
-      charsAfter,
-    ),
-  ).toThrow(new Error('unable to parse line data'))
+  expect(() => ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toThrow(
+    new Error('unable to parse line data'),
+  )
 })
 
 test.skip('toTextSearchResult - match in the middle', () => {
@@ -141,14 +122,7 @@ test.skip('toTextSearchResult - match in the middle', () => {
   const remaining = ''
   const charsBefore = 26
   const charsAfter = 50
-  expect(
-    ToTextSearchResult.toTextSearchResult(
-      parsedLine,
-      remaining,
-      charsBefore,
-      charsAfter,
-    ),
-  ).toEqual([
+  expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
       end: 31,
       lineNumber: 1,
@@ -175,14 +149,7 @@ test('toTextSearchResult - match at the end', () => {
   const remaining = ''
   const charsBefore = 26
   const charsAfter = 50
-  expect(
-    ToTextSearchResult.toTextSearchResult(
-      parsedLine,
-      remaining,
-      charsBefore,
-      charsAfter,
-    ),
-  ).toEqual([
+  expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
       end: 28,
       lineNumber: 1,
@@ -207,14 +174,7 @@ test('toTextSearchResult - short match', () => {
   const remaining = ''
   const charsBefore = 26
   const charsAfter = 50
-  expect(
-    ToTextSearchResult.toTextSearchResult(
-      parsedLine,
-      remaining,
-      charsBefore,
-      charsAfter,
-    ),
-  ).toEqual([
+  expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
       end: 4,
       lineNumber: 1,

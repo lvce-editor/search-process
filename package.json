@@ -27,5 +27,10 @@
   },
   "engines": {
     "node": ">=22"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 130
   }
 }

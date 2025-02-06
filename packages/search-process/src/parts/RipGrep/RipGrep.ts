@@ -10,11 +10,7 @@ export const ripGrepPath = Env.getRipGrepPath() || RgPath.rgPath
 
 export const spawn = (args, options): BaseChildProcess => {
   try {
-    const childProcess: NodeChildProcess.ChildProcess = NodeChildProcess.spawn(
-      RgPath.rgPath,
-      args,
-      options,
-    )
+    const childProcess: NodeChildProcess.ChildProcess = NodeChildProcess.spawn(RgPath.rgPath, args, options)
     return {
       childProcess,
       on(event, listener) {
