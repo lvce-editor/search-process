@@ -1,4 +1,4 @@
-import { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
+import type { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
 import * as GetFirstEvent from '../GetFirstEvent/GetFirstEvent.ts'
 import * as ProcessExitEventType from '../ProcessExitEventType/ProcessExitEventType.ts'
 

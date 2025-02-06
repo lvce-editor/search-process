@@ -1,5 +1,5 @@
+import type { TextSearchResult } from '../TextSearchResult/TextSearchResult.ts'
 import * as ParseRipGrepLines from '../ParseRipGrepLines/ParseRipGrepLines.ts'
-import { TextSearchResult } from '../TextSearchResult/TextSearchResult.ts'
 import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultType.ts'
 
 export const toTextSearchResult = (
