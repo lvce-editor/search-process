@@ -1,4 +1,4 @@
-import * as NodeChildProcess from 'node:child_process'
+import type * as NodeChildProcess from 'node:child_process'
 
 export interface BaseChildProcess {
   readonly childProcess: NodeChildProcess.ChildProcess

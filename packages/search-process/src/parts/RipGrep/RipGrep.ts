@@ -1,10 +1,10 @@
 import * as NodeChildProcess from 'node:child_process'
+import type { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
 import * as Assert from '../Assert/Assert.ts'
 import * as Env from '../Env/Env.ts'
 import * as Exec from '../Exec/Exec.ts'
 import * as RgPath from '../RipGrepPath/RipGrepPath.ts'
 import { VError } from '../VError/VError.ts'
-import { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
 
 export const ripGrepPath = Env.getRipGrepPath() || RgPath.rgPath
 

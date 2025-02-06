@@ -14,7 +14,7 @@ test('toTextSearchResult - match with bytes', () => {
           'QXBwbGljYXRpb25zRm91bmQ9QSBr9nZldGtlevUgYWxrYWxtYXrhc29rIG9seWFuIGbhamxva2F0IGhhc3pu4WxuYWssIGFtZWx5ZWtldCBhIFRlbGVw7XT1bmVrIGZyaXNz7XRlbmkga2VsbC4gQWrhbmxvdHQsIGhvZ3kgZW5nZWTpbHllenplIGEgVGVsZXDtdPVuZWsgZXplbiBhbGthbG1heuFzb2sgYXV0b21hdGlrdXMgYmV64XLhc+F0Lgo=',
       },
       line_number: 220,
-      absolute_offset: 11384,
+      absolute_offset: 11_384,
       submatches: [
         {
           match: {
@@ -131,7 +131,7 @@ test.skip('toTextSearchResult - match in the middle', () => {
     data: {
       path: { text: './languages/index.py' },
       lines: {
-        text: '# Program to display the Fibonacci sequence up to n-th term\\n',
+        text: String.raw`# Program to display the Fibonacci sequence up to n-th term\n`,
       },
       line_number: 1,
       absolute_offset: 0,
@@ -153,7 +153,7 @@ test.skip('toTextSearchResult - match in the middle', () => {
       end: 31,
       lineNumber: 1,
       start: 29,
-      text: 'Program to display the Fibonacci sequence up to n-th term\\n',
+      text: String.raw`Program to display the Fibonacci sequence up to n-th term\n`,
       type: TextSearchResultType.Match,
     },
   ])
