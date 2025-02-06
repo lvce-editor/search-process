@@ -30,11 +30,6 @@ const options = {
     'electron',
     'execa',
     'ws',
-    'electron',
-    'ws',
-    '@lvce-editor/rpc',
-    '@lvce-editor/verror',
-    'execa',
   ],
   plugins: [
     babel({
