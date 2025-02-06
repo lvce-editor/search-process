@@ -6,7 +6,7 @@ beforeEach(() => {
   jest.resetAllMocks()
 })
 
-jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.js', () => {
+jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.ts', () => {
   return {
     spawn: jest.fn(() => {
       throw new Error('not implemented')
@@ -17,17 +17,22 @@ jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.js', () => {
   }
 })
 
-jest.unstable_mockModule('../src/parts/ToTextSearchResult/ToTextSearchResult.js', () => {
-  return {
-    toTextSearchResult: jest.fn(() => {
-      throw new Error('not implemented')
-    }),
-  }
-})
+jest.unstable_mockModule(
+  '../src/parts/ToTextSearchResult/ToTextSearchResult.ts',
+  () => {
+    return {
+      toTextSearchResult: jest.fn(() => {
+        throw new Error('not implemented')
+      }),
+    }
+  },
+)
 
-const TextSearch = await import('../src/parts/TextSearch/TextSearch.js')
-const RipGrep = await import('../src/parts/RipGrep/RipGrep.js')
-const ToTextSearchResult = await import('../src/parts/ToTextSearchResult/ToTextSearchResult.js')
+const TextSearch = await import('../src/parts/TextSearch/TextSearch.ts')
+const RipGrep = await import('../src/parts/RipGrep/RipGrep.ts')
+const ToTextSearchResult = await import(
+  '../src/parts/ToTextSearchResult/ToTextSearchResult.ts'
+)
 
 test('search - no results', async () => {
   // @ts-ignore
@@ -297,7 +302,9 @@ test('search - error with parsing line', async () => {
     return childProcess
   })
   // @ts-ignore
-  await expect(TextSearch.search('/test', 'document')).rejects.toThrow(new TypeError('Cannot read properties of undefined (reading length)'))
+  await expect(TextSearch.search('/test', 'document')).rejects.toThrow(
+    new TypeError('Cannot read properties of undefined (reading length)'),
+  )
 })
 
 test('search - error ripgrep not found', async () => {
@@ -334,5 +341,7 @@ test('search - error ripgrep not found', async () => {
     return childProcess
   })
   // @ts-ignore
-  await expect(TextSearch.search('/test', 'document')).rejects.toThrow(new TypeError('ripgrep path not found: Error: spawn /test/bin/rg ENOENT'))
+  await expect(TextSearch.search('/test', 'document')).rejects.toThrow(
+    new TypeError('ripgrep path not found: Error: spawn /test/bin/rg ENOENT'),
+  )
 })

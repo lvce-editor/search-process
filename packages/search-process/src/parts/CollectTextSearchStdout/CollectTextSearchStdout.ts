@@ -1,10 +1,10 @@
 import { Writable } from 'node:stream'
 import { pipeline } from 'node:stream/promises'
-import * as EncodingType from '../EncodingType/EncodingType.js'
-import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.js'
-import * as RipGrepParsedLineType from '../RipGrepParsedLineType/RipGrepParsedLineType.js'
-import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultType.js'
-import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.js'
+import * as EncodingType from '../EncodingType/EncodingType.ts'
+import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
+import * as RipGrepParsedLineType from '../RipGrepParsedLineType/RipGrepParsedLineType.ts'
+import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultType.ts'
+import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts'
 // TODO update vscode-ripgrep when https://github.com/mhinz/vim-grepper/issues/244, https://github.com/BurntSushi/ripgrep/issues/1892 is fixed
 
 // need to use '.' as last argument for ripgrep
@@ -16,7 +16,12 @@ import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.js
 // TODO update client
 // TODO not always run nice, maybe configure nice via flag/options
 
-export const collectStdout = async (childProcess, maxSearchResults, charsBefore, charsAfter) => {
+export const collectStdout = async (
+  childProcess,
+  maxSearchResults,
+  charsBefore,
+  charsAfter,
+) => {
   const allSearchResults = Object.create(null)
   let buffer = ''
   let stats = {}
@@ -42,7 +47,12 @@ export const collectStdout = async (childProcess, maxSearchResults, charsBefore,
         break
       case RipGrepParsedLineType.Match:
         const remaining = maxSearchResults - numberOfResults
-        const matches = ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)
+        const matches = ToTextSearchResult.toTextSearchResult(
+          parsedLine,
+          remaining,
+          charsBefore,
+          charsAfter,
+        )
         numberOfResults += matches.length
         allSearchResults[data.path.text].push(...matches)
         break

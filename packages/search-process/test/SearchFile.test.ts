@@ -1,11 +1,11 @@
 import { afterEach, expect, jest, test } from '@jest/globals'
-import * as ErrorCodes from '../src/parts/ErrorCodes/ErrorCodes.js'
+import * as ErrorCodes from '../src/parts/ErrorCodes/ErrorCodes.ts'
 
 afterEach(() => {
   jest.resetAllMocks()
 })
 
-jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.js', () => {
+jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.ts', () => {
   return {
     exec: jest.fn(() => {
       throw new Error('not implemented')
@@ -13,16 +13,16 @@ jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.js', () => {
     ripGrepPath: '/test/rg',
   }
 })
-jest.unstable_mockModule('../src/parts/Logger/Logger.js', () => {
+jest.unstable_mockModule('../src/parts/Logger/Logger.ts', () => {
   return {
     info: jest.fn(() => {}),
     error: jest.fn(() => {}),
   }
 })
 
-const SearchFile = await import('../src/parts/SearchFile/SearchFile.js')
-const RipGrep = await import('../src/parts/RipGrep/RipGrep.js')
-const Logger = await import('../src/parts/Logger/Logger.js')
+const SearchFile = await import('../src/parts/SearchFile/SearchFile.ts')
+const RipGrep = await import('../src/parts/RipGrep/RipGrep.ts')
+const Logger = await import('../src/parts/Logger/Logger.ts')
 
 class NodeError extends Error {
   code: any
@@ -61,7 +61,9 @@ test('searchFile - error - ripgrep could not be found', async () => {
   }
   expect(await SearchFile.searchFile(options)).toBe(``)
   expect(Logger.info).toHaveBeenCalledTimes(1)
-  expect(Logger.info).toHaveBeenCalledWith('[shared-process] ripgrep could not be found at "/test/rg"')
+  expect(Logger.info).toHaveBeenCalledWith(
+    '[shared-process] ripgrep could not be found at "/test/rg"',
+  )
 })
 
 test('searchFile - error', async () => {
@@ -74,5 +76,7 @@ test('searchFile - error', async () => {
   }
   expect(await SearchFile.searchFile(options)).toBe(``)
   expect(Logger.error).toHaveBeenCalledTimes(1)
-  expect(Logger.error).toHaveBeenCalledWith(new TypeError(`x is not a function`))
+  expect(Logger.error).toHaveBeenCalledWith(
+    new TypeError(`x is not a function`),
+  )
 })
