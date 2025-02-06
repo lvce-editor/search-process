@@ -10,7 +10,7 @@
   "author": "Lvce Editor",
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "node packages/build/src/build.js",
     "format": "prettier --write .",
     "lint": "eslint .",
     "postinstall": "lerna bootstrap --ci",
