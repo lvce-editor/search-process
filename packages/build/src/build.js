@@ -16,11 +16,18 @@ const writeJson = async (path, json) => {
 }
 
 const getGitTagFromGit = async () => {
-  const { stdout, stderr, exitCode } = await execa('git', ['describe', '--exact-match', '--tags'], {
-    reject: false,
-  })
+  const { stdout, stderr, exitCode } = await execa(
+    'git',
+    ['describe', '--exact-match', '--tags'],
+    {
+      reject: false,
+    },
+  )
   if (exitCode) {
-    if (exitCode === 128 && stderr.startsWith('fatal: no tag exactly matches')) {
+    if (
+      exitCode === 128 &&
+      stderr.startsWith('fatal: no tag exactly matches')
+    ) {
       return '0.0.0-dev'
     }
     return '0.0.0-dev'
@@ -54,47 +61,30 @@ await mkdir(dist, { recursive: true })
 
 await bundleJs()
 
-await cp(join(root, 'packages', 'preview-process', 'files'), join(root, '.tmp', 'dist', 'files'), {
-  recursive: true,
-})
-
 const version = await getVersion()
 
-const packageJson = await readJson(join(root, 'packages', 'preview-process', 'package.json'))
+// const packageJson = await readJson(join(root, 'packages', 'preview-process', 'package.json'))
 
-delete packageJson.scripts
-delete packageJson.devDependencies
-delete packageJson.prettier
-delete packageJson.jest
-delete packageJson.xo
-delete packageJson.directories
-delete packageJson.nodemonConfig
-packageJson.version = version
-packageJson.main = 'dist/index.js'
+// delete packageJson.scripts
+// delete packageJson.devDependencies
+// delete packageJson.prettier
+// delete packageJson.jest
+// delete packageJson.xo
+// delete packageJson.directories
+// delete packageJson.nodemonConfig
+// packageJson.version = version
+// packageJson.main = 'dist/index.js'
 
-await writeJson(join(dist, 'package.json'), packageJson)
+// await writeJson(join(dist, 'package.json'), packageJson)
 
-await mkdir(join(dist, 'bin'))
-await writeFile(
-  join(dist, 'bin', 'previewProcess.js'),
-  `#!/usr/bin/env node
+// await mkdir(join(dist, 'bin'))
+// await writeFile(
+//   join(dist, 'bin', 'previewProcess.js'),
+//   `#!/usr/bin/env node
 
-import '../dist/index.js'
-`,
-)
+// import '../dist/index.js'
+// `,
+// )
 
 await cp(join(root, 'README.md'), join(dist, 'README.md'))
 await cp(join(root, 'LICENSE'), join(dist, 'LICENSE'))
-await rm(join(root, '.tmp', 'node_modules'), { recursive: true, force: true })
-await cp(join(root, 'packages', 'preview-process', 'node_modules'), join(root, '.tmp', 'node_modules'), {
-  recursive: true,
-  force: true,
-})
-
-const indexJsPath = join(root, '.tmp', 'dist', 'dist', 'index.js')
-const oldContent = await readFile(indexJsPath, 'utf8')
-const newContent = oldContent.replace(
-  `const root = path.join(__dirname, '..', '..', '..');`,
-  `const root = path.join(__dirname, '..');`,
-)
-await writeFile(indexJsPath, newContent)
