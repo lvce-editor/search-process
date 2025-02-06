@@ -1,21 +1,21 @@
 {
-  "name": "@lvce-editor/preview-process",
+  "name": "@lvce-editor/search-process",
   "version": "0.0.0-dev",
-  "description": "Preview Process",
+  "description": "Search Process",
   "keywords": [
     "Lvce Editor",
-    "Preview"
+    "Search"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lvce-editor/preview-process.git"
+    "url": "git+https://github.com/lvce-editor/search-process.git"
   },
   "license": "MIT",
   "author": "Lvce Editor",
   "type": "module",
-  "main": "src/previewProcessMain.ts",
+  "main": "src/searchProcessMain.ts",
   "bin": {
-    "preview-process": "bin/previewProcess.js"
+    "search-process": "bin/searchProcess.js"
   },
   "scripts": {
     "test": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
@@ -47,8 +47,13 @@
     }
   },
   "dependencies": {
+    "@lvce-editor/assert": "^1.3.0",
     "@lvce-editor/rpc": "^1.21.0",
-    "@lvce-editor/verror": "^1.6.0"
+    "@lvce-editor/verror": "^1.6.0",
+    "execa": "^9.5.2"
+  },
+  "optionalDependencies": {
+    "@lvce-editor/ripgrep": "^1.6.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
