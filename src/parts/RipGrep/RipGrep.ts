@@ -1,15 +1,20 @@
 import * as NodeChildProcess from 'node:child_process'
-import * as Assert from '../Assert/Assert.js'
-import * as Env from '../Env/Env.js'
-import * as Exec from '../Exec/Exec.js'
+import * as Assert from '../Assert/Assert.ts'
+import * as Env from '../Env/Env.ts'
+import * as Exec from '../Exec/Exec.ts'
 import * as RgPath from '../RipGrepPath/RipGrepPath.js'
 import { VError } from '../VError/VError.js'
+import { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
 
 export const ripGrepPath = Env.getRipGrepPath() || RgPath.rgPath
 
-export const spawn = (args, options) => {
+export const spawn = (args, options): BaseChildProcess => {
   try {
-    const childProcess = NodeChildProcess.spawn(RgPath.rgPath, args, options)
+    const childProcess: NodeChildProcess.ChildProcess = NodeChildProcess.spawn(
+      RgPath.rgPath,
+      args,
+      options,
+    )
     return {
       childProcess,
       on(event, listener) {

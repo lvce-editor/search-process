@@ -1,4 +1,4 @@
-import * as EncodingType from '../EncodingType/EncodingType.js'
+import * as EncodingType from '../EncodingType/EncodingType.ts'
 
 export const parseRipGrepLines = (parsedLineData) => {
   if (parsedLineData.lines.text) {
