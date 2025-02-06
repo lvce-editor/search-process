@@ -9,7 +9,7 @@ import { root } from './root.js'
  * @type {import('rollup').RollupOptions}
  */
 const options = {
-  input: join(root, 'packages/preview-process/src/previewProcessMain.ts'),
+  input: join(root, 'src/searchProcessMain.js'),
   preserveEntrySignatures: 'strict',
   treeshake: {
     propertyReadSideEffects: false,
@@ -23,7 +23,13 @@ const options = {
       objectShorthand: true,
     },
   },
-  external: ['electron', 'ws', '@lvce-editor/rpc', '@lvce-editor/verror'],
+  external: [
+    'electron',
+    'ws',
+    '@lvce-editor/rpc',
+    '@lvce-editor/verror',
+    'execa',
+  ],
   plugins: [
     babel({
       babelHelpers: 'bundled',
