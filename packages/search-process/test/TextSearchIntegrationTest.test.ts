@@ -10,7 +10,7 @@ const getTmpDir = () => {
   return mkdtemp(join(tmpdir(), 'foo-'))
 }
 
-const fixPath = (path) => {
+const fixPath = (path: string) => {
   return path.replaceAll('/', sep)
 }
 

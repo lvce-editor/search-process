@@ -1,3 +1,4 @@
+// @ts-ignore
 import { execa } from 'execa'
 import * as Assert from '../Assert/Assert.ts'
 
