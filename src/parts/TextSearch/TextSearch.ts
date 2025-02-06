@@ -1,6 +1,6 @@
-import * as CollectTextSearchStdout from '../CollectTextSearchStdout/CollectTextSearchStdout.js'
-import * as ProcessExitEventType from '../ProcessExitEventType/ProcessExitEventType.js'
-import * as RipGrep from '../RipGrep/RipGrep.js'
+import * as CollectTextSearchStdout from '../CollectTextSearchStdout/CollectTextSearchStdout.ts'
+import * as ProcessExitEventType from '../ProcessExitEventType/ProcessExitEventType.ts'
+import * as RipGrep from '../RipGrep/RipGrep.ts'
 import { TextSearchError } from '../TextSearchError/TextSearchError.js'
 import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToExit.js'
 

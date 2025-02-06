@@ -4,10 +4,11 @@ import { tmpdir } from 'node:os'
 
 // TODO mock this module when used in unit tests
 
-const state = {
-  /**
-   * @type {Console|undefined}
-   */
+interface State {
+  console: Console | undefined
+}
+
+const state: State = {
   console: undefined,
 }
 

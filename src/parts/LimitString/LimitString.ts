@@ -1,6 +1,6 @@
-import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.js'
+import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
 
-export const limitString = (string, limit) => {
+export const limitString = (string: string, limit: number): string => {
   let lines = 0
   let i = 0
   while (i !== -1 && lines < limit) {

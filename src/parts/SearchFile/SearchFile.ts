@@ -1,9 +1,9 @@
-import * as Assert from '../Assert/Assert.js'
-import * as Character from '../Character/Character.js'
-import * as IsEnoentError from '../IsEnoentError/IsEnoentError.js'
-import * as LimitString from '../LimitString/LimitString.js'
-import * as Logger from '../Logger/Logger.js'
-import * as RipGrep from '../RipGrep/RipGrep.js'
+import * as Assert from '../Assert/Assert.ts'
+import * as Character from '../Character/Character.ts'
+import * as IsEnoentError from '../IsEnoentError/IsEnoentError.ts'
+import * as LimitString from '../LimitString/LimitString.ts'
+import * as Logger from '../Logger/Logger.ts'
+import * as RipGrep from '../RipGrep/RipGrep.ts'
 
 // TODO don't necessarily need ripgrep to list all the files,
 // maybe also a faster c program can do it

@@ -1,7 +1,9 @@
-import * as ErrorCodes from '../ErrorCodes/ErrorCodes.js'
-import * as IsEnoentError from '../IsEnoentError/IsEnoentError.js'
+import * as ErrorCodes from '../ErrorCodes/ErrorCodes.ts'
+import * as IsEnoentError from '../IsEnoentError/IsEnoentError.ts'
 
 export class TextSearchError extends Error {
+  readonly code: string
+
   constructor(cause) {
     if (IsEnoentError.isEnoentError(cause)) {
       super(`ripgrep path not found: ${cause}`)

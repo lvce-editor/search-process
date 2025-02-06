@@ -1,8 +1,14 @@
-import * as ParseRipGrepLines from '../ParseRipGrepLines/ParseRipGrepLines.js'
-import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultType.js'
+import * as ParseRipGrepLines from '../ParseRipGrepLines/ParseRipGrepLines.ts'
+import { TextSearchResult } from '../TextSearchResult/TextSearchResult.ts'
+import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultType.ts'
 
-export const toTextSearchResult = (parsedLine, remaining, charsBefore, charsAfter) => {
-  const results = []
+export const toTextSearchResult = (
+  parsedLine: any,
+  remaining: any,
+  charsBefore: number,
+  charsAfter: number,
+): readonly TextSearchResult[] => {
+  const results: TextSearchResult[] = []
   const parsedLineData = parsedLine.data
   const lines = ParseRipGrepLines.parseRipGrepLines(parsedLineData)
   const lineNumber = parsedLineData.line_number

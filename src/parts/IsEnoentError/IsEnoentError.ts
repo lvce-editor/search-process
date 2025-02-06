@@ -1,4 +1,4 @@
-import * as ErrorCodes from '../ErrorCodes/ErrorCodes.js'
+import * as ErrorCodes from '../ErrorCodes/ErrorCodes.ts'
 import * as IsEnoentErrorWindows from '../IsEnoentErrorWindows/IsEnoentErrorWindows.js'
 
 const isEnoentErrorLinux = (error) => {
