@@ -9,8 +9,5 @@ export const isEnoentError = (error) => {
   if (!error) {
     return false
   }
-  return (
-    isEnoentErrorLinux(error) ||
-    IsEnoentErrorWindows.isEnoentErrorWindows(error)
-  )
+  return isEnoentErrorLinux(error) || IsEnoentErrorWindows.isEnoentErrorWindows(error)
 }

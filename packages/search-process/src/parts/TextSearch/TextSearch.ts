@@ -15,27 +15,15 @@ import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToE
 // TODO update client
 // TODO not always run nice, maybe configure nice via flag/options
 
-export const search = async ({
-  searchDir = '',
-  maxSearchResults = 20_000,
-  ripGrepArgs = [],
-} = {}) => {
+export const search = async ({ searchDir = '', maxSearchResults = 20_000, ripGrepArgs = [] } = {}) => {
   const charsBefore = 26
   const charsAfter = 50
   const childProcess = RipGrep.spawn(ripGrepArgs, {
     cwd: searchDir,
   })
-  const pipeLinePromise = CollectTextSearchStdout.collectStdout(
-    childProcess,
-    maxSearchResults,
-    charsBefore,
-    charsAfter,
-  )
+  const pipeLinePromise = CollectTextSearchStdout.collectStdout(childProcess, maxSearchResults, charsBefore, charsAfter)
   const closePromise = WaitForProcessToExit.waitForProcessToExit(childProcess)
-  const [pipeLineResult, exitResult] = await Promise.all([
-    pipeLinePromise,
-    closePromise,
-  ])
+  const [pipeLineResult, exitResult] = await Promise.all([pipeLinePromise, closePromise])
   if (exitResult.type === ProcessExitEventType.Error) {
     throw new TextSearchError(exitResult.event)
   }

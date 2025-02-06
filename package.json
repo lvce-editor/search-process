@@ -17,6 +17,11 @@
     "test": "lerna run test",
     "type-check": "tsc -b"
   },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 130
+  },
   "devDependencies": {
     "@lerna/legacy-package-management": "^8.1.9",
     "@lvce-editor/eslint-config": "^1.22.0",
