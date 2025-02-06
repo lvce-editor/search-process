@@ -9,7 +9,7 @@ jobs:
   ci:
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-14, windows-2022]
+        os: [ubuntu-24.04, macos-15, windows-2025]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     steps:
@@ -31,5 +31,6 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
       - run: npm test
       - run: npm run type-check
+      - run: npm run lint
       - name: Build
         run: node scripts/build.js
