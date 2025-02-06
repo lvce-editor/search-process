@@ -26,6 +26,7 @@ const options = {
   external: [
     '@lvce-editor/ripgrep',
     '@lvce-editor/rpc',
+    '@lvce-editor/assert',
     '@lvce-editor/verror',
     'electron',
     'execa',
