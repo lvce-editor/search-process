@@ -7,7 +7,7 @@
     "types": ["node"],
     "moduleResolution": "nodenext",
     "isolatedModules": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "skipLibCheck": true,
     "rootDir": ".",
     "noEmit": true,

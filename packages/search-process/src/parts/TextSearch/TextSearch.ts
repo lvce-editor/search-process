@@ -15,7 +15,7 @@ import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToE
 // TODO update client
 // TODO not always run nice, maybe configure nice via flag/options
 
-export const search = async ({ searchDir = '', maxSearchResults = 20_000, ripGrepArgs = [] } = {}) => {
+export const search = async ({ searchDir = '', maxSearchResults = 20_000, ripGrepArgs = [] } = {}): Promise<any> => {
   const charsBefore = 26
   const charsAfter = 50
   const childProcess = RipGrep.spawn(ripGrepArgs, {

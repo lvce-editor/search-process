@@ -16,7 +16,12 @@ import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts
 // TODO update client
 // TODO not always run nice, maybe configure nice via flag/options
 
-export const collectStdout = async (childProcess: any, maxSearchResults: number, charsBefore: number, charsAfter: number) => {
+export const collectStdout = async (
+  childProcess: any,
+  maxSearchResults: number,
+  charsBefore: number,
+  charsAfter: number,
+): Promise<any> => {
   const allSearchResults = Object.create(null)
   let buffer = ''
   let stats = {}
