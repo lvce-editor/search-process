@@ -7,7 +7,7 @@ import {
 } from '@lvce-editor/rpc'
 import * as IpcChildType from '../IpcChildType/IpcChildType.ts'
 
-export const getModule = (method) => {
+export const getModule = (method): any => {
   switch (method) {
     case IpcChildType.NodeForkedProcess:
       return NodeForkedProcessRpcClient

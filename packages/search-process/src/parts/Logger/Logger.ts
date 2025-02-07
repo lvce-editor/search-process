@@ -12,27 +12,27 @@ const state: State = {
   console: undefined,
 }
 
-const createConsole = () => {
+const createConsole = (): Console => {
   const logFile = `${tmpdir()}/log-shared-process.txt`
   const writeStream = createWriteStream(logFile)
   const logger = new Console(writeStream)
   return logger
 }
 
-const getOrCreateLogger = () => {
+const getOrCreateLogger = (): Console => {
   if (!state.console) {
     state.console = createConsole()
   }
   return state.console
 }
 
-export const info = (...args) => {
+export const info = (...args): void => {
   const logger = getOrCreateLogger()
   logger.info(...args)
   console.info(...args)
 }
 
-export const error = (...args) => {
+export const error = (...args): void => {
   const logger = getOrCreateLogger()
   logger.error(...args)
   console.error(...args)

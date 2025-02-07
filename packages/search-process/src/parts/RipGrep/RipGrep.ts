@@ -13,18 +13,18 @@ export const spawn = (args, options): BaseChildProcess => {
     const childProcess: NodeChildProcess.ChildProcess = NodeChildProcess.spawn(RgPath.rgPath, args, options)
     return {
       childProcess,
-      on(event, listener) {
+      on(event, listener): void {
         this.childProcess.on(event, listener)
       },
-      off(event, listener) {
+      off(event, listener): void {
         this.childProcess.off(event, listener)
       },
-      once(event, listener) {
+      once(event, listener): void {
         this.childProcess.once(event, listener)
       },
       stdout: childProcess.stdout,
       stderr: childProcess.stderr,
-      kill() {
+      kill(): void {
         this.childProcess.kill()
       },
     }
