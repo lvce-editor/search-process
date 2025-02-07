@@ -1,7 +1,5 @@
-import type * as NodeChildProcess from 'node:child_process'
-
 export interface BaseChildProcess {
-  readonly childProcess: NodeChildProcess.ChildProcess
+  readonly childProcess: any
   readonly on: (event: string, listener: any) => void
   readonly off: (event: string, listener: any) => void
   readonly once: (event: string, listener: any) => void
