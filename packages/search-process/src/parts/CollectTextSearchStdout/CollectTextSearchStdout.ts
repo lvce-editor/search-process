@@ -16,7 +16,7 @@ import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts
 // TODO update client
 // TODO not always run nice, maybe configure nice via flag/options
 
-export const collectStdout = async (childProcess, maxSearchResults, charsBefore, charsAfter) => {
+export const collectStdout = async (childProcess: any, maxSearchResults: number, charsBefore: number, charsAfter: number) => {
   const allSearchResults = Object.create(null)
   let buffer = ''
   let stats = {}
@@ -25,7 +25,7 @@ export const collectStdout = async (childProcess, maxSearchResults, charsBefore,
 
   childProcess.stdout.setEncoding(EncodingType.Utf8)
 
-  const handleLine = (line) => {
+  const handleLine = (line: string) => {
     const parsedLine = JSON.parse(line)
     const { type, data } = parsedLine
     switch (type) {
@@ -54,7 +54,7 @@ export const collectStdout = async (childProcess, maxSearchResults, charsBefore,
     }
   }
 
-  const handleData = (chunk) => {
+  const handleData = (chunk: any): void => {
     let newLineIndex = GetNewLineIndex.getNewLineIndex(chunk)
     const dataString = buffer + chunk
     if (newLineIndex === -1) {
