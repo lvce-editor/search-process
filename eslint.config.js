@@ -4,9 +4,6 @@ export default [
   ...config.default,
   ...config.recommendedNode,
   {
-    ignores: ['scripts', 'rollup.config.js', 'eslint.config.js', 'packages/build'],
-  },
-  {
     files: ['**/*.ts'],
     rules: {
       'no-console': 'off',
