@@ -34,7 +34,7 @@ test('search - no results', async () => {
   RipGrep.spawn.mockImplementation(() => {
     const emitter = new EventEmitter()
     const stdout = new Readable({
-      read() {},
+      read(): void {},
     })
     const childProcess = {
       on(event: string, listener: any) {
@@ -81,21 +81,21 @@ test('search - one result', async () => {
   RipGrep.spawn.mockImplementation(() => {
     const emitter = new EventEmitter()
     const stdout = new Readable({
-      read() {},
+      read(): void {},
     })
     const childProcess = {
-      on(event: string, listener: any) {
+      on(event: string, listener: any): void {
         emitter.on(event, listener)
       },
-      off(event: string, listener: any) {
+      off(event: string, listener: any): void {
         emitter.off(event, listener)
       },
-      once(event: string, listener: any) {
+      once(event: string, listener: any): void {
         emitter.once(event, listener)
       },
       stdout,
       stderr: {},
-      kill() {},
+      kill(): void {},
     }
     setTimeout(() => {
       stdout.push(
@@ -182,18 +182,18 @@ test('search - one result split across multiple chunks', async () => {
       read() {},
     })
     const childProcess = {
-      on(event: string, listener: any) {
+      on(event: string, listener: any): void {
         emitter.on(event, listener)
       },
-      off(event: string, listener: any) {
+      off(event: string, listener: any): void {
         emitter.off(event, listener)
       },
-      once(event: string, listener: any) {
+      once(event: string, listener: any): void {
         emitter.once(event, listener)
       },
       stdout,
       stderr: {},
-      kill() {},
+      kill(): void {},
     }
     setTimeout(() => {
       stdout.push(
@@ -309,7 +309,7 @@ test('search - error ripgrep not found', async () => {
   RipGrep.spawn.mockImplementation(() => {
     const emitter = new EventEmitter()
     const stdout = new Readable({
-      read() {},
+      read(): void {},
     })
     const childProcess = {
       on(event: string, listener: any): void {

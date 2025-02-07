@@ -11,7 +11,7 @@ import * as RipGrep from '../RipGrep/RipGrep.ts'
 // do a delta comparison, so the first time it would send 100kB
 // but the second time only a few hundred bytes of changes
 
-export const searchFile = async ({ searchPath = '', limit = 100, ripGrepArgs = [] }) => {
+export const searchFile = async ({ searchPath = '', limit = 100, ripGrepArgs = [] }): Promise<string> => {
   try {
     Assert.string(searchPath)
     Assert.array(ripGrepArgs)
