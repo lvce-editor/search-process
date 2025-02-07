@@ -16,9 +16,9 @@ export const searchFile = async ({
   limit = 100,
   ripGrepArgs = [],
 }: {
-  readonly searchPath: string
-  readonly limit: number
-  readonly ripGrepArgs: readonly string[]
+  readonly searchPath?: string
+  readonly limit?: number
+  readonly ripGrepArgs?: readonly string[]
 }): Promise<string> => {
   try {
     Assert.string(searchPath)
