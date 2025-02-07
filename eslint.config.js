@@ -9,8 +9,6 @@ export default [
   {
     files: ['**/*.ts'],
     rules: {
-      // 'n/no-unsupported-features/node-builtins': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
       'no-console': 'off',
     },
   },
