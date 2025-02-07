@@ -1,4 +1,4 @@
-export const withResolvers = <T>() => {
+export const withResolvers = <T>(): any => {
   /**
    * @type {any}
    */

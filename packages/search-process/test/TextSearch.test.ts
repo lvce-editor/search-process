@@ -37,18 +37,18 @@ test('search - no results', async () => {
       read(): void {},
     })
     const childProcess = {
-      on(event: string, listener: any) {
+      on(event: string, listener: any): void {
         emitter.on(event, listener)
       },
-      off(event: string, listener: any) {
+      off(event: string, listener: any): void {
         emitter.off(event, listener)
       },
-      once(event: string, listener: any) {
+      once(event: string, listener: any): void {
         emitter.once(event, listener)
       },
       stdout,
       stderr: {},
-      kill() {},
+      kill(): void {},
     }
     setTimeout(() => {
       stdout.emit('end')
@@ -179,7 +179,7 @@ test('search - one result split across multiple chunks', async () => {
   RipGrep.spawn.mockImplementation(() => {
     const emitter = new EventEmitter()
     const stdout = new Readable({
-      read() {},
+      read(): void {},
     })
     const childProcess = {
       on(event: string, listener: any): void {
@@ -270,21 +270,21 @@ test('search - error with parsing line', async () => {
   RipGrep.spawn.mockImplementation(() => {
     const emitter = new EventEmitter()
     const stdout = new Readable({
-      read() {},
+      read(): void {},
     })
     const childProcess = {
-      on(event: string, listener: any) {
+      on(event: string, listener: any): void {
         emitter.on(event, listener)
       },
-      off(event: string, listener: any) {
+      off(event: string, listener: any): void {
         emitter.off(event, listener)
       },
-      once(event: string, listener: any) {
+      once(event: string, listener: any): void {
         emitter.once(event, listener)
       },
       stdout,
       stderr: {},
-      kill() {},
+      kill(): void {},
     }
     setTimeout(() => {
       stdout.push(

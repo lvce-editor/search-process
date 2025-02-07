@@ -30,7 +30,7 @@ export const collectStdout = async (
 
   childProcess.stdout.setEncoding(EncodingType.Utf8)
 
-  const handleLine = (line: string) => {
+  const handleLine = (line: string): void => {
     const parsedLine = JSON.parse(line)
     const { type, data } = parsedLine
     switch (type) {
@@ -86,10 +86,10 @@ export const collectStdout = async (
     childProcess.stdout,
     new Writable({
       decodeStrings: false,
-      construct(callback) {
+      construct(callback): void {
         callback()
       },
-      write(chunk, encoding, callback) {
+      write(chunk, encoding, callback): void {
         try {
           handleData(chunk)
           callback()

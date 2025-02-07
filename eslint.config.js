@@ -22,7 +22,6 @@ export default [
       'n/no-unsupported-features/es-syntax': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/prefer-readonly-parameter-types': 'off',
-      '@typescript-eslint/explicit-function-return-type': 'off',
       'no-console': 'off',
     },
   },
