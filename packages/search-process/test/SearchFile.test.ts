@@ -26,7 +26,7 @@ const Logger = await import('../src/parts/Logger/Logger.ts')
 
 class NodeError extends Error {
   code: any
-  constructor(code, message = code) {
+  constructor(code: string, message = code) {
     super(code + ':' + message)
     this.code = code
   }

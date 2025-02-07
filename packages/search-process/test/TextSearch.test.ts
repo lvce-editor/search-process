@@ -37,13 +37,13 @@ test('search - no results', async () => {
       read() {},
     })
     const childProcess = {
-      on(event, listener) {
+      on(event: string, listener: any) {
         emitter.on(event, listener)
       },
-      off(event, listener) {
+      off(event: string, listener: any) {
         emitter.off(event, listener)
       },
-      once(event, listener) {
+      once(event: string, listener: any) {
         emitter.once(event, listener)
       },
       stdout,
@@ -84,13 +84,13 @@ test('search - one result', async () => {
       read() {},
     })
     const childProcess = {
-      on(event, listener) {
+      on(event: string, listener: any) {
         emitter.on(event, listener)
       },
-      off(event, listener) {
+      off(event: string, listener: any) {
         emitter.off(event, listener)
       },
-      once(event, listener) {
+      once(event: string, listener: any) {
         emitter.once(event, listener)
       },
       stdout,
@@ -182,13 +182,13 @@ test('search - one result split across multiple chunks', async () => {
       read() {},
     })
     const childProcess = {
-      on(event, listener) {
+      on(event: string, listener: any) {
         emitter.on(event, listener)
       },
-      off(event, listener) {
+      off(event: string, listener: any) {
         emitter.off(event, listener)
       },
-      once(event, listener) {
+      once(event: string, listener: any) {
         emitter.once(event, listener)
       },
       stdout,
@@ -273,13 +273,13 @@ test('search - error with parsing line', async () => {
       read() {},
     })
     const childProcess = {
-      on(event, listener) {
+      on(event: string, listener: any) {
         emitter.on(event, listener)
       },
-      off(event, listener) {
+      off(event: string, listener: any) {
         emitter.off(event, listener)
       },
-      once(event, listener) {
+      once(event: string, listener: any) {
         emitter.once(event, listener)
       },
       stdout,

@@ -8,7 +8,7 @@ import { VError } from '../VError/VError.ts'
 
 export const ripGrepPath = Env.getRipGrepPath() || RgPath.rgPath
 
-export const spawn = (args, options): BaseChildProcess => {
+export const spawn = (args: readonly any[], options: any): BaseChildProcess => {
   try {
     const childProcess: NodeChildProcess.ChildProcess = NodeChildProcess.spawn(RgPath.rgPath, args, options)
     return {
@@ -33,7 +33,12 @@ export const spawn = (args, options): BaseChildProcess => {
   }
 }
 
-export const exec = async (args, options) => {
+interface ExecResult {
+  readonly stdout: string
+  readonly stderr: string
+}
+
+export const exec = async (args: readonly any[], options: any): Promise<ExecResult> => {
   Assert.array(args)
   Assert.object(options)
   const { stdout, stderr } = await Exec.exec(ripGrepPath, args, options)

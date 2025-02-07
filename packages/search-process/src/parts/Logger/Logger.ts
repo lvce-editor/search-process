@@ -26,13 +26,13 @@ const getOrCreateLogger = (): Console => {
   return state.console
 }
 
-export const info = (...args): void => {
+export const info = (...args: readonly any[]): void => {
   const logger = getOrCreateLogger()
   logger.info(...args)
   console.info(...args)
 }
 
-export const error = (...args): void => {
+export const error = (...args: readonly any[]): void => {
   const logger = getOrCreateLogger()
   logger.error(...args)
   console.error(...args)
