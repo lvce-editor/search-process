@@ -21,7 +21,6 @@ export default [
       'n/no-unsupported-features/node-builtins': 'off',
       'n/no-unsupported-features/es-syntax': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/prefer-readonly-parameter-types': 'off',
       'no-console': 'off',
     },
   },

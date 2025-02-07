@@ -1,8 +1,8 @@
-import type { Options } from 'execa';
+import type { Options } from 'execa'
 import { execa } from 'execa'
 import * as Assert from '../Assert/Assert.ts'
 
-export const exec = async (command: string, args: readonly string[], options: Options): Promise<any> => {
+export const exec = async (command: string, args: readonly string[], options: any): Promise<any> => {
   Assert.string(command)
   Assert.array(args)
   Assert.object(options)
