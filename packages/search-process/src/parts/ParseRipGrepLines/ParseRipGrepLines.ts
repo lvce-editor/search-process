@@ -1,6 +1,6 @@
 import * as EncodingType from '../EncodingType/EncodingType.ts'
 
-export const parseRipGrepLines = (parsedLineData) => {
+export const parseRipGrepLines = (parsedLineData: any): any => {
   if (parsedLineData.lines.text) {
     return parsedLineData.lines.text
   }

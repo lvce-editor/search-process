@@ -6,11 +6,12 @@ import * as TextSearchResultType from '../src/parts/TextSearchResultType/TextSea
 
 const TextSearch = await import('../src/parts/TextSearch/TextSearch.ts')
 
-const getTmpDir = () => {
+// TODO move this to integration tests
+const getTmpDir = (): Promise<string> => {
   return mkdtemp(join(tmpdir(), 'foo-'))
 }
 
-const fixPath = (path: string) => {
+const fixPath = (path: string): string => {
   return path.replaceAll('/', sep)
 }
 

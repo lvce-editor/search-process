@@ -312,18 +312,18 @@ test('search - error ripgrep not found', async () => {
       read() {},
     })
     const childProcess = {
-      on(event, listener) {
+      on(event: string, listener: any): void {
         emitter.on(event, listener)
       },
-      off(event, listener) {
+      off(event: string, listener: any): void {
         emitter.off(event, listener)
       },
-      once(event, listener) {
+      once(event: string, listener: any): void {
         emitter.once(event, listener)
       },
       stdout,
       stderr: {},
-      kill() {},
+      kill(): void {},
     }
     setTimeout(() => {
       const error = new Error(`spawn /test/bin/rg ENOENT`)

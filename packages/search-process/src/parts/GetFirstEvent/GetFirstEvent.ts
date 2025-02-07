@@ -1,6 +1,6 @@
 import * as Promises from '../Promises/Promises.ts'
 
-export const getFirstEvent = (eventEmitter, eventMap) => {
+export const getFirstEvent = (eventEmitter, eventMap): Promise<any> => {
   const { resolve, promise } = Promises.withResolvers()
   const listenerMap = Object.create(null)
   const cleanup = (value) => {
