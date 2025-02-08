@@ -1,16 +1,13 @@
 import * as NodeChildProcess from 'node:child_process'
 import type { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
+import * as RipGrepPath from '../ActualRipGrepPath/ActualRipGrepPath.ts'
 import * as Assert from '../Assert/Assert.ts'
-import * as Env from '../Env/Env.ts'
 import * as Exec from '../Exec/Exec.ts'
-import * as RgPath from '../RipGrepPath/RipGrepPath.ts'
 import { VError } from '../VError/VError.ts'
-
-export const ripGrepPath = Env.getRipGrepPath() || RgPath.rgPath
 
 export const spawn = (args: readonly any[], options: any): BaseChildProcess => {
   try {
-    const childProcess: NodeChildProcess.ChildProcess = NodeChildProcess.spawn(RgPath.rgPath, args, options)
+    const childProcess: NodeChildProcess.ChildProcess = NodeChildProcess.spawn(RipGrepPath.ripGrepPath, args, options)
     return {
       childProcess,
       on(event, listener): void {
@@ -41,6 +38,6 @@ interface ExecResult {
 export const exec = async (args: readonly any[], options: any): Promise<ExecResult> => {
   Assert.array(args)
   Assert.object(options)
-  const { stdout, stderr } = await Exec.exec(ripGrepPath, args, options)
+  const { stdout, stderr } = await Exec.exec(RipGrepPath.ripGrepPath, args, options)
   return { stdout, stderr }
 }
