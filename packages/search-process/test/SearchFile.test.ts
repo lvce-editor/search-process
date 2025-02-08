@@ -10,9 +10,15 @@ jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.ts', () => {
     exec: jest.fn(() => {
       throw new Error('not implemented')
     }),
+  }
+})
+
+jest.unstable_mockModule('../src/parts/ActualRipGrepPath/ActualRipGrepPath.ts', () => {
+  return {
     ripGrepPath: '/test/rg',
   }
 })
+
 jest.unstable_mockModule('../src/parts/Logger/Logger.ts', () => {
   return {
     info: jest.fn(() => {}),

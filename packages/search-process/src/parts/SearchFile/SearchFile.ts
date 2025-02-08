@@ -1,3 +1,4 @@
+import * as RipGrepPath from '../ActualRipGrepPath/ActualRipGrepPath.ts'
 import * as Assert from '../Assert/Assert.ts'
 import * as Character from '../Character/Character.ts'
 import * as IsEnoentError from '../IsEnoentError/IsEnoentError.ts'
@@ -30,7 +31,7 @@ export const searchFile = async ({
     return LimitString.limitString(stdout, limit)
   } catch (error) {
     if (IsEnoentError.isEnoentError(error)) {
-      Logger.info(`[shared-process] ripgrep could not be found at "${RipGrep.ripGrepPath}"`)
+      Logger.info(`[shared-process] ripgrep could not be found at "${RipGrepPath.ripGrepPath}"`)
       return Character.EmptyString
     }
     // @ts-ignore
