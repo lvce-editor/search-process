@@ -14,5 +14,5 @@ export const Auto = (argv: readonly string[]): number => {
   if (argv.includes('--ipc-type=electron-utility-process')) {
     return ElectronUtilityProcess
   }
-  throw new Error(`[shared-process] unknown ipc type`)
+  throw new Error(`[search-process] unknown ipc type`)
 }
