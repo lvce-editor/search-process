@@ -337,6 +337,6 @@ test('search - error ripgrep not found', async () => {
   })
   // @ts-ignore
   await expect(TextSearch.search('/test', 'document')).rejects.toThrow(
-    new TypeError('ripgrep path not found: Error: spawn /test/bin/rg ENOENT'),
+    new Error('ripgrep path not found: Error: spawn /test/bin/rg ENOENT'),
   )
 })
