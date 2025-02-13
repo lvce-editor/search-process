@@ -13,7 +13,7 @@
     "build": "node packages/build/src/build.js",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "postinstall": "lerna bootstrap --ci",
+    "postinstall": "lerna bootstrap --ci -- --force",
     "test": "lerna run test",
     "type-check": "tsc -b"
   },
