@@ -1,8 +1,20 @@
-import { test } from '@jest/globals'
+import { expect, test } from '@jest/globals'
 import { setup } from '../src/setup.ts'
 
 test.skip('ripgrep not found', async () => {
-  const { testDir, rpc } = await setup()
+  process.env.RIP_GREP_PATH = '/test/not-found'
+  const { testDir, rpc, setFiles } = await setup()
 
-  // TODO
+  await setFiles({
+    'index.ts': 'let x = 1',
+  })
+
+  const result = await rpc.invoke('SearchFile.searchFile', {
+    searchPath: testDir,
+    limit: 100,
+    ripGrepArgs: ['--files', '--sort-files'],
+  })
+
+  expect(result).toBe('index.ts')
+  // TODO maybe throw error
 })
