@@ -1,0 +1,13 @@
+{
+  "name": "@lvce-editor/text-search-worker-server",
+  "version": "0.0.0-dev",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@lvce-editor/server": "^0.49.6"
+  }
+}
