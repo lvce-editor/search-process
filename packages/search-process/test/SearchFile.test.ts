@@ -5,11 +5,13 @@ afterEach(() => {
   jest.resetAllMocks()
 })
 
+const exec = jest.fn(() => {
+  throw new Error('not implemented')
+})
+
 jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.ts', () => {
   return {
-    exec: jest.fn(() => {
-      throw new Error('not implemented')
-    }),
+    exec,
   }
 })
 
@@ -40,7 +42,7 @@ class NodeError extends Error {
 
 test('searchFile', async () => {
   // @ts-ignore
-  RipGrep.exec.mockImplementation(() => {
+  exec.mockImplementation(() => {
     return {
       stdout: `fileA
 fileB
@@ -58,8 +60,7 @@ nested/fileC`,
 })
 
 test('searchFile - error - ripgrep could not be found', async () => {
-  // @ts-ignore
-  RipGrep.exec.mockImplementation(() => {
+  exec.mockImplementation(() => {
     throw new NodeError(ErrorCodes.ENOENT)
   })
   const options = {
@@ -67,12 +68,12 @@ test('searchFile - error - ripgrep could not be found', async () => {
   }
   expect(await SearchFile.searchFile(options)).toBe(``)
   expect(Logger.info).toHaveBeenCalledTimes(1)
-  expect(Logger.info).toHaveBeenCalledWith('[shared-process] ripgrep could not be found at "/test/rg"')
+  expect(Logger.info).toHaveBeenCalledWith('[search-process] ripgrep could not be found at "/test/rg"')
 })
 
 test('searchFile - error', async () => {
   // @ts-ignore
-  RipGrep.exec.mockImplementation(() => {
+  exec.mockImplementation(() => {
     throw new TypeError('x is not a function')
   })
   const options = {
