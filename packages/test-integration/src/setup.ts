@@ -1,4 +1,5 @@
-import { NodeForkedProcessRpcParent } from '@lvce-editor/rpc'
+import { afterEach } from '@jest/globals'
+import { NodeForkedProcessRpcParent, Rpc } from '@lvce-editor/rpc'
 import { mkdir } from 'fs/promises'
 import { randomUUID } from 'node:crypto'
 import { writeFile } from 'node:fs/promises'
@@ -9,6 +10,16 @@ import { join } from 'path'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = join(__dirname, '..', '..', '..')
 const searchProcessPath = join(root, 'packages', 'search-process', 'src', 'searchProcessMain.ts')
+
+const rpcs: Rpc[] = []
+
+// TODO use symbol.asyncDispose once available
+afterEach(async () => {
+  for (const rpc of rpcs) {
+    await rpc.dispose()
+  }
+  rpcs.length = 0
+})
 
 export const setup = async () => {
   const id = randomUUID()
@@ -21,6 +32,8 @@ export const setup = async () => {
     path: searchProcessPath,
   })
 
+  rpcs.push(rpc)
+
   return {
     testDir,
     rpc,
@@ -30,8 +43,6 @@ export const setup = async () => {
         await writeFile(absolutePath, value)
       }
     },
-    dispose() {
-      // TODO
-    },
+    dispose() {},
   }
 }
