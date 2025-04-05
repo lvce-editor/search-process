@@ -1,6 +1,9 @@
 import { beforeEach, expect, jest, test } from '@jest/globals'
 import { EventEmitter } from 'node:events'
 import { Readable } from 'node:stream'
+import * as ProcessExitEventType from '../src/parts/ProcessExitEventType/ProcessExitEventType.ts'
+import { RipGrepNotFoundError } from '../src/parts/RipGrepNotFoundError/RipGrepNotFoundError.ts'
+import { TextSearchError } from '../src/parts/TextSearchError/TextSearchError.ts'
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -339,4 +342,75 @@ test('search - error ripgrep not found', async () => {
   await expect(TextSearch.search('/test', 'document')).rejects.toThrow(
     new TypeError('ripgrep path not found: Error: spawn /test/bin/rg ENOENT'),
   )
+})
+
+test.skip('successful search', async () => {
+  const mockChildProcess = { pid: 123 }
+  const mockSearchResult = { results: ['test1', 'test2'] }
+  const mockExitResult = { type: ProcessExitEventType.Exit, event: { code: 0 } }
+
+  // @ts-ignore
+  RipGrep.spawn.mockReturnValue(mockChildProcess as any)
+  // @ts-ignore
+  CollectTextSearchStdout.collectStdout.mockResolvedValue(mockSearchResult)
+  // @ts-ignore
+  WaitForProcessToExit.waitForProcessToExit.mockResolvedValue(mockExitResult)
+
+  const result = await TextSearch.search({
+    searchDir: '/test',
+    maxSearchResults: 100,
+    ripGrepArgs: ['-i', 'test'],
+  })
+
+  expect(RipGrep.spawn).toHaveBeenCalledWith(['-i', 'test'], { cwd: '/test' })
+  // @ts-ignore
+  expect(CollectTextSearchStdout.collectStdout).toHaveBeenCalledWith(mockChildProcess, 100, 26, 50)
+  expect(result).toEqual(mockSearchResult)
+})
+
+test.skip('ripgrep not found error', async () => {
+  const mockChildProcess = { pid: 123 }
+  const mockError = { code: 'ENOENT' }
+  const mockExitResult = { type: ProcessExitEventType.Error, event: mockError }
+  // @ts-ignore
+
+  RipGrep.spawn.mockReturnValue(mockChildProcess as any)
+  // @ts-ignore
+  WaitForProcessToExit.waitForProcessToExit.mockResolvedValue(mockExitResult)
+
+  await expect(TextSearch.search()).rejects.toThrow(RipGrepNotFoundError)
+})
+
+test.skip('text search error', async () => {
+  const mockChildProcess = { pid: 123 }
+  const mockError = { code: 'OTHER_ERROR' }
+  const mockExitResult = { type: ProcessExitEventType.Error, event: mockError }
+
+  // @ts-ignore
+  RipGrep.spawn.mockReturnValue(mockChildProcess as any)
+  // @ts-ignore
+  WaitForProcessToExit.waitForProcessToExit.mockResolvedValue(mockExitResult)
+
+  await expect(TextSearch.search()).rejects.toThrow(TextSearchError)
+})
+
+test.skip('returns pipeline result on success', async () => {
+  const mockChildProcess = { pid: 123 }
+  const mockSearchResult = { results: ['test1', 'test2'] }
+  const mockExitResult = { type: ProcessExitEventType.Exit, event: { code: 0 } }
+
+  // @ts-ignore
+  RipGrep.spawn.mockImplementation(() => mockChildProcess)
+  // @ts-ignore
+  CollectTextSearchStdout.collectStdout.mockImplementation(() => Promise.resolve(mockSearchResult))
+  // @ts-ignore
+  WaitForProcessToExit.waitForProcessToExit.mockImplementation(() => Promise.resolve(mockExitResult))
+
+  const result = await TextSearch.search({
+    searchDir: '/test',
+    maxSearchResults: 100,
+    ripGrepArgs: ['-i', 'test'],
+  })
+
+  expect(result).toBe(mockSearchResult)
 })
