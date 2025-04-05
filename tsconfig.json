@@ -3,10 +3,13 @@
   "include": [],
   "references": [
     {
+      "path": "./packages/build"
+    },
+    {
       "path": "./packages/search-process"
     },
     {
-      "path": "./packages/build"
+      "path": "./packages/test-integration"
     }
   ]
 }
