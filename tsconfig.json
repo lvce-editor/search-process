@@ -13,6 +13,9 @@
     },
     {
       "path": "./packages/test-integration"
+    },
+    {
+      "path": "./packages/server"
     }
   ]
 }
