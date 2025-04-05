@@ -6,8 +6,13 @@ export default [
   {
     files: ['**/*.ts'],
     rules: {
-      'no-console': 'off',
       'n/no-unsupported-features/es-syntax': 'off',
+    },
+  },
+  {
+    files: ['**/Logger.ts'],
+    rules: {
+      'no-console': 'off',
     },
   },
 ]
