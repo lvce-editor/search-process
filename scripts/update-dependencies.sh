@@ -31,6 +31,7 @@ cd packages/e2e                                     && updateDependencies && cd 
 cd packages/build                                   && updateDependencies && cd ../.. &&
 cd packages/search-process                          && updateDependencies && cd ../.. &&
 cd packages/test-integration                        && updateDependencies && cd ../.. &&
+cd packages/server                                  && updateDependencies && cd ../.. &&
 
 echo "Great Success!"
 
