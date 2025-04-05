@@ -33,5 +33,16 @@ jobs:
       - run: npm test
       - run: npm run type-check
       - run: npm run lint
+      - name: install playwright dependencies
+        working-directory: ./packages/e2e
+        run: npx playwright install chromium
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: 0
+      - name: e2e
+        working-directory: ./packages/e2e
+        run: npm run e2e:headless
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: 0
       - name: Build
-        run: node scripts/build.js
+        run: npm run build
