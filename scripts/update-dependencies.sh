@@ -29,6 +29,7 @@ function updateDependencies {
                                                        updateDependencies             &&
 cd packages/build                                   && updateDependencies && cd ../.. &&
 cd packages/search-process                          && updateDependencies && cd ../.. &&
+cd packages/test-integration                        && updateDependencies && cd ../.. &&
 
 echo "Great Success!"
 
