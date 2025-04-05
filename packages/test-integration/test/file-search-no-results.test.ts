@@ -22,8 +22,8 @@ test.skip('search file no results', async () => {
   const result = await rpc.invoke('SearchFile.searchFile', {
     searchPath: testDir,
     limit: 100,
-    ripGrepArgs: [],
+    ripGrepArgs: ['abc'],
   })
 
-  expect(result).toEqual({})
+  expect(result).toBe('')
 })
