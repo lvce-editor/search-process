@@ -5,11 +5,13 @@ afterEach(() => {
   jest.resetAllMocks()
 })
 
+const exec = jest.fn(() => {
+  throw new Error('not implemented')
+})
+
 jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.ts', () => {
   return {
-    exec: jest.fn(() => {
-      throw new Error('not implemented')
-    }),
+    exec,
   }
 })
 
@@ -40,7 +42,7 @@ class NodeError extends Error {
 
 test('searchFile', async () => {
   // @ts-ignore
-  RipGrep.exec.mockImplementation(() => {
+  exec.mockImplementation(() => {
     return {
       stdout: `fileA
 fileB
@@ -58,8 +60,7 @@ nested/fileC`,
 })
 
 test('searchFile - error - ripgrep could not be found', async () => {
-  // @ts-ignore
-  RipGrep.exec.mockImplementation(() => {
+  exec.mockImplementation(() => {
     throw new NodeError(ErrorCodes.ENOENT)
   })
   const options = {
@@ -72,7 +73,7 @@ test('searchFile - error - ripgrep could not be found', async () => {
 
 test('searchFile - error', async () => {
   // @ts-ignore
-  RipGrep.exec.mockImplementation(() => {
+  exec.mockImplementation(() => {
     throw new TypeError('x is not a function')
   })
   const options = {
