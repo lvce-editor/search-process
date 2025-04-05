@@ -1,5 +1,8 @@
 import { test } from '@jest/globals'
+import { setup } from '../src/setup.ts'
 
-test('ripgrep not found', async () => {
+test.skip('ripgrep not found', async () => {
+  const { testDir, rpc } = await setup()
+
   // TODO
 })
