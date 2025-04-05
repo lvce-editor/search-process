@@ -45,4 +45,4 @@ jobs:
         env:
           PLAYWRIGHT_BROWSERS_PATH: 0
       - name: Build
-      - run: npm run build
+        run: npm run build
