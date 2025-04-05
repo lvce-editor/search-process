@@ -1,6 +1,8 @@
 import * as CollectTextSearchStdout from '../CollectTextSearchStdout/CollectTextSearchStdout.ts'
+import * as IsEnoentError from '../IsEnoentError/IsEnoentError.ts'
 import * as ProcessExitEventType from '../ProcessExitEventType/ProcessExitEventType.ts'
 import * as RipGrep from '../RipGrep/RipGrep.ts'
+import { RipGrepNotFoundError } from '../RipGrepNotFoundError/RipGrepNotFoundError.ts'
 import { TextSearchError } from '../TextSearchError/TextSearchError.ts'
 import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToExit.ts'
 
@@ -33,6 +35,9 @@ export const search = async ({
   const closePromise = WaitForProcessToExit.waitForProcessToExit(childProcess)
   const [pipeLineResult, exitResult] = await Promise.all([pipeLinePromise, closePromise])
   if (exitResult.type === ProcessExitEventType.Error) {
+    if (IsEnoentError.isEnoentError(exitResult.event)) {
+      throw new RipGrepNotFoundError(exitResult.event)
+    }
     throw new TextSearchError(exitResult.event)
   }
   return pipeLineResult
