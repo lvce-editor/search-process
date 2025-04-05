@@ -1,4 +1,3 @@
-import type { Options } from 'execa'
 import { execa } from 'execa'
 import * as Assert from '../Assert/Assert.ts'
 

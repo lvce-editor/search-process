@@ -1,4 +1,4 @@
-import { jest, test, expect } from '@jest/globals'
+import { expect, test } from '@jest/globals'
 import { TextSearchError } from '../src/parts/TextSearchError/TextSearchError.ts'
 
 test('creates error with cause', () => {

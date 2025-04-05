@@ -29,7 +29,6 @@ jest.unstable_mockModule('../src/parts/Logger/Logger.ts', () => {
 })
 
 const SearchFile = await import('../src/parts/SearchFile/SearchFile.ts')
-const RipGrep = await import('../src/parts/RipGrep/RipGrep.ts')
 const Logger = await import('../src/parts/Logger/Logger.ts')
 
 class NodeError extends Error {

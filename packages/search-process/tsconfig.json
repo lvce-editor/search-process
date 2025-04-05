@@ -16,7 +16,8 @@
     "strict": true,
     "useUnknownInCatchVariables": false,
     "allowImportingTsExtensions": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true
   },
   "include": ["src", "test"]
 }
