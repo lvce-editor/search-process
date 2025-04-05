@@ -1,5 +1,6 @@
 import { Writable } from 'node:stream'
 import { pipeline } from 'node:stream/promises'
+import type { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
 import * as EncodingType from '../EncodingType/EncodingType.ts'
 import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
 import * as RipGrepParsedLineType from '../RipGrepParsedLineType/RipGrepParsedLineType.ts'
@@ -16,12 +17,18 @@ import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts
 // TODO update client
 // TODO not always run nice, maybe configure nice via flag/options
 
+interface StdoutResult {
+  readonly results: readonly any[]
+  readonly stats: any
+  readonly limitHit: boolean
+}
+
 export const collectStdout = async (
-  childProcess: any,
+  childProcess: BaseChildProcess,
   maxSearchResults: number,
   charsBefore: number,
   charsAfter: number,
-): Promise<any> => {
+): Promise<StdoutResult> => {
   const allSearchResults = Object.create(null)
   let buffer = ''
   let stats = {}
