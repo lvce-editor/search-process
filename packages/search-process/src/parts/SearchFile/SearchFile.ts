@@ -31,7 +31,7 @@ export const searchFile = async ({
     return LimitString.limitString(stdout, limit)
   } catch (error) {
     if (IsEnoentError.isEnoentError(error)) {
-      Logger.info(`[shared-process] ripgrep could not be found at "${RipGrepPath.ripGrepPath}"`)
+      Logger.info(`[search-process] ripgrep could not be found at "${RipGrepPath.ripGrepPath}"`)
       return Character.EmptyString
     }
     // @ts-ignore
