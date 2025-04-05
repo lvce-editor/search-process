@@ -25,7 +25,7 @@ export const searchFile = async ({
     Assert.string(searchPath)
     Assert.array(ripGrepArgs)
     Assert.number(limit)
-    const { stdout, stderr } = await RipGrep.exec(ripGrepArgs, {
+    const { stdout } = await RipGrep.exec(ripGrepArgs, {
       cwd: searchPath,
     })
     return LimitString.limitString(stdout, limit)

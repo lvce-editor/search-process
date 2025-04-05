@@ -1,5 +1,4 @@
 import { beforeEach, expect, jest, test } from '@jest/globals'
-import { EventEmitter } from 'node:events'
 import { Readable } from 'node:stream'
 import { VError } from '../src/parts/VError/VError.ts'
 
