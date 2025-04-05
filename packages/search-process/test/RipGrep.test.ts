@@ -31,8 +31,8 @@ const ExecRipGrep = await import('../src/parts/ExecRipGrep/ExecRipGrep.ts')
 
 test('spawn - success', () => {
   const mockChildProcess = {
-    stdout: new Readable({ read() {} }),
-    stderr: new Readable({ read() {} }),
+    stdout: new Readable({ read(): void {} }),
+    stderr: new Readable({ read(): void {} }),
     on: jest.fn(),
     off: jest.fn(),
     once: jest.fn(),
