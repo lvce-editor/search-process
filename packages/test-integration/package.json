@@ -11,10 +11,10 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "@lvce-editor/rpc": "^1.27.0",
+    "@lvce-editor/rpc": "^1.28.0",
     "execa": "^9.5.2",
     "jest": "^29.7.0",
-    "ts-jest": "^29.3.1"
+    "ts-jest": "^29.3.2"
   },
   "engines": {
     "node": ">=22"
