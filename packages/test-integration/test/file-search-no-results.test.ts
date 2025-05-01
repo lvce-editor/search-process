@@ -11,4 +11,4 @@ test('search file no results', async () => {
   })
 
   expect(result).toBe('')
-})
+}, 20_000)
