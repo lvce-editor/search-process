@@ -22,17 +22,9 @@ const options = {
       constBindings: true,
       objectShorthand: true,
     },
+    inlineDynamicImports: true,
   },
-  external: [
-    '@lvce-editor/ripgrep',
-    '@lvce-editor/rpc',
-    '@lvce-editor/ipc',
-    '@lvce-editor/assert',
-    '@lvce-editor/verror',
-    'electron',
-    'execa',
-    'ws',
-  ],
+  external: ['@lvce-editor/ripgrep', 'electron', 'execa', 'ws'],
   plugins: [
     babel({
       babelHelpers: 'bundled',

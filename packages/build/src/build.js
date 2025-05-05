@@ -65,6 +65,9 @@ delete packageJson.jest
 delete packageJson.xo
 delete packageJson.directories
 delete packageJson.nodemonConfig
+delete packageJson.dependencies['@lvce-editor/assert']
+// delete packageJson.dependencies['@lvce-editor/rpc'] // TODO find a way to bundle this also, currently cannot be bundled due to ws dependency
+delete packageJson.dependencies['@lvce-editor/verror']
 packageJson.version = version
 packageJson.main = 'dist/index.js'
 
