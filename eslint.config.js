@@ -7,6 +7,7 @@ export default [
     files: ['**/*.ts'],
     rules: {
       'n/no-unsupported-features/es-syntax': 'off',
+      'unicorn/prefer-single-call': 'off',
     },
   },
   {
