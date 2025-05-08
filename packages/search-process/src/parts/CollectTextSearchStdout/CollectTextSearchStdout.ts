@@ -106,7 +106,7 @@ export const collectStdout = async (
       },
     }),
   )
-  const results = Object.values(allSearchResults).flat(1)
+  const results = Object.values(allSearchResults).flat()
   return {
     results,
     stats,
