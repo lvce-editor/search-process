@@ -2,28 +2,36 @@ import { test } from '@jest/globals'
 import getPort from 'get-port'
 import { createServer } from 'node:http'
 import { join } from 'node:path'
-import { createWebSocket, getHandleMessage, setup, startServer, waitForRequest } from '../src/setup.ts'
+import { createWebSocket, getHandleMessage, setup, startServer, waitForRequest, waitForResponse } from '../src/setup.ts'
 
-test.skip('search process handles websocket connection and search commands', async () => {
-  const { rpc } = await setup()
+test('search process handles websocket connection and search commands', async () => {
+  const { rpc, addDisposable } = await setup()
   const server = createServer()
+
+  addDisposable({
+    async dispose() {
+      const { resolve, promise } = Promise.withResolvers()
+      server.close(resolve)
+      await promise
+    },
+  })
+
   const port = await getPort()
   const requestPromise = waitForRequest(server)
-
   await startServer(server, port)
-
-  console.log('before socket')
   const externalSocketPromise = createWebSocket(port)
-
-  console.log('before request')
-
   const { request, socket } = await requestPromise
-
   const handleMessage = getHandleMessage(request)
-  await rpc.invokeAndTransfer(socket, handleMessage)
-
+  await rpc.invokeAndTransfer('HandleWebSocket.handleWebSocket', socket, handleMessage)
   const externalSocket = await externalSocketPromise
-  // Send search command
+  addDisposable({
+    async dispose() {
+      externalSocket.close()
+    },
+  })
+
+  const responsePromise = waitForResponse(externalSocket)
+
   externalSocket.send(
     JSON.stringify({
       jsonrpc: '2.0',
@@ -37,9 +45,5 @@ test.skip('search process handles websocket connection and search commands', asy
     }),
   )
 
-  await new Promise<void>((resolve) => {
-    server.close(() => {
-      resolve()
-    })
-  })
-}, 5000)
+  const response = await responsePromise
+}, 20_000)
