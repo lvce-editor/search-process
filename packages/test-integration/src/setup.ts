@@ -3,9 +3,11 @@ import { NodeForkedProcessRpcParent, Rpc } from '@lvce-editor/rpc'
 import { mkdir } from 'fs/promises'
 import { randomUUID } from 'node:crypto'
 import { writeFile } from 'node:fs/promises'
+import { Server } from 'node:http'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { join } from 'path'
+import { WebSocket } from 'ws'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = join(__dirname, '..', '..', '..')
@@ -44,5 +46,44 @@ export const setup = async () => {
       }
     },
     dispose() {},
+  }
+}
+
+export const waitForRequest = (server: Server): Promise<any> => {
+  const { resolve, promise } = Promise.withResolvers<any>()
+  server.on('upgrade', (request, socket) => {
+    resolve({
+      request,
+      socket,
+    })
+  })
+  return promise
+}
+
+export const startServer = (server: Server, port: number) => {
+  const { resolve, promise } = Promise.withResolvers<void>()
+  server.listen(port, () => {
+    resolve()
+  })
+  return promise
+}
+
+export const createWebSocket = async (port: number): Promise<WebSocket> => {
+  const externalWebSocket = new WebSocket(`ws://localhost:${port}`)
+  const { resolve, promise } = Promise.withResolvers()
+  externalWebSocket.on('open', resolve)
+  await promise
+  return externalWebSocket
+}
+
+export const getHandleMessage = (request: any): any => {
+  return {
+    headers: request.headers,
+    method: request.method,
+    path: request.path,
+    url: request.url,
+    httpVersionMajor: request.httpVersionMajor,
+    httpVersionMinor: request.httpVersionMinor,
+    query: request.query,
   }
 }
