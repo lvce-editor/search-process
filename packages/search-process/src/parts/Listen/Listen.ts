@@ -1,10 +1,11 @@
 import * as CommandMap from '../CommandMap/CommandMap.ts'
 import * as IpcChildType from '../IpcChildType/IpcChildType.ts'
-import * as IpcChild from '../RpcChild/RpcChild.ts'
+import * as RpcChildModule from '../RpcChildModule/RpcChildModule.ts'
 
 export const listen = async (argv: readonly string[]): Promise<void> => {
-  await IpcChild.listen({
-    method: IpcChildType.Auto(argv),
+  const method = IpcChildType.Auto(argv)
+  const create = RpcChildModule.getModule(method)
+  await create({
     commandMap: CommandMap.commandMap,
   })
 }

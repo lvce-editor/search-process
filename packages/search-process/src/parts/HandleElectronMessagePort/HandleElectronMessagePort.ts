@@ -1,11 +1,10 @@
+import { ElectronMessagePortRpcClient } from '@lvce-editor/rpc'
 import * as Assert from '../Assert/Assert.ts'
-import * as IpcChildType from '../IpcChildType/IpcChildType.ts'
-import * as RpcChild from '../RpcChild/RpcChild.ts'
 
-export const handleElectronMessagePort = async (messagePort: any, ...params: readonly any[]): Promise<void> => {
+export const handleElectronMessagePort = async (messagePort: any): Promise<void> => {
   Assert.object(messagePort)
-  await RpcChild.listen({
-    method: IpcChildType.ElectronMessagePort,
+  await ElectronMessagePortRpcClient.create({
+    commandMap: {},
     messagePort,
   })
 }
