@@ -13,14 +13,18 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = join(__dirname, '..', '..', '..')
 const searchProcessPath = join(root, 'packages', 'search-process', 'src', 'searchProcessMain.ts')
 
-const rpcs: Rpc[] = []
+interface Disposable {
+  readonly dispose: () => Promise<void>
+}
+
+const disposables: Disposable[] = []
 
 // TODO use symbol.asyncDispose once available
 afterEach(async () => {
-  for (const rpc of rpcs) {
+  for (const rpc of disposables) {
     await rpc.dispose()
   }
-  rpcs.length = 0
+  disposables.length = 0
 })
 
 export const setup = async () => {
@@ -34,7 +38,7 @@ export const setup = async () => {
     path: searchProcessPath,
   })
 
-  rpcs.push(rpc)
+  disposables.push(rpc)
 
   return {
     testDir,
@@ -46,6 +50,9 @@ export const setup = async () => {
       }
     },
     dispose() {},
+    addDisposable(dispoable: Disposable) {
+      disposables.push(dispoable)
+    },
   }
 }
 
@@ -86,4 +93,10 @@ export const getHandleMessage = (request: any): any => {
     httpVersionMinor: request.httpVersionMinor,
     query: request.query,
   }
+}
+
+export const waitForResponse = async (socket: WebSocket) => {
+  const { resolve, promise } = Promise.withResolvers()
+  socket.onmessage = resolve
+  await promise
 }
