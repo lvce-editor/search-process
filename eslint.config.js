@@ -16,4 +16,9 @@ export default [
       'no-console': 'off',
     },
   },
+  {
+    rules: {
+      '@typescript-eslint/prefer-readonly-parameter-types': 'off',
+    },
+  },
 ]

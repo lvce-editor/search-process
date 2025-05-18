@@ -36,6 +36,7 @@ export const setup = async () => {
     execArgv: ['--experimental-strip-types'],
     commandMap: {},
     path: searchProcessPath,
+    stdio: 'inherit',
   })
 
   disposables.push(rpc)
