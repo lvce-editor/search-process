@@ -1,5 +1,5 @@
 import * as Assert from '../Assert/Assert.ts'
-import * as IpcChild from '../IpcChild/IpcChild.ts'
+import * as IpcChild from '../RpcChild/RpcChild.ts'
 import * as IpcChildType from '../IpcChildType/IpcChildType.ts'
 
 export const handleWebSocket = async (handle: any, request: any): Promise<void> => {
