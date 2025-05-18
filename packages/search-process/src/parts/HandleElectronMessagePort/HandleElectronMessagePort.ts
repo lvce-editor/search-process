@@ -1,6 +1,6 @@
 import * as Assert from '../Assert/Assert.ts'
-import * as RpcChild from '../RpcChild/RpcChild.ts'
 import * as IpcChildType from '../IpcChildType/IpcChildType.ts'
+import * as RpcChild from '../RpcChild/RpcChild.ts'
 
 export const handleElectronMessagePort = async (messagePort: any, ...params: readonly any[]): Promise<void> => {
   Assert.object(messagePort)
