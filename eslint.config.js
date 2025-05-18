@@ -14,6 +14,7 @@ export default [
     files: ['**/Logger.ts'],
     rules: {
       'no-console': 'off',
+      '@typescript-eslint/prefer-readonly-parameter-types': 'off',
     },
   },
 ]
