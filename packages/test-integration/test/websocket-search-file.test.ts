@@ -8,7 +8,7 @@ import {
   startServer,
   waitForRequest,
   waitForResponse,
-  waitForSocketToBeOpen,
+  waitForWebSocketToBeOpen,
 } from '../src/setup.ts'
 
 test('search process handles websocket connection and search commands', async () => {
@@ -30,7 +30,7 @@ test('search process handles websocket connection and search commands', async ()
   const requestPromise = waitForRequest(server)
   await startServer(server, port)
   const externalSocket = createWebSocket(port)
-  const openPromise = waitForSocketToBeOpen(externalSocket)
+  const openPromise = waitForWebSocketToBeOpen(externalSocket)
   const { request, socket } = await requestPromise
   const handleMessage = getHandleMessage(request)
   await rpc.invokeAndTransfer('HandleWebSocket.handleWebSocket', socket, handleMessage)

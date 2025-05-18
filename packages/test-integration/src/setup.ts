@@ -87,9 +87,15 @@ export const createWebSocket = (port: number): WebSocket => {
   return externalWebSocket
 }
 
-export const waitForSocketToBeOpen = async (webSocket: WebSocket): Promise<void> => {
+export const waitForWebSocketToBeOpen = async (webSocket: WebSocket): Promise<void> => {
   const { resolve, promise } = Promise.withResolvers()
   webSocket.on('open', resolve)
+  await promise
+}
+
+export const waitForSocketToBeClosed = async (socket: Socket): Promise<void> => {
+  const { resolve, promise } = Promise.withResolvers()
+  socket.on('close', resolve)
   await promise
 }
 
