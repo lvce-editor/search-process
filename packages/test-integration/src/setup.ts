@@ -97,7 +97,10 @@ export const getHandleMessage = (request: any): any => {
 }
 
 export const waitForResponse = async (socket: WebSocket) => {
-  const { resolve, promise } = Promise.withResolvers()
+  const { resolve, promise } = Promise.withResolvers<any>()
   socket.onmessage = resolve
-  await promise
+  const event = await promise
+  const data = event.data
+  const parsed = JSON.parse(data)
+  return parsed
 }
