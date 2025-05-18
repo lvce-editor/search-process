@@ -4,6 +4,7 @@ import { mkdir } from 'fs/promises'
 import { randomUUID } from 'node:crypto'
 import { writeFile } from 'node:fs/promises'
 import { Server } from 'node:http'
+import { Socket } from 'node:net'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { join } from 'path'
@@ -57,7 +58,12 @@ export const setup = async () => {
   }
 }
 
-export const waitForRequest = (server: Server): Promise<any> => {
+interface RequestResponse {
+  readonly request: any
+  readonly socket: Socket
+}
+
+export const waitForRequest = (server: Server): Promise<RequestResponse> => {
   const { resolve, promise } = Promise.withResolvers<any>()
   server.on('upgrade', (request, socket) => {
     resolve({
@@ -76,12 +82,15 @@ export const startServer = (server: Server, port: number) => {
   return promise
 }
 
-export const createWebSocket = async (port: number): Promise<WebSocket> => {
+export const createWebSocket = (port: number): WebSocket => {
   const externalWebSocket = new WebSocket(`ws://localhost:${port}`)
-  const { resolve, promise } = Promise.withResolvers()
-  externalWebSocket.on('open', resolve)
-  await promise
   return externalWebSocket
+}
+
+export const waitForSocketToBeOpen = async (webSocket: WebSocket): Promise<void> => {
+  const { resolve, promise } = Promise.withResolvers()
+  webSocket.on('open', resolve)
+  await promise
 }
 
 export const getHandleMessage = (request: any): any => {
