@@ -2,7 +2,7 @@ import { expect, test } from '@jest/globals'
 import { join } from 'node:path'
 import { root, setup } from '../src/setup.ts'
 
-test.skip('search file handles ripgrep permission error', async () => {
+test('search file handles ripgrep permission error', async () => {
   const fixturePath = join(root, 'packages', 'test-integration', 'fixtures', 'permission-error', 'ripgrep-eperm.js')
   const { testDir, rpc, setFiles } = await setup({
     env: {
