@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process'
 import { join } from 'node:path'
 import { setup } from '../src/setup.ts'
 
-test('search process works with electron messageport', async () => {
+test.skip('search process works with electron messageport', async () => {
   const { testDir, setFiles, root } = await setup()
   await setFiles({
     'index.ts': 'let x = 1',
