@@ -1,0 +1,13 @@
+{
+  "name": "electron-message-port",
+  "version": "0.0.0-dev",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": ""
+}

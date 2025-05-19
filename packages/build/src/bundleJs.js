@@ -4,6 +4,8 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import { join } from 'path'
 import { rollup } from 'rollup'
 import { root } from './root.js'
+import { copyFileSync } from 'fs'
+import { mkdir } from 'fs/promises'
 
 /**
  * @type {import('rollup').RollupOptions}
@@ -39,4 +41,6 @@ export const bundleJs = async () => {
   const input = await rollup(options)
   // @ts-ignore
   await input.write(options.output)
+  await mkdir(join(root, 'packages', 'search-process', 'dist'), { recursive: true })
+  copyFileSync(join(root, '.tmp/dist/dist/index.js'), join(root, 'packages/search-process/dist/index.js'))
 }

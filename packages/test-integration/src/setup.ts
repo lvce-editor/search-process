@@ -55,6 +55,7 @@ export const setup = async () => {
     addDisposable(dispoable: Disposable) {
       disposables.push(dispoable)
     },
+    root,
   }
 }
 
