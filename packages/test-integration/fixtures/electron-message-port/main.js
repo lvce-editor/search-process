@@ -1,44 +1,49 @@
-import { app, utilityProcess } from 'electron'
+import { ElectronMessagePortRpcClient, ElectronUtilityProcessRpcParent } from '@lvce-editor/rpc'
+import { app } from 'electron'
+import { MessageChannelMain } from 'electron/main'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { join } from 'path'
+import minimist from 'minimist'
+import assert from 'node:assert'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-console.log(__dirname)
 const root = join(__dirname, '..', '..', '..', '..')
-
-// const searchProcessPath = join(root, '.tmp', 'dist', 'dist', 'index.js')
 const searchProcessPath = join(root, 'packages', 'search-process', 'dist', 'index.js')
+const argv = minimist(process.argv.slice(2))
 
-const launchUtilityProcess = (path, argv) => {
-  const childProcess = utilityProcess.fork(path, argv, {
-    stdio: 'pipe',
+const createRpc = async () => {
+  const rpc = await ElectronUtilityProcessRpcParent.create({
+    commandMap: {},
+    name: 'Search Process',
+    path: searchProcessPath,
   })
-  childProcess.stdout?.pipe(process.stdout)
-  childProcess.stderr?.pipe(process.stderr)
-  return childProcess
+  const { port1, port2 } = new MessageChannelMain()
+  await rpc.invokeAndTransfer('HandleElectronMessagePort.handleElectronMessagePort', port1)
+  const messagePortRpc = await ElectronMessagePortRpcClient.create({
+    commandMap: {},
+    messagePort: port2,
+  })
+  return {
+    rpc,
+    messagePortRpc,
+  }
 }
 
 const main = async () => {
   await app.whenReady()
-  console.log({ searchProcessPath })
-  console.log('before launch')
-
-  const searchProcess = launchUtilityProcess(searchProcessPath, ['--ipc-type=electron-utility-process'])
-  searchProcess.on('exit', (code) => {
-    console.log('search process exited', code)
+  const { rpc, messagePortRpc } = await createRpc()
+  const testDir = argv['test-dir']
+  const result = await messagePortRpc.invoke('SearchFile.searchFile', {
+    searchPath: testDir,
+    limit: 100,
+    ripGrepArgs: ['--files', '--sort-files'],
   })
-  console.log('after launch')
-
-  // searchProcess.on('message', (message) => {
-  //   win.webContents.send('search-process-message', message)
-  // })
-
-  // win.webContents.on('ipc-message', (event, channel, ...args) => {
-  //   if (channel === 'search-process-command') {
-  //     searchProcess.postMessage(args[0])
-  //   }
-  // })
+  assert.equal(result, 'index.ts')
+  messagePortRpc.dispose()
+  rpc.dispose()
+  // TODO disposing ipc should close app automatically
+  process.exit(0)
 }
 
 main()
