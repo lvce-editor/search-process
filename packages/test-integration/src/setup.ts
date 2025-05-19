@@ -11,7 +11,9 @@ import { join } from 'path'
 import { WebSocket } from 'ws'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const root = join(__dirname, '..', '..', '..')
+
+export const root = join(__dirname, '..', '..', '..')
+
 const searchProcessPath = join(root, 'packages', 'search-process', 'src', 'searchProcessMain.ts')
 
 interface Disposable {
@@ -28,7 +30,7 @@ afterEach(async () => {
   disposables.length = 0
 })
 
-export const setup = async () => {
+export const setup = async (options: { env?: Record<string, string> } = {}) => {
   const id = randomUUID()
   const testDir = join(root, '.tmp', 'test-dir', `test-${id}`)
   await mkdir(testDir, { recursive: true })
@@ -38,6 +40,7 @@ export const setup = async () => {
     commandMap: {},
     path: searchProcessPath,
     stdio: 'inherit',
+    env: options.env,
   })
 
   disposables.push(rpc)
