@@ -30,9 +30,9 @@ jobs:
       - name: npm ci
         run: npm ci
         if: steps.npm-cache.outputs.cache-hit != 'true'
-      - name: Build
-        run: npm run build
+      - run: npm run build
       - run: npm test
+      - run: npm run test-integration
       - run: npm run type-check
       - run: npm run lint
       - name: install playwright dependencies
