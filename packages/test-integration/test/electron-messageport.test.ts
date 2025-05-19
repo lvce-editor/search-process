@@ -9,7 +9,7 @@ test('search process works with electron messageport', async () => {
     'index.ts': 'let x = 1',
   })
   const fixturePath = join(root, 'packages', 'test-integration', 'fixtures', 'electron-message-port')
-  const child = spawn('electron', [fixturePath, `--test-dir`, testDir], {
+  const child = spawn('electron', ['--no-sandbox', fixturePath, `--test-dir`, testDir], {
     stdio: 'inherit',
   })
   const { resolve, promise } = Promise.withResolvers<number>()
