@@ -42,7 +42,5 @@ test('search process handles websocket connection and search commands', async ()
   s.connect(server.address() as string)
   s.destroy()
 
-  await expect(rpc.invokeAndTransfer('HandleWebSocket.handleWebSocket', s, handleMessage)).rejects.toThrow(
-    new Error('expected value to be of type object'),
-  )
+  await rpc.invokeAndTransfer('HandleWebSocket.handleWebSocket', s, handleMessage)
 }, 20_000)
