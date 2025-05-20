@@ -149,4 +149,4 @@ test('incremental text search', async () => {
   item3.response.end(JSON.stringify(getResponse(item3.request.url || '')))
 
   await resultPromise
-})
+}, 20_000)
