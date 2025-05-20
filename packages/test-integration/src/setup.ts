@@ -30,7 +30,11 @@ afterEach(async () => {
   disposables.length = 0
 })
 
-export const setup = async (options: { env?: Record<string, string> } = {}) => {
+export const setup = async (
+  options: { env?: Record<string, string>; stdio?: 'inherit' | 'pipe' } = {
+    stdio: 'inherit',
+  },
+) => {
   const id = randomUUID()
   const testDir = join(root, '.tmp', 'test-dir', `test-${id}`)
   await mkdir(testDir, { recursive: true })
@@ -39,7 +43,7 @@ export const setup = async (options: { env?: Record<string, string> } = {}) => {
     execArgv: ['--experimental-strip-types'],
     commandMap: {},
     path: searchProcessPath,
-    stdio: 'inherit',
+    stdio: options.stdio,
     env: options.env,
   })
 
