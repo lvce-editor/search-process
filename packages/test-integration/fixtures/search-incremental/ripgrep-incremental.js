@@ -4,16 +4,22 @@ import { env } from 'node:process'
 
 const port = parseInt(env.LVCE_SEARCH_PROCESS_PORT || '')
 
-const getResponse = async () => {
-  const response = await fetch(`http://localhost:${port}`)
+/**
+ *
+ * @param {number} id
+ * @returns {Promise<any>}
+ */
+const getResponse = async (id) => {
+  const response = await fetch(`http://localhost:${port}/${id}`)
   const json = await response.json()
   return json
 }
 
 const main = async () => {
-  const result1 = await getResponse()
-
-  // const response=await fetch(`http://localhost:${port}`)
+  const result1 = await getResponse(1)
+  process.stdout.write(result1.stdout)
+  const result2 = await getResponse(2)
+  process.stdout.write(result2.stdout)
 }
 
 main()
