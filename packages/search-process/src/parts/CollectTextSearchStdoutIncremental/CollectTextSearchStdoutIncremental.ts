@@ -39,7 +39,6 @@ export const collectStdoutIncremental = async (
   IncrementalSearchState.set(id, search)
 
   childProcess.stdout.setEncoding(EncodingType.Utf8)
-  childProcess.stderr.pipe(process.stderr)
 
   const handleLine = (line: string): void => {
     const parsedLine = JSON.parse(line)
