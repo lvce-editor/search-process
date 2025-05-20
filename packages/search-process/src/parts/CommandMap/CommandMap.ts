@@ -1,3 +1,4 @@
+import * as GetIncrementalResults from '../GetIncrementalResults/GetIncrementalResults.ts'
 import * as HandleElectronMessagePort from '../HandleElectronMessagePort/HandleElectronMessagePort.ts'
 import * as HandleWebSocket from '../HandleWebSocket/HandleWebSocket.ts'
 import * as SearchFile from '../SearchFile/SearchFile.ts'
@@ -10,4 +11,5 @@ export const commandMap = {
   'SearchFile.searchFile': SearchFile.searchFile,
   'TextSearch.search': TextSearch.search,
   'TextSearch.searchIncremental': TextSearchIncremental.textSearchIncremental,
+  'TextSearch.getIncrementalResults': GetIncrementalResults.getIncrementalResults,
 }
