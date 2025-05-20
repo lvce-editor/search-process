@@ -71,7 +71,7 @@ const getResponse = (url: string): StdoutResponse => {
   }
 }
 
-test.skip('incremental text search', async () => {
+test('incremental text search', async () => {
   const fixturePath = join(root, 'packages', 'test-integration', 'fixtures', 'search-incremental', 'ripgrep-incremental.js')
 
   const port = await getPort()
@@ -92,8 +92,8 @@ test.skip('incremental text search', async () => {
     },
   })
 
-  const request1Promise = waitForRequest(server)
   await startServer(server, port)
+  const request1Promise = waitForRequest(server)
 
   const id = '1'
   const resultPromise = rpc.invoke('TextSearch.searchIncremental', {
