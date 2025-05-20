@@ -18,12 +18,14 @@ export const textSearchIncremental = async ({
   maxSearchResults = 20_000,
   ripGrepArgs = [],
   id,
+  shell,
 }: TextSearchIncrementalOptions): Promise<IncremetalStdoutResult> => {
   // TODO options
   const charsBefore = 26
   const charsAfter = 50
   const childProcess = RipGrep.spawn(ripGrepArgs, {
     cwd: searchDir,
+    shell,
   })
   const pipeLinePromise = CollectTextSearchStdoutIncremental.collectStdoutIncremental(
     id,
