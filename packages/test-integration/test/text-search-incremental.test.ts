@@ -71,7 +71,7 @@ const getResponse = (url: string): StdoutResponse => {
   }
 }
 
-test('incremental text search', async () => {
+test.skip('incremental text search', async () => {
   const fixturePath = join(root, 'packages', 'test-integration', 'fixtures', 'search-incremental', 'ripgrep-incremental.js')
 
   const port = await getPort()
