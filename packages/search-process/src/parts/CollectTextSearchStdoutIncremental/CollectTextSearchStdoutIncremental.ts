@@ -1,5 +1,3 @@
-import { Writable } from 'node:stream'
-import { pipeline } from 'node:stream/promises'
 import type { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
 import type { IncrementalSearch } from '../IncrementalSearch/IncrementalSearch.ts'
 import type { IncremetalStdoutResult as IncrementalStdoutResult } from '../IncrementalStdoutResult/IncrementalStdoutResult.ts'
@@ -7,6 +5,7 @@ import type { IncrementalTextSearchResult } from '../IncrementalTextSearchResult
 import * as EncodingType from '../EncodingType/EncodingType.ts'
 import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
 import * as IncrementalSearchState from '../IncrementalSearchState/IncrementalSearchState.ts'
+import { processData } from '../ProcessData/ProcessData.ts'
 import * as RipGrepParsedLineType from '../RipGrepParsedLineType/RipGrepParsedLineType.ts'
 import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultType.ts'
 import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts'
@@ -93,23 +92,7 @@ export const collectStdoutIncremental = async (
     }
   }
 
-  await pipeline(
-    childProcess.stdout,
-    new Writable({
-      decodeStrings: false,
-      construct(callback): void {
-        callback()
-      },
-      write(chunk, encoding, callback): void {
-        try {
-          handleData(chunk)
-          callback()
-        } catch (error) {
-          callback(error)
-        }
-      },
-    }),
-  )
+  await processData(childProcess.stdout, handleData)
   return {
     stats,
     limitHit,
