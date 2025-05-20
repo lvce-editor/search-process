@@ -1,9 +1,10 @@
+import type { Readable } from 'node:stream'
+
 export interface BaseChildProcess {
-  readonly childProcess: any
   readonly on: (event: string, listener: any) => void
   readonly off: (event: string, listener: any) => void
   readonly once: (event: string, listener: any) => void
-  readonly stdout: any
-  readonly stderr: any
+  readonly stdout: Readable
+  readonly stderr: Readable
   readonly kill: () => void
 }

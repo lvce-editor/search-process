@@ -1,4 +1,4 @@
-import type { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
+import type { Readable } from 'node:stream'
 import type { StdoutResult } from '../StdoutResult/StdoutResult.ts'
 import type { TextSearchResult } from '../TextSearchResult/TextSearchResult.ts'
 import * as EncodingType from '../EncodingType/EncodingType.ts'
@@ -19,7 +19,8 @@ import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts
 // TODO not always run nice, maybe configure nice via flag/options
 
 export const collectStdout = async (
-  childProcess: BaseChildProcess,
+  stdout: Readable,
+  kill: () => void,
   maxSearchResults: number,
   charsBefore: number,
   charsAfter: number,
@@ -30,7 +31,7 @@ export const collectStdout = async (
   let limitHit = false
   let numberOfResults = 0
 
-  childProcess.stdout.setEncoding(EncodingType.Utf8)
+  stdout.setEncoding(EncodingType.Utf8)
 
   const handleLine = (line: string): void => {
     const parsedLine = JSON.parse(line)
@@ -80,10 +81,10 @@ export const collectStdout = async (
 
     if (numberOfResults > maxSearchResults) {
       limitHit = true
-      childProcess.kill()
+      kill()
     }
   }
-  await processData(childProcess.stdout, handleData)
+  await processData(stdout, handleData)
   const results = Object.values(allSearchResults).flat()
   return {
     results,

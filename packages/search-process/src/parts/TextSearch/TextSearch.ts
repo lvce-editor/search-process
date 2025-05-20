@@ -31,7 +31,13 @@ export const search = async ({
   const childProcess = RipGrep.spawn(ripGrepArgs, {
     cwd: searchDir,
   })
-  const pipeLinePromise = CollectTextSearchStdout.collectStdout(childProcess, maxSearchResults, charsBefore, charsAfter)
+  const pipeLinePromise = CollectTextSearchStdout.collectStdout(
+    childProcess.stdout,
+    childProcess.kill,
+    maxSearchResults,
+    charsBefore,
+    charsAfter,
+  )
   const closePromise = WaitForProcessToExit.waitForProcessToExit(childProcess)
   const [pipeLineResult, exitResult] = await Promise.all([pipeLinePromise, closePromise])
   if (exitResult.type === ProcessExitEventType.Error) {
