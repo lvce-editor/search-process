@@ -29,7 +29,8 @@ export const textSearchIncremental = async ({
   })
   const pipeLinePromise = CollectTextSearchStdoutIncremental.collectStdoutIncremental(
     id,
-    childProcess,
+    childProcess.stdout,
+    childProcess.kill,
     maxSearchResults,
     charsBefore,
     charsAfter,
