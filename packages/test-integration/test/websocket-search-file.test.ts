@@ -6,7 +6,7 @@ import {
   getHandleMessage,
   setup,
   startServer,
-  waitForRequest,
+  waitForWebSocketRequest,
   waitForResponse,
   waitForWebSocketToBeOpen,
 } from '../src/setup.ts'
@@ -27,7 +27,7 @@ test('search process handles websocket connection and search commands', async ()
   })
 
   const port = await getPort()
-  const requestPromise = waitForRequest(server)
+  const requestPromise = waitForWebSocketRequest(server)
   await startServer(server, port)
   const externalSocket = createWebSocket(port)
   const openPromise = waitForWebSocketToBeOpen(externalSocket)

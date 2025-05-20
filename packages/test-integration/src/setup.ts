@@ -3,7 +3,7 @@ import { NodeForkedProcessRpcParent, Rpc } from '@lvce-editor/rpc'
 import { mkdir } from 'fs/promises'
 import { randomUUID } from 'node:crypto'
 import { writeFile } from 'node:fs/promises'
-import { Server } from 'node:http'
+import { IncomingMessage, Server, ServerResponse } from 'node:http'
 import { Socket } from 'node:net'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -62,17 +62,33 @@ export const setup = async (options: { env?: Record<string, string> } = {}) => {
   }
 }
 
-interface RequestResponse {
-  readonly request: any
+interface WebSocketRequestResponse {
+  readonly request: IncomingMessage
   readonly socket: Socket
 }
 
-export const waitForRequest = (server: Server): Promise<RequestResponse> => {
+export const waitForWebSocketRequest = (server: Server): Promise<WebSocketRequestResponse> => {
   const { resolve, promise } = Promise.withResolvers<any>()
   server.on('upgrade', (request, socket) => {
     resolve({
       request,
       socket,
+    })
+  })
+  return promise
+}
+
+interface RequestResponse {
+  readonly request: IncomingMessage
+  readonly response: ServerResponse
+}
+
+export const waitForRequest = (server: Server): Promise<RequestResponse> => {
+  const { resolve, promise } = Promise.withResolvers<RequestResponse>()
+  server.once('request', (request, response) => {
+    resolve({
+      request,
+      response,
     })
   })
   return promise
