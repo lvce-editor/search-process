@@ -1,10 +1,9 @@
-import { Writable } from 'node:stream'
-import { pipeline } from 'node:stream/promises'
 import type { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
 import type { StdoutResult } from '../StdoutResult/StdoutResult.ts'
 import type { TextSearchResult } from '../TextSearchResult/TextSearchResult.ts'
 import * as EncodingType from '../EncodingType/EncodingType.ts'
 import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
+import { processData } from '../ProcessData/ProcessData.ts'
 import * as RipGrepParsedLineType from '../RipGrepParsedLineType/RipGrepParsedLineType.ts'
 import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultType.ts'
 import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts'
@@ -84,24 +83,7 @@ export const collectStdout = async (
       childProcess.kill()
     }
   }
-
-  await pipeline(
-    childProcess.stdout,
-    new Writable({
-      decodeStrings: false,
-      construct(callback): void {
-        callback()
-      },
-      write(chunk, encoding, callback): void {
-        try {
-          handleData(chunk)
-          callback()
-        } catch (error) {
-          callback(error)
-        }
-      },
-    }),
-  )
+  await processData(childProcess.stdout, handleData)
   const results = Object.values(allSearchResults).flat()
   return {
     results,
