@@ -102,7 +102,6 @@ export const collectStdoutIncremental = async (
       },
       write(chunk, encoding, callback): void {
         try {
-          console.log(chunk.toString())
           handleData(chunk)
           callback()
         } catch (error) {

@@ -23,11 +23,8 @@ test.skip('search process handles websocket connection and search commands', asy
   const requestPromise = waitForWebSocketRequest(server)
   await startServer(server, port)
 
-  const externalSocket = createConnection(port, 'localhost', () => {
-    console.log('got connection')
-  })
+  const externalSocket = createConnection(port, 'localhost', () => {})
   externalSocket.on('connect', () => {
-    console.log('got connect')
     externalSocket.write(
       'GET / HTTP/1.1\r\n' +
         'Upgrade: WebSocket\r\n' +
@@ -37,9 +34,7 @@ test.skip('search process handles websocket connection and search commands', asy
     )
   })
 
-  externalSocket.on('data', (x) => {
-    console.log('got data', x.toString())
-  })
+  externalSocket.on('data', (x) => {})
 
   const { request, socket } = await requestPromise
   const handleMessage = getHandleMessage(request)
