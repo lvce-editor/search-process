@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import getPort from 'get-port'
-import { createServer, IncomingMessage, ServerResponse } from 'node:http'
+import { createServer } from 'node:http'
 import { join } from 'node:path'
 import { root, setup, startServer, waitForRequest } from '../src/setup.ts'
 
