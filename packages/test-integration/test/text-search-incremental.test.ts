@@ -77,6 +77,7 @@ test('incremental text search', async () => {
   const port = await getPort()
   const { testDir, rpc, addDisposable } = await setup({
     env: {
+      ...process.env,
       LVCE_SEARCH_PROCESS_PORT: port.toString(),
       RIP_GREP_PATH: fixturePath,
     },
