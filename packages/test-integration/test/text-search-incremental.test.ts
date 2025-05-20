@@ -71,12 +71,16 @@ const getResponse = (url: string): StdoutResponse => {
   }
 }
 
-test.skip('incremental text search', async () => {
+test('incremental text search', async () => {
+  if (process.platform === 'win32') {
+    return
+  }
   const fixturePath = join(root, 'packages', 'test-integration', 'fixtures', 'search-incremental', 'ripgrep-incremental.js')
 
   const port = await getPort()
   const { testDir, rpc, addDisposable } = await setup({
     env: {
+      ...process.env,
       LVCE_SEARCH_PROCESS_PORT: port.toString(),
       RIP_GREP_PATH: fixturePath,
     },
@@ -92,8 +96,8 @@ test.skip('incremental text search', async () => {
     },
   })
 
-  const request1Promise = waitForRequest(server)
   await startServer(server, port)
+  const request1Promise = waitForRequest(server)
 
   const id = '1'
   const resultPromise = rpc.invoke('TextSearch.searchIncremental', {
@@ -149,4 +153,4 @@ test.skip('incremental text search', async () => {
   item3.response.end(JSON.stringify(getResponse(item3.request.url || '')))
 
   await resultPromise
-})
+}, 20_000)
