@@ -1,4 +1,4 @@
-import type { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
+import type { Readable } from 'node:stream'
 import type { IncrementalSearch } from '../IncrementalSearch/IncrementalSearch.ts'
 import type { IncremetalStdoutResult as IncrementalStdoutResult } from '../IncrementalStdoutResult/IncrementalStdoutResult.ts'
 import type { IncrementalTextSearchResult } from '../IncrementalTextSearchResult/IncrementalTextSearchResult.ts'
@@ -12,7 +12,8 @@ import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts
 
 export const collectStdoutIncremental = async (
   id: string,
-  childProcess: BaseChildProcess,
+  stdout: Readable,
+  kill: () => void,
   maxSearchResults: number,
   charsBefore: number,
   charsAfter: number,
@@ -25,7 +26,7 @@ export const collectStdoutIncremental = async (
 
   const search: IncrementalSearch = {
     dispose() {
-      childProcess.kill()
+      kill()
     },
     getResultCount() {
       return numberOfResults
@@ -38,7 +39,7 @@ export const collectStdoutIncremental = async (
 
   IncrementalSearchState.set(id, search)
 
-  childProcess.stdout.setEncoding(EncodingType.Utf8)
+  stdout.setEncoding(EncodingType.Utf8)
 
   const handleLine = (line: string): void => {
     const parsedLine = JSON.parse(line)
@@ -88,11 +89,11 @@ export const collectStdoutIncremental = async (
 
     if (numberOfResults > maxSearchResults) {
       limitHit = true
-      childProcess.kill()
+      kill()
     }
   }
 
-  await processData(childProcess.stdout, handleData)
+  await processData(stdout, handleData)
   return {
     stats,
     limitHit,
