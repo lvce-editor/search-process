@@ -117,29 +117,23 @@ test('incremental text search', async () => {
     ],
   })
 
-  console.log('before request 1')
   const item1 = await request1Promise
-  console.log('after request 1')
 
   const request2Promise = waitForRequest(server)
-  console.log('before request 2')
 
   item1.response.end(JSON.stringify(getResponse(item1.request.url || '')))
 
   const intermediateResult1 = await rpc.invoke('TextSearch.getIncrementalResults', id)
-  console.log('incremental result')
 
   expect(intermediateResult1).toEqual([])
 
   const item2 = await request2Promise
-  console.log('item 2')
 
   const request3Promise = waitForRequest(server)
 
   item2.response.end(JSON.stringify(getResponse(item2.request.url || '')))
 
   const intermediateResult2 = await rpc.invoke('TextSearch.getIncrementalResults', id)
-  console.log('item 2 result')
 
   expect(intermediateResult2).toEqual([
     {
