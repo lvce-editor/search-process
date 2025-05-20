@@ -10,43 +10,45 @@ interface StdoutResponse {
 
 const getResponse1 = (): StdoutResponse => {
   return {
-    stdout: JSON.stringify({ type: 'begin', data: { path: { text: './index.ts' } } }),
+    stdout: JSON.stringify({ type: 'begin', data: { path: { text: './index.ts' } } }) + '\n',
   }
 }
 
 const getResponse2 = (): StdoutResponse => {
   return {
-    stdout: JSON.stringify({
-      type: 'match',
-      data: {
-        path: { text: './index.ts' },
-        lines: { text: 'let x = 1' },
-        line_number: 0,
-        absolute_offset: 4,
-        submatches: [{ match: { text: 'x' }, start: 4, end: 5 }],
-      },
-    }),
+    stdout:
+      JSON.stringify({
+        type: 'match',
+        data: {
+          path: { text: './index.ts' },
+          lines: { text: 'let x = 1' },
+          line_number: 0,
+          absolute_offset: 4,
+          submatches: [{ match: { text: 'x' }, start: 4, end: 5 }],
+        },
+      }) + '\n',
   }
 }
 
 const getResponse3 = (): StdoutResponse => {
   return {
-    stdout: JSON.stringify({
-      type: 'end',
-      data: {
-        path: { text: './index.ts' },
-        binary_offset: null,
-        stats: {
-          elapsed: { secs: 0, nanos: 105604, human: '0.000106s' },
-          searches: 1,
-          searches_with_match: 1,
-          bytes_searched: 7732,
-          bytes_printed: 4386,
-          matched_lines: 18,
-          matches: 20,
+    stdout:
+      JSON.stringify({
+        type: 'end',
+        data: {
+          path: { text: './index.ts' },
+          binary_offset: null,
+          stats: {
+            elapsed: { secs: 0, nanos: 105604, human: '0.000106s' },
+            searches: 1,
+            searches_with_match: 1,
+            bytes_searched: 7732,
+            bytes_printed: 4386,
+            matched_lines: 18,
+            matches: 20,
+          },
         },
-      },
-    }),
+      }) + '\n',
   }
 }
 
@@ -132,7 +134,15 @@ test('incremental text search', async () => {
 
   const intermediateResult2 = await rpc.invoke('TextSearch.getIncrementalResults', id)
 
-  expect(intermediateResult2).toEqual([])
+  expect(intermediateResult2).toEqual([
+    {
+      end: 0,
+      lineNumber: 0,
+      start: 0,
+      text: './index.ts',
+      type: 1,
+    },
+  ])
 
   const item3 = await request3Promise
 
