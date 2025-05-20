@@ -2,7 +2,7 @@ import { test } from '@jest/globals'
 import getPort from 'get-port'
 import { createServer } from 'node:http'
 import { createConnection } from 'node:net'
-import { getHandleMessage, setup, startServer, waitForRequest } from '../src/setup.ts'
+import { getHandleMessage, setup, startServer, waitForWebSocketRequest } from '../src/setup.ts'
 
 test.skip('search process handles websocket connection and search commands', async () => {
   const { rpc, addDisposable, testDir, setFiles } = await setup()
@@ -20,7 +20,7 @@ test.skip('search process handles websocket connection and search commands', asy
   })
 
   const port = await getPort()
-  const requestPromise = waitForRequest(server)
+  const requestPromise = waitForWebSocketRequest(server)
   await startServer(server, port)
 
   const externalSocket = createConnection(port, 'localhost', () => {
