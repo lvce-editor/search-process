@@ -20,6 +20,8 @@ const main = async () => {
   process.stdout.write(result1.stdout)
   const result2 = await getResponse(2)
   process.stdout.write(result2.stdout)
+  const result3 = await getResponse(3)
+  process.stdout.write(result3.stdout)
 }
 
 main()

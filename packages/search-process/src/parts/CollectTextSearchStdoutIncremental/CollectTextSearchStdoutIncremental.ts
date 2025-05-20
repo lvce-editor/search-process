@@ -2,7 +2,8 @@ import { Writable } from 'node:stream'
 import { pipeline } from 'node:stream/promises'
 import type { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
 import type { IncrementalSearch } from '../IncrementalSearch/IncrementalSearch.ts'
-import type { IncremetalStdoutResult } from '../IncrementalStdoutResult/IncrementalStdoutResult.ts'
+import type { IncremetalStdoutResult as IncrementalStdoutResult } from '../IncrementalStdoutResult/IncrementalStdoutResult.ts'
+import type { IncrementalTextSearchResult } from '../IncrementalTextSearchResult/IncrementalTextSearchResult.ts'
 import * as EncodingType from '../EncodingType/EncodingType.ts'
 import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
 import * as IncrementalSearchState from '../IncrementalSearchState/IncrementalSearchState.ts'
@@ -16,8 +17,8 @@ export const collectStdoutIncremental = async (
   maxSearchResults: number,
   charsBefore: number,
   charsAfter: number,
-): Promise<IncremetalStdoutResult> => {
-  const allSearchResults = Object.create(null)
+): Promise<IncrementalStdoutResult> => {
+  const allSearchResults: Record<string, IncrementalTextSearchResult[]> = Object.create(null)
   let buffer = ''
   let stats = {}
   let limitHit = false
@@ -30,8 +31,9 @@ export const collectStdoutIncremental = async (
     getResultCount() {
       return numberOfResults
     },
-    getItems() {
-      return []
+    getItems(minLineY, maxLineY) {
+      const results = Object.values(allSearchResults).flat()
+      return results.slice(minLineY, maxLineY)
     },
   }
 

@@ -2,6 +2,7 @@ import { Writable } from 'node:stream'
 import { pipeline } from 'node:stream/promises'
 import type { BaseChildProcess } from '../BaseChildProcess/BaseChildProcess.ts'
 import type { StdoutResult } from '../StdoutResult/StdoutResult.ts'
+import type { TextSearchResult } from '../TextSearchResult/TextSearchResult.ts'
 import * as EncodingType from '../EncodingType/EncodingType.ts'
 import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
 import * as RipGrepParsedLineType from '../RipGrepParsedLineType/RipGrepParsedLineType.ts'
@@ -24,7 +25,7 @@ export const collectStdout = async (
   charsBefore: number,
   charsAfter: number,
 ): Promise<StdoutResult> => {
-  const allSearchResults = Object.create(null)
+  const allSearchResults: Record<string, TextSearchResult[]> = Object.create(null)
   let buffer = ''
   let stats = {}
   let limitHit = false
