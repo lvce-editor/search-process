@@ -9,6 +9,7 @@ test('search file handles ripgrep permission error', async () => {
       ...process.env,
       RIP_GREP_PATH: fixturePath,
     },
+    stdio: 'pipe',
   })
   await setFiles({
     'index.ts': 'let x = 1',
