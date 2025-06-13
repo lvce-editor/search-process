@@ -3,4 +3,5 @@ export interface TextSearchIncrementalOptions {
   readonly maxSearchResults?: number
   readonly ripGrepArgs?: readonly string[]
   readonly id: string
+  readonly shell: boolean
 }
