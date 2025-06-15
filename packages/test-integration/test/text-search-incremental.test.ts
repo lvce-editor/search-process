@@ -72,9 +72,6 @@ const getResponse = (url: string): StdoutResponse => {
 }
 
 test('incremental text search', async () => {
-  if (process.platform === 'win32') {
-    return
-  }
   const fixturePath = join(root, 'packages', 'test-integration', 'fixtures', 'search-incremental', 'ripgrep-incremental.js')
 
   const port = await getPort()
@@ -104,6 +101,7 @@ test('incremental text search', async () => {
     id,
     searchPath: testDir,
     limit: 100,
+    shell: true,
     ripGrepArgs: [
       '--hidden',
       '--no-require-git',
@@ -153,4 +151,4 @@ test('incremental text search', async () => {
   item3.response.end(JSON.stringify(getResponse(item3.request.url || '')))
 
   await resultPromise
-}, 20_000)
+}, 40_000)
