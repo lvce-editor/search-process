@@ -8,6 +8,8 @@ export default [
     rules: {
       'n/no-unsupported-features/es-syntax': 'off',
       'unicorn/prefer-single-call': 'off',
+      'jest/no-restricted-jest-methods': 'off',
+      'no-restricted-syntax': 'off',
     },
   },
   {
