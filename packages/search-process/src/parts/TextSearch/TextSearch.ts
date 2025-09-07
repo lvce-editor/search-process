@@ -1,5 +1,5 @@
-import { fileURLToPath } from 'node:url'
 import * as CollectTextSearchStdout from '../CollectTextSearchStdout/CollectTextSearchStdout.ts'
+import { ensurePath } from '../EnsurePath/EnsurePath.ts'
 import * as IsEnoentError from '../IsEnoentError/IsEnoentError.ts'
 import * as ProcessExitEventType from '../ProcessExitEventType/ProcessExitEventType.ts'
 import * as RipGrep from '../RipGrep/RipGrep.ts'
@@ -17,13 +17,6 @@ import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToE
 // TODO stats flag might not be necessary
 // TODO update client
 // TODO not always run nice, maybe configure nice via flag/options
-
-const ensurePath = (searchDir: string): string => {
-  if (searchDir.startsWith('file://')) {
-    return fileURLToPath(searchDir)
-  }
-  return searchDir
-}
 
 export const search = async ({
   searchDir = '',
