@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import * as CollectTextSearchStdout from '../CollectTextSearchStdout/CollectTextSearchStdout.ts'
 import * as IsEnoentError from '../IsEnoentError/IsEnoentError.ts'
 import * as ProcessExitEventType from '../ProcessExitEventType/ProcessExitEventType.ts'
@@ -17,6 +18,13 @@ import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToE
 // TODO update client
 // TODO not always run nice, maybe configure nice via flag/options
 
+const ensurePath = (searchDir: string): string => {
+  if (searchDir.startsWith('file://')) {
+    return fileURLToPath(searchDir)
+  }
+  return searchDir
+}
+
 export const search = async ({
   searchDir = '',
   maxSearchResults = 20_000,
@@ -28,8 +36,9 @@ export const search = async ({
 } = {}): Promise<any> => {
   const charsBefore = 26
   const charsAfter = 50
+  const cwd = ensurePath(searchDir)
   const childProcess = RipGrep.spawn(ripGrepArgs, {
-    cwd: searchDir,
+    cwd,
   })
   const pipeLinePromise = CollectTextSearchStdout.collectStdout(
     childProcess.stdout,
