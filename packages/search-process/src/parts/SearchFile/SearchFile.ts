@@ -1,6 +1,7 @@
 import * as RipGrepPath from '../ActualRipGrepPath/ActualRipGrepPath.ts'
 import * as Assert from '../Assert/Assert.ts'
 import * as Character from '../Character/Character.ts'
+import { ensurePath } from '../EnsurePath/EnsurePath.ts'
 import * as IsEnoentError from '../IsEnoentError/IsEnoentError.ts'
 import * as LimitString from '../LimitString/LimitString.ts'
 import * as Logger from '../Logger/Logger.ts'
@@ -25,8 +26,9 @@ export const searchFile = async ({
     Assert.string(searchPath)
     Assert.array(ripGrepArgs)
     Assert.number(limit)
+    const cwd = ensurePath(searchPath)
     const { stdout } = await RipGrep.exec(ripGrepArgs, {
-      cwd: searchPath,
+      cwd,
     })
     return LimitString.limitString(stdout, limit)
   } catch (error) {
