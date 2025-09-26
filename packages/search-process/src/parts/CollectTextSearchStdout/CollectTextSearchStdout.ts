@@ -2,12 +2,12 @@ import type { Readable } from 'node:stream'
 import type { StdoutResult } from '../StdoutResult/StdoutResult.ts'
 import type { TextSearchResult } from '../TextSearchResult/TextSearchResult.ts'
 import * as EncodingType from '../EncodingType/EncodingType.ts'
+import { formatFile } from '../FormatFile/FormatFile.ts'
 import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
 import { processData } from '../ProcessData/ProcessData.ts'
 import * as RipGrepParsedLineType from '../RipGrepParsedLineType/RipGrepParsedLineType.ts'
 import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultType.ts'
 import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts'
-import { formatFile } from '../FormatFile/FormatFile.ts'
 // TODO update vscode-ripgrep when https://github.com/mhinz/vim-grepper/issues/244, https://github.com/BurntSushi/ripgrep/issues/1892 is fixed
 
 // need to use '.' as last argument for ripgrep
