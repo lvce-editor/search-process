@@ -28,7 +28,7 @@ export const search = async ({
   readonly ripGrepArgs?: readonly string[]
 } = {}): Promise<any> => {
   const charsBefore = 26
-  const charsAfter = 50
+  const charsAfter = 50 // TODO pass these also in as parameters
   const cwd = ensurePath(searchDir)
   const childProcess = RipGrep.spawn(ripGrepArgs, {
     cwd,
