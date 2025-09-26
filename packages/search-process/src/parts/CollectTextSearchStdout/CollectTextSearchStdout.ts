@@ -2,6 +2,7 @@ import type { Readable } from 'node:stream'
 import type { StdoutResult } from '../StdoutResult/StdoutResult.ts'
 import type { TextSearchResult } from '../TextSearchResult/TextSearchResult.ts'
 import * as EncodingType from '../EncodingType/EncodingType.ts'
+import { formatFile } from '../FormatFile/FormatFile.ts'
 import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
 import { processData } from '../ProcessData/ProcessData.ts'
 import * as RipGrepParsedLineType from '../RipGrepParsedLineType/RipGrepParsedLineType.ts'
@@ -44,7 +45,7 @@ export const collectStdout = async (
             start: 0,
             end: 0,
             lineNumber: 0,
-            text: data.path.text,
+            text: formatFile(data.path.text),
           },
         ]
         break

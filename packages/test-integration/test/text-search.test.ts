@@ -34,7 +34,7 @@ test('text search', async () => {
         end: 0,
         lineNumber: 0,
         start: 0,
-        text: process.platform === 'win32' ? '.\\index.ts' : './index.ts',
+        text: 'index.ts',
         type: 1,
       },
       {

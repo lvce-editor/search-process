@@ -121,7 +121,7 @@ test('search - one result', async () => {
         end: 0,
         lineNumber: 0,
         start: 0,
-        text: './index.html',
+        text: 'index.html',
         type: 1,
       },
       {
@@ -220,7 +220,7 @@ test('search - one result split across multiple chunks', async () => {
         end: 0,
         lineNumber: 0,
         start: 0,
-        text: './index.html',
+        text: 'index.html',
         type: 1,
       },
       {
