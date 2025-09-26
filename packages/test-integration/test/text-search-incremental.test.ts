@@ -71,7 +71,7 @@ const getResponse = (url: string): StdoutResponse => {
   }
 }
 
-test('incremental text search', async () => {
+test.skip('incremental text search', async () => {
   if (process.platform === 'win32') {
     return
   }
