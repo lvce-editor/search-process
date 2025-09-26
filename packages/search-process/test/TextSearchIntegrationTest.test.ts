@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { mkdtemp, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { join, sep } from 'node:path'
+import { join } from 'node:path'
 import * as TextSearchResultType from '../src/parts/TextSearchResultType/TextSearchResultType.ts'
 
 const TextSearch = await import('../src/parts/TextSearch/TextSearch.ts')
@@ -9,10 +9,6 @@ const TextSearch = await import('../src/parts/TextSearch/TextSearch.ts')
 // TODO move this to integration tests
 const getTmpDir = (): Promise<string> => {
   return mkdtemp(join(tmpdir(), 'foo-'))
-}
-
-const fixPath = (path: string): string => {
-  return path.replaceAll('/', sep)
 }
 
 const TIMEOUT_LONG = 20_000
