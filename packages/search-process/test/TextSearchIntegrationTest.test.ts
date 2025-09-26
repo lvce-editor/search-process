@@ -54,7 +54,7 @@ test(
       results: [
         {
           type: TextSearchResultType.File,
-          text: fixPath('./index.html'),
+          text: 'index.html',
           lineNumber: 0,
           start: 0,
           end: 0,
