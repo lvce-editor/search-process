@@ -10,14 +10,14 @@
   },
   "devDependencies": {
     "@jest/globals": "^30.0.4",
-    "@lvce-editor/rpc": "^4.19.0",
+    "@lvce-editor/rpc": "^4.20.0",
     "@types/ws": "^8.18.1",
-    "electron": "^38.1.2",
+    "electron": "^38.3.0",
     "execa": "^9.6.0",
     "get-port": "^7.1.0",
     "jest": "^30.0.4",
     "minimist": "^1.2.8",
-    "ts-jest": "^29.4.4",
+    "ts-jest": "^29.4.5",
     "ws": "^8.18.3"
   },
   "engines": {
