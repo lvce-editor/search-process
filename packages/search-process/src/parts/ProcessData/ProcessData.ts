@@ -6,10 +6,10 @@ export const processData = async (stdout: any, handleData: HandleData): Promise<
   await pipeline(
     stdout,
     new Writable({
-      decodeStrings: false,
       construct(callback): void {
         callback()
       },
+      decodeStrings: false,
       write(chunk, encoding, callback): void {
         try {
           handleData(chunk)

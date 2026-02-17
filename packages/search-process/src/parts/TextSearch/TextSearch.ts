@@ -19,9 +19,9 @@ import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToE
 // TODO not always run nice, maybe configure nice via flag/options
 
 export const search = async ({
-  searchDir = '',
   maxSearchResults = 20_000,
   ripGrepArgs = [],
+  searchDir = '',
 }: {
   readonly searchDir?: string
   readonly maxSearchResults?: number

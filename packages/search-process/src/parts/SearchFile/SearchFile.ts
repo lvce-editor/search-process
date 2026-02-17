@@ -14,9 +14,9 @@ import * as RipGrep from '../RipGrep/RipGrep.ts'
 // but the second time only a few hundred bytes of changes
 
 export const searchFile = async ({
-  searchPath = '',
   limit = 100,
   ripGrepArgs = [],
+  searchPath = '',
 }: {
   readonly searchPath?: string
   readonly limit?: number

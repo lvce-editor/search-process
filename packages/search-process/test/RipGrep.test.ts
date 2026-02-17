@@ -30,12 +30,12 @@ const ExecRipGrep = await import('../src/parts/ExecRipGrep/ExecRipGrep.ts')
 
 test('spawn - success', () => {
   const mockChildProcess = {
-    stdout: new Readable({ read(): void {} }),
-    stderr: new Readable({ read(): void {} }),
-    on: jest.fn(),
-    off: jest.fn(),
-    once: jest.fn(),
     kill: jest.fn(),
+    off: jest.fn(),
+    on: jest.fn(),
+    once: jest.fn(),
+    stderr: new Readable({ read(): void {} }),
+    stdout: new Readable({ read(): void {} }),
   }
   // @ts-ignore
   NodeChildProcess.spawn.mockReturnValue(mockChildProcess)
@@ -62,7 +62,7 @@ test('spawn - error', () => {
 })
 
 test('exec', async () => {
-  const mockResult = { stdout: 'test output', stderr: '' }
+  const mockResult = { stderr: '', stdout: 'test output' }
   // @ts-ignore
   ExecRipGrep.execRipGrep.mockResolvedValue(mockResult)
 

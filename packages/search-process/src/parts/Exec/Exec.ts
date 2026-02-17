@@ -5,9 +5,9 @@ export const exec = async (command: string, args: readonly string[], options: an
   Assert.string(command)
   Assert.array(args)
   Assert.object(options)
-  const { stdout, stderr } = await execa(command, args, options)
+  const { stderr, stdout } = await execa(command, args, options)
   return {
-    stdout,
     stderr,
+    stdout,
   }
 }

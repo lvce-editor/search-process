@@ -2,6 +2,6 @@ import type { IncrementalTextSearchResult } from '../IncrementalTextSearchResult
 
 export interface IncrementalSearch {
   readonly dispose: () => void
-  readonly getResultCount: () => void
   readonly getItems: (minLineY: number, maxLineY: number) => readonly IncrementalTextSearchResult[]
+  readonly getResultCount: () => void
 }

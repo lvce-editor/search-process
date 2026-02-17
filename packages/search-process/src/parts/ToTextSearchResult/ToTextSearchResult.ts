@@ -20,11 +20,11 @@ export const toTextSearchResult = (
     const previewEnd = Math.min(submatch.end + charsAfter, linesLength)
     const previewText = lines.slice(actualStart, previewEnd)
     results.push({
-      type: TextSearchResultType.Match,
-      start: submatch.start - actualStart,
       end: submatch.end - actualStart,
       lineNumber,
+      start: submatch.start - actualStart,
       text: previewText,
+      type: TextSearchResultType.Match,
     })
   }
   return results

@@ -1,6 +1,6 @@
 export interface TextSearchIncrementalOptions {
-  readonly searchDir?: string
+  readonly id: string
   readonly maxSearchResults?: number
   readonly ripGrepArgs?: readonly string[]
-  readonly id: string
+  readonly searchDir?: string
 }
