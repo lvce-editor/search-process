@@ -1,3 +1,4 @@
+import type { Rpc } from '@lvce-editor/rpc'
 import type { IncremetalStdoutResult } from '../IncrementalStdoutResult/IncrementalStdoutResult.ts'
 import type { TextSearchPullOptions } from '../TextSearchPullOptions/TextSearchPullOptions.ts'
 import * as CollectTextSearchStdoutPull from '../CollectTextSearchStdoutPull/CollectTextSearchStdoutPull.ts'
@@ -9,6 +10,7 @@ import * as RpcState from '../RpcState/RpcState.ts'
 import { TextSearchError } from '../TextSearchError/TextSearchError.ts'
 import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToExit.ts'
 
+<<<<<<< HEAD
 export const textSearchPull = async ({
   charsAfter,
   charsBefore,
@@ -23,19 +25,29 @@ export const textSearchPull = async ({
   if (initialRpc) {
     RpcState.setById(id, initialRpc)
   }
+=======
+export const textSearchPull = async (
+  rpc: Rpc,
+  { maxSearchResults = 20_000, ripGrepArgs = [], searchDir = '', searchId, uid }: TextSearchPullOptions,
+): Promise<IncremetalStdoutResult> => {
+  const charsBefore = 26
+  const charsAfter = 50
+
+>>>>>>> origin/main
   const childProcess = RipGrep.spawn(ripGrepArgs, {
     cwd: searchDir,
   })
   const notifyResultsFound = (): void => {
-    const rpc = RpcState.getById(id)
-    if (!rpc) {
-      return
-    }
-    rpc.send(resultsFoundMethod, id)
+    // @ts-ignore
+    rpc.send({
+      jsonrpc: '2.0',
+      method: 'TextSearch.handlePullResultsFound',
+      params: [uid, searchId],
+    })
   }
   try {
     const pipeLinePromise = CollectTextSearchStdoutPull.collectStdoutPull(
-      id,
+      searchId,
       childProcess.stdout,
       childProcess.kill,
       maxSearchResults,
@@ -53,6 +65,6 @@ export const textSearchPull = async ({
     }
     return pipeLineResult
   } finally {
-    RpcState.removeById(id)
+    RpcState.removeById(searchId)
   }
 }

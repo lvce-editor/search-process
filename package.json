@@ -14,7 +14,7 @@
     "dev": "node packages/build/src/dev.js",
     "format": "prettier --write .",
     "postinstall": "lerna bootstrap --ci",
-    "lint": "eslint .",
+    "lint": "eslint . && prettier --check .",
     "test": "lerna run test",
     "test-integration": "lerna run test-integration",
     "type-check": "tsc -b"
@@ -26,13 +26,13 @@
   },
   "devDependencies": {
     "@lerna/legacy-package-management": "^8.2.4",
-    "@lvce-editor/eslint-config": "^6.2.0",
+    "@lvce-editor/eslint-config": "^6.3.0",
     "eslint": "^9.39.2",
     "lerna": "^8.2.4",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   }
 }
