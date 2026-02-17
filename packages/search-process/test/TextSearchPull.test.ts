@@ -19,16 +19,26 @@ jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.ts', () => {
 
 jest.unstable_mockModule('../src/parts/CollectTextSearchStdoutPull/CollectTextSearchStdoutPull.ts', () => {
   return {
-    collectStdoutPull: jest.fn(async (_id: string, _stdout: any, _kill: any, _maxSearchResults: number, _charsBefore: number, _charsAfter: number, notifyResultsFound: () => void) => {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 0)
-      })
-      notifyResultsFound()
-      return {
-        limitHit: false,
-        stats: {},
-      }
-    }),
+    collectStdoutPull: jest.fn(
+      async (
+        _id: string,
+        _stdout: any,
+        _kill: any,
+        _maxSearchResults: number,
+        _charsBefore: number,
+        _charsAfter: number,
+        notifyResultsFound: () => void,
+      ) => {
+        await new Promise((resolve) => {
+          setTimeout(resolve, 0)
+        })
+        notifyResultsFound()
+        return {
+          limitHit: false,
+          stats: {},
+        }
+      },
+    ),
   }
 })
 
