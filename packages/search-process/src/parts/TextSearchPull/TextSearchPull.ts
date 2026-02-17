@@ -10,14 +10,15 @@ import { TextSearchError } from '../TextSearchError/TextSearchError.ts'
 import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToExit.ts'
 
 export const textSearchPull = async ({
+  charsAfter,
+  charsBefore,
   id,
   maxSearchResults = 20_000,
   resultsFoundMethod,
   ripGrepArgs = [],
   searchDir = '',
 }: TextSearchPullOptions): Promise<IncremetalStdoutResult> => {
-  const charsBefore = 26
-  const charsAfter = 50
+  // TODO
   const initialRpc = RpcState.get()
   if (initialRpc) {
     RpcState.setById(id, initialRpc)
