@@ -54,9 +54,8 @@ jest.unstable_mockModule('../src/parts/WaitForProcessToExit/WaitForProcessToExit
 })
 
 const TextSearchPull = await import('../src/parts/TextSearchPull/TextSearchPull.ts')
-const RpcState = await import('../src/parts/RpcState/RpcState.ts')
 
-test('textSearchPull - stores rpc by id for concurrent searches', async () => {
+test('textSearchPull - sends pull results found for concurrent searches', async () => {
   const rpc1 = {
     send: jest.fn(),
   }
@@ -65,25 +64,31 @@ test('textSearchPull - stores rpc by id for concurrent searches', async () => {
   }
 
   // @ts-ignore
-  RpcState.set(rpc1)
-  const search1Promise = TextSearchPull.textSearchPull({
-    resultsFoundMethod: 'SearchProcess.handleResultsFound',
+  const search1Promise = TextSearchPull.textSearchPull(rpc1, {
+    resultsFoundMethod: 'TextSearch.handlePullResultsFound',
     searchId: 'search-1',
+    uid: 1,
   })
 
   // @ts-ignore
-  RpcState.set(rpc2)
-  const search2Promise = TextSearchPull.textSearchPull({
-    resultsFoundMethod: 'SearchProcess.handleResultsFound',
+  const search2Promise = TextSearchPull.textSearchPull(rpc2, {
+    resultsFoundMethod: 'TextSearch.handlePullResultsFound',
     searchId: 'search-2',
+    uid: 2,
   })
 
   await Promise.all([search1Promise, search2Promise])
 
   expect(rpc1.send).toHaveBeenCalledTimes(1)
-  expect(rpc1.send).toHaveBeenCalledWith('SearchProcess.handleResultsFound', 'search-1')
+  expect(rpc1.send).toHaveBeenCalledWith({
+    jsonrpc: '2.0',
+    method: 'TextSearch.handlePullResultsFound',
+    params: [1, 'search-1'],
+  })
   expect(rpc2.send).toHaveBeenCalledTimes(1)
-  expect(rpc2.send).toHaveBeenCalledWith('SearchProcess.handleResultsFound', 'search-2')
-  expect(RpcState.getById('search-1')).toBeUndefined()
-  expect(RpcState.getById('search-2')).toBeUndefined()
+  expect(rpc2.send).toHaveBeenCalledWith({
+    jsonrpc: '2.0',
+    method: 'TextSearch.handlePullResultsFound',
+    params: [2, 'search-2'],
+  })
 })
