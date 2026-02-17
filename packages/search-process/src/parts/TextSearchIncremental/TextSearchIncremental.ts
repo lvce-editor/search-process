@@ -13,6 +13,7 @@ import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToE
 // text and file search would be more independent
 // only the logic for ripgrep path and websocket / messageport handling
 //  would need to be the same
+// @deprecated use TextSearch.searchPull instead
 export const textSearchIncremental = async ({
   id,
   maxSearchResults = 20_000,
