@@ -10,21 +10,19 @@ import * as RpcState from '../RpcState/RpcState.ts'
 import { TextSearchError } from '../TextSearchError/TextSearchError.ts'
 import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToExit.ts'
 
-export const textSearchPull = async ({
-  charsAfter,
-  charsBefore,
-  id,
-  maxSearchResults = 20_000,
-  ripGrepArgs = [],
-  searchDir = '',
-  searchId,
-  uid,
-}: TextSearchPullOptions): Promise<IncremetalStdoutResult> => {
-  // TODO
-  const initialRpc = RpcState.get()
-  if (initialRpc) {
-    RpcState.setById(id, initialRpc)
-  }
+export const textSearchPull = async (
+  rpc: Rpc,
+  {
+    charsAfter,
+    charsBefore,
+    id,
+    maxSearchResults = 20_000,
+    ripGrepArgs = [],
+    searchDir = '',
+    searchId,
+    uid,
+  }: TextSearchPullOptions,
+): Promise<IncremetalStdoutResult> => {
   const childProcess = RipGrep.spawn(ripGrepArgs, {
     cwd: searchDir,
   })
