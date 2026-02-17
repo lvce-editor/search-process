@@ -14,5 +14,8 @@ export const handleWebSocket = async (handle: Socket, request: Request): Promise
     commandMap: {},
     handle,
     request,
+    requiresSocket(method: string) {
+      return method === 'TextSearch.searchPull'
+    },
   })
 }
