@@ -12,11 +12,17 @@ import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToE
 
 export const textSearchPull = async (
   rpc: Rpc,
-  { maxSearchResults = 20_000, ripGrepArgs = [], searchDir = '', searchId, uid }: TextSearchPullOptions,
+  {
+    charsAfter,
+    charsBefore,
+    id,
+    maxSearchResults = 20_000,
+    ripGrepArgs = [],
+    searchDir = '',
+    searchId,
+    uid,
+  }: TextSearchPullOptions,
 ): Promise<IncremetalStdoutResult> => {
-  const charsBefore = 26
-  const charsAfter = 50
-
   const childProcess = RipGrep.spawn(ripGrepArgs, {
     cwd: searchDir,
   })
