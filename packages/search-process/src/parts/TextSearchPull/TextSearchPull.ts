@@ -15,7 +15,6 @@ export const textSearchPull = async ({
   charsBefore,
   id,
   maxSearchResults = 20_000,
-  resultsFoundMethod,
   ripGrepArgs = [],
   searchDir = '',
   searchId,
