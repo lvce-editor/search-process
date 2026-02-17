@@ -19,12 +19,11 @@ export const collectStdoutPull = async (
   charsAfter: number,
   notifyResultsFound: () => void,
 ): Promise<IncrementalStdoutResult> => {
-  const allSearchResults: IncrementalTextSearchResult[] = []
+  let allSearchResults: IncrementalTextSearchResult[] = []
   let buffer = ''
   let stats = {}
   let limitHit = false
   let done = false
-  let nextResultIndex = 0
   let hasUnfetchedResults = false
   let numberOfResults = 0
 
@@ -41,8 +40,8 @@ export const collectStdoutPull = async (
       kill()
     },
     getNewItems() {
-      const newItems = allSearchResults.slice(nextResultIndex)
-      nextResultIndex = allSearchResults.length
+      const newItems = allSearchResults
+      allSearchResults = []
       hasUnfetchedResults = false
       return newItems
     },

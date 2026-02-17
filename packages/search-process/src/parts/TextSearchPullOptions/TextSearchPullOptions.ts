@@ -4,4 +4,5 @@ export interface TextSearchPullOptions {
   readonly ripGrepArgs?: readonly string[]
   readonly searchDir?: string
   readonly searchId: string
+  readonly uid: number
 }
