@@ -6,7 +6,7 @@ const mockResult = {
 }
 
 jest.unstable_mockModule('execa', () => ({
-  execa: jest.fn().mockImplementation(() => Promise.resolve(mockResult)),
+  execa: jest.fn().mockImplementation(async () => mockResult),
 }))
 
 const { execa } = await import('execa')
