@@ -1,10 +1,7 @@
 export interface TextSearchPullOptions {
-<<<<<<< HEAD
   readonly charsAfter: number
   readonly charsBefore: number
   readonly id: string
-=======
->>>>>>> origin/main
   readonly maxSearchResults?: number
   readonly resultsFoundMethod: string
   readonly ripGrepArgs?: readonly string[]
