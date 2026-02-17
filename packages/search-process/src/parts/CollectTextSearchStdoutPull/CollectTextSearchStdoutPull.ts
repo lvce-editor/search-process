@@ -11,7 +11,7 @@ import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultT
 import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts'
 
 export const collectStdoutPull = async (
-  id: string,
+  searchId: string,
   stdout: Readable,
   kill: () => void,
   maxSearchResults: number,
@@ -56,7 +56,7 @@ export const collectStdoutPull = async (
     },
   }
 
-  PullSearchState.set(id, search)
+  PullSearchState.set(searchId, search)
 
   stdout.setEncoding(EncodingType.Utf8)
 

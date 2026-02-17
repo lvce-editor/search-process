@@ -10,31 +10,31 @@ import { TextSearchError } from '../TextSearchError/TextSearchError.ts'
 import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToExit.ts'
 
 export const textSearchPull = async ({
-  id,
   maxSearchResults = 20_000,
   resultsFoundMethod,
   ripGrepArgs = [],
   searchDir = '',
+  searchId,
 }: TextSearchPullOptions): Promise<IncremetalStdoutResult> => {
   const charsBefore = 26
   const charsAfter = 50
   const initialRpc = RpcState.get()
   if (initialRpc) {
-    RpcState.setById(id, initialRpc)
+    RpcState.setById(searchId, initialRpc)
   }
   const childProcess = RipGrep.spawn(ripGrepArgs, {
     cwd: searchDir,
   })
   const notifyResultsFound = (): void => {
-    const rpc = RpcState.getById(id)
+    const rpc = RpcState.getById(searchId)
     if (!rpc) {
       return
     }
-    rpc.send(resultsFoundMethod, id)
+    rpc.send(resultsFoundMethod, searchId)
   }
   try {
     const pipeLinePromise = CollectTextSearchStdoutPull.collectStdoutPull(
-      id,
+      searchId,
       childProcess.stdout,
       childProcess.kill,
       maxSearchResults,
@@ -52,6 +52,6 @@ export const textSearchPull = async ({
     }
     return pipeLineResult
   } finally {
-    RpcState.removeById(id)
+    RpcState.removeById(searchId)
   }
 }
