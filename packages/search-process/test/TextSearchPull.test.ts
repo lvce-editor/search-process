@@ -67,15 +67,15 @@ test('textSearchPull - stores rpc by id for concurrent searches', async () => {
   // @ts-ignore
   RpcState.set(rpc1)
   const search1Promise = TextSearchPull.textSearchPull({
-    searchId: 'search-1',
     resultsFoundMethod: 'SearchProcess.handleResultsFound',
+    searchId: 'search-1',
   })
 
   // @ts-ignore
   RpcState.set(rpc2)
   const search2Promise = TextSearchPull.textSearchPull({
-    searchId: 'search-2',
     resultsFoundMethod: 'SearchProcess.handleResultsFound',
+    searchId: 'search-2',
   })
 
   await Promise.all([search1Promise, search2Promise])
