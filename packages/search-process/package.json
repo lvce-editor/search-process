@@ -62,6 +62,6 @@
     "@lvce-editor/ripgrep": "^4.0.0"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   }
 }
