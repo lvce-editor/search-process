@@ -4,8 +4,8 @@ import { get, set, remove } from '../src/parts/IncrementalSearchState/Incrementa
 
 const mockSearch: IncrementalSearch = {
   dispose: () => {},
-  getResultCount: () => {},
   getItems: () => [],
+  getResultCount: () => {},
 }
 
 test('set and get IncrementalSearch', () => {

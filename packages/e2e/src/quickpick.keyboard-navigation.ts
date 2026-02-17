@@ -4,7 +4,7 @@ export const name = 'viewlet.quick-pick-keyboard-navigation'
 
 export const skip = 1
 
-export const test: Test = async ({ FileSystem, Workspace, QuickPick, expect, Locator }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, QuickPick, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file.txt`, '')

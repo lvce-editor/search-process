@@ -14,10 +14,10 @@ import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToE
 // only the logic for ripgrep path and websocket / messageport handling
 //  would need to be the same
 export const textSearchIncremental = async ({
-  searchDir = '',
+  id,
   maxSearchResults = 20_000,
   ripGrepArgs = [],
-  id,
+  searchDir = '',
 }: TextSearchIncrementalOptions): Promise<IncremetalStdoutResult> => {
   // TODO options
   const charsBefore = 26

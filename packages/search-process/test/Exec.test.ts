@@ -1,8 +1,8 @@
 import { test, expect, jest } from '@jest/globals'
 
 const mockResult = {
-  stdout: 'test output',
   stderr: '',
+  stdout: 'test output',
 }
 
 jest.unstable_mockModule('execa', () => ({

@@ -28,12 +28,12 @@ export const collectStdoutIncremental = async (
     dispose() {
       kill()
     },
-    getResultCount() {
-      return numberOfResults
-    },
     getItems(minLineY, maxLineY) {
       const results = Object.values(allSearchResults).flat()
       return results.slice(minLineY, maxLineY)
+    },
+    getResultCount() {
+      return numberOfResults
     },
   }
 
@@ -43,16 +43,16 @@ export const collectStdoutIncremental = async (
 
   const handleLine = (line: string): void => {
     const parsedLine = JSON.parse(line)
-    const { type, data } = parsedLine
+    const { data, type } = parsedLine
     switch (type) {
       case RipGrepParsedLineType.Begin:
         allSearchResults[data.path.text] = [
           {
-            type: TextSearchResultType.File,
-            start: 0,
             end: 0,
             lineNumber: 0,
+            start: 0,
             text: data.path.text,
+            type: TextSearchResultType.File,
           },
         ]
         break
@@ -95,7 +95,7 @@ export const collectStdoutIncremental = async (
 
   await processData(stdout, handleData)
   return {
-    stats,
     limitHit,
+    stats,
   }
 }

@@ -9,7 +9,7 @@ export const commandMap = {
   'HandleElectronMessagePort.handleElectronMessagePort': HandleElectronMessagePort.handleElectronMessagePort,
   'HandleWebSocket.handleWebSocket': HandleWebSocket.handleWebSocket,
   'SearchFile.searchFile': SearchFile.searchFile,
+  'TextSearch.getIncrementalResults': GetIncrementalResults.getIncrementalResults,
   'TextSearch.search': TextSearch.search,
   'TextSearch.searchIncremental': TextSearchIncremental.textSearchIncremental,
-  'TextSearch.getIncrementalResults': GetIncrementalResults.getIncrementalResults,
 }

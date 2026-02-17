@@ -11,10 +11,10 @@ beforeEach(() => {
 
 jest.unstable_mockModule('../src/parts/RipGrep/RipGrep.ts', () => {
   return {
-    spawn: jest.fn(() => {
+    exec: jest.fn(() => {
       throw new Error('not implemented')
     }),
-    exec: jest.fn(() => {
+    spawn: jest.fn(() => {
       throw new Error('not implemented')
     }),
   }
@@ -40,18 +40,18 @@ test('search - no results', async () => {
       read(): void {},
     })
     const childProcess = {
-      on(event: string, listener: any): void {
-        emitter.on(event, listener)
-      },
+      kill(): void {},
       off(event: string, listener: any): void {
         emitter.off(event, listener)
+      },
+      on(event: string, listener: any): void {
+        emitter.on(event, listener)
       },
       once(event: string, listener: any): void {
         emitter.once(event, listener)
       },
-      stdout,
       stderr: {},
-      kill(): void {},
+      stdout,
     }
     setTimeout(() => {
       stdout.emit('end')
@@ -62,9 +62,9 @@ test('search - no results', async () => {
   })
   // @ts-ignore
   expect(await TextSearch.search('/test', 'document')).toEqual({
+    limitHit: false,
     results: [],
     stats: expect.any(Object),
-    limitHit: false,
   })
 })
 
@@ -87,18 +87,18 @@ test('search - one result', async () => {
       read(): void {},
     })
     const childProcess = {
-      on(event: string, listener: any): void {
-        emitter.on(event, listener)
-      },
+      kill(): void {},
       off(event: string, listener: any): void {
         emitter.off(event, listener)
+      },
+      on(event: string, listener: any): void {
+        emitter.on(event, listener)
       },
       once(event: string, listener: any): void {
         emitter.once(event, listener)
       },
-      stdout,
       stderr: {},
-      kill(): void {},
+      stdout,
     }
     setTimeout(() => {
       stdout.push(
@@ -116,6 +116,7 @@ test('search - one result', async () => {
   })
   // @ts-ignore
   expect(await TextSearch.search('/test', 'document')).toEqual({
+    limitHit: false,
     results: [
       {
         end: 0,
@@ -133,7 +134,6 @@ test('search - one result', async () => {
       },
     ],
     stats: expect.any(Object),
-    limitHit: false,
   })
   expect(ToTextSearchResult.toTextSearchResult).toHaveBeenCalledTimes(1)
   expect(ToTextSearchResult.toTextSearchResult).toHaveBeenCalledWith(
@@ -185,18 +185,18 @@ test('search - one result split across multiple chunks', async () => {
       read(): void {},
     })
     const childProcess = {
-      on(event: string, listener: any): void {
-        emitter.on(event, listener)
-      },
+      kill(): void {},
       off(event: string, listener: any): void {
         emitter.off(event, listener)
+      },
+      on(event: string, listener: any): void {
+        emitter.on(event, listener)
       },
       once(event: string, listener: any): void {
         emitter.once(event, listener)
       },
-      stdout,
       stderr: {},
-      kill(): void {},
+      stdout,
     }
     setTimeout(() => {
       stdout.push(
@@ -215,6 +215,7 @@ test('search - one result split across multiple chunks', async () => {
   })
   // @ts-ignore
   expect(await TextSearch.search('/test', 'document')).toEqual({
+    limitHit: false,
     results: [
       {
         end: 0,
@@ -232,7 +233,6 @@ test('search - one result split across multiple chunks', async () => {
       },
     ],
     stats: expect.any(Object),
-    limitHit: false,
   })
   expect(ToTextSearchResult.toTextSearchResult).toHaveBeenCalledTimes(1)
   expect(ToTextSearchResult.toTextSearchResult).toHaveBeenCalledWith(
@@ -276,18 +276,18 @@ test('search - error with parsing line', async () => {
       read(): void {},
     })
     const childProcess = {
-      on(event: string, listener: any): void {
-        emitter.on(event, listener)
-      },
+      kill(): void {},
       off(event: string, listener: any): void {
         emitter.off(event, listener)
+      },
+      on(event: string, listener: any): void {
+        emitter.on(event, listener)
       },
       once(event: string, listener: any): void {
         emitter.once(event, listener)
       },
-      stdout,
       stderr: {},
-      kill(): void {},
+      stdout,
     }
     setTimeout(() => {
       stdout.push(
@@ -315,18 +315,18 @@ test('search - error ripgrep not found', async () => {
       read(): void {},
     })
     const childProcess = {
-      on(event: string, listener: any): void {
-        emitter.on(event, listener)
-      },
+      kill(): void {},
       off(event: string, listener: any): void {
         emitter.off(event, listener)
+      },
+      on(event: string, listener: any): void {
+        emitter.on(event, listener)
       },
       once(event: string, listener: any): void {
         emitter.once(event, listener)
       },
-      stdout,
       stderr: {},
-      kill(): void {},
+      stdout,
     }
     setTimeout(() => {
       const error = new Error(`spawn /test/bin/rg ENOENT`)
@@ -347,7 +347,7 @@ test('search - error ripgrep not found', async () => {
 test.skip('successful search', async () => {
   const mockChildProcess = { pid: 123 }
   const mockSearchResult = { results: ['test1', 'test2'] }
-  const mockExitResult = { type: ProcessExitEventType.Exit, event: { code: 0 } }
+  const mockExitResult = { event: { code: 0 }, type: ProcessExitEventType.Exit }
 
   // @ts-ignore
   RipGrep.spawn.mockReturnValue(mockChildProcess as any)
@@ -357,9 +357,9 @@ test.skip('successful search', async () => {
   WaitForProcessToExit.waitForProcessToExit.mockResolvedValue(mockExitResult)
 
   const result = await TextSearch.search({
-    searchDir: '/test',
     maxSearchResults: 100,
     ripGrepArgs: ['-i', 'test'],
+    searchDir: '/test',
   })
 
   expect(RipGrep.spawn).toHaveBeenCalledWith(['-i', 'test'], { cwd: '/test' })
@@ -371,7 +371,7 @@ test.skip('successful search', async () => {
 test.skip('ripgrep not found error', async () => {
   const mockChildProcess = { pid: 123 }
   const mockError = { code: 'ENOENT' }
-  const mockExitResult = { type: ProcessExitEventType.Error, event: mockError }
+  const mockExitResult = { event: mockError, type: ProcessExitEventType.Error }
   // @ts-ignore
 
   RipGrep.spawn.mockReturnValue(mockChildProcess as any)
@@ -384,7 +384,7 @@ test.skip('ripgrep not found error', async () => {
 test.skip('text search error', async () => {
   const mockChildProcess = { pid: 123 }
   const mockError = { code: 'OTHER_ERROR' }
-  const mockExitResult = { type: ProcessExitEventType.Error, event: mockError }
+  const mockExitResult = { event: mockError, type: ProcessExitEventType.Error }
 
   // @ts-ignore
   RipGrep.spawn.mockReturnValue(mockChildProcess as any)
@@ -397,7 +397,7 @@ test.skip('text search error', async () => {
 test.skip('returns pipeline result on success', async () => {
   const mockChildProcess = { pid: 123 }
   const mockSearchResult = { results: ['test1', 'test2'] }
-  const mockExitResult = { type: ProcessExitEventType.Exit, event: { code: 0 } }
+  const mockExitResult = { event: { code: 0 }, type: ProcessExitEventType.Exit }
 
   // @ts-ignore
   RipGrep.spawn.mockImplementation(() => mockChildProcess)
@@ -407,9 +407,9 @@ test.skip('returns pipeline result on success', async () => {
   WaitForProcessToExit.waitForProcessToExit.mockImplementation(() => Promise.resolve(mockExitResult))
 
   const result = await TextSearch.search({
-    searchDir: '/test',
     maxSearchResults: 100,
     ripGrepArgs: ['-i', 'test'],
+    searchDir: '/test',
   })
 
   expect(result).toBe(mockSearchResult)

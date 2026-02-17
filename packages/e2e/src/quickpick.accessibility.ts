@@ -1,5 +1,7 @@
 // manual accessibility tests
 
+import type { Test } from '@lvce-editor/test-with-playwright'
+
 // open quick pick
 // nvda says:  "quick input, layout, toggle side bar, 1 of 92"
 // windows narrator says:  "cap, scan, layout, toggle side bar, 1 of 92, selected"
@@ -19,7 +21,7 @@ export const name = 'quickpick.accessibility'
 
 export const skip = 1
 
-export const test = async ({ QuickPick, Locator, expect }) => {
+export const test :Test= async ({ expect, Locator, QuickPick }) => {
   // act
   await QuickPick.open()
 

@@ -4,7 +4,7 @@ export const name = 'quickpick.select-file'
 
 export const skip = 1
 
-export const test: Test = async ({ FileSystem, Workspace, Main, Locator, expect, SideBar, QuickPick }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, QuickPick, SideBar, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/a.txt`, 'abc')

@@ -4,27 +4,27 @@ import * as ToTextSearchResult from '../src/parts/ToTextSearchResult/ToTextSearc
 
 test('toTextSearchResult - match with bytes', () => {
   const parsedLine = {
-    type: 'match',
     data: {
-      path: {
-        text: './build/win32/i18n/Default.hu.isl',
-      },
+      absolute_offset: 11_384,
+      line_number: 220,
       lines: {
         bytes:
           'QXBwbGljYXRpb25zRm91bmQ9QSBr9nZldGtlevUgYWxrYWxtYXrhc29rIG9seWFuIGbhamxva2F0IGhhc3pu4WxuYWssIGFtZWx5ZWtldCBhIFRlbGVw7XT1bmVrIGZyaXNz7XRlbmkga2VsbC4gQWrhbmxvdHQsIGhvZ3kgZW5nZWTpbHllenplIGEgVGVsZXDtdPVuZWsgZXplbiBhbGthbG1heuFzb2sgYXV0b21hdGlrdXMgYmV64XLhc+F0Lgo=',
       },
-      line_number: 220,
-      absolute_offset: 11_384,
+      path: {
+        text: './build/win32/i18n/Default.hu.isl',
+      },
       submatches: [
         {
+          end: 8,
           match: {
             text: 'cat',
           },
           start: 5,
-          end: 8,
         },
       ],
     },
+    type: 'match',
   }
   const remaining = ''
   const charsBefore = 20
@@ -42,26 +42,26 @@ test('toTextSearchResult - match with bytes', () => {
 
 test.skip('toTextSearchResult - match with text', () => {
   const parsedLine = {
-    type: 'match',
     data: {
-      path: {
-        text: './build/win32/i18n/Default.hu.isl',
-      },
+      absolute_offset: 6785,
+      line_number: 151,
       lines: {
         text: '; *** "Select Destination Location" wizard page\n',
       },
-      line_number: 151,
-      absolute_offset: 6785,
+      path: {
+        text: './build/win32/i18n/Default.hu.isl',
+      },
       submatches: [
         {
+          end: 31,
           match: {
             text: 'cat',
           },
           start: 28,
-          end: 31,
         },
       ],
     },
+    type: 'match',
   }
   const remaining = ''
   const charsBefore = 20
@@ -79,24 +79,24 @@ test.skip('toTextSearchResult - match with text', () => {
 
 test('toTextSearchResult - match without text or bytes', () => {
   const parsedLine = {
-    type: 'match',
     data: {
+      absolute_offset: 6785,
+      line_number: 151,
+      lines: {},
       path: {
         text: './build/win32/i18n/Default.hu.isl',
       },
-      lines: {},
-      line_number: 151,
-      absolute_offset: 6785,
       submatches: [
         {
+          end: 31,
           match: {
             text: 'cat',
           },
           start: 28,
-          end: 31,
         },
       ],
     },
+    type: 'match',
   }
   const remaining = ''
   const charsBefore = 20
@@ -108,16 +108,16 @@ test('toTextSearchResult - match without text or bytes', () => {
 
 test.skip('toTextSearchResult - match in the middle', () => {
   const parsedLine = {
-    type: 'match',
     data: {
-      path: { text: './languages/index.py' },
+      absolute_offset: 0,
+      line_number: 1,
       lines: {
         text: String.raw`# Program to display the Fibonacci sequence up to n-th term\n`,
       },
-      line_number: 1,
-      absolute_offset: 0,
-      submatches: [{ match: { text: 'cc' }, start: 31, end: 33 }],
+      path: { text: './languages/index.py' },
+      submatches: [{ end: 33, match: { text: 'cc' }, start: 31 }],
     },
+    type: 'match',
   }
   const remaining = ''
   const charsBefore = 26
@@ -135,16 +135,16 @@ test.skip('toTextSearchResult - match in the middle', () => {
 
 test('toTextSearchResult - match at the end', () => {
   const parsedLine = {
-    type: 'match',
     data: {
-      path: { text: './languages/a.txt' },
+      absolute_offset: 0,
+      line_number: 1,
       lines: {
         text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacc',
       },
-      line_number: 1,
-      absolute_offset: 0,
-      submatches: [{ match: { text: 'cc' }, start: 311, end: 313 }],
+      path: { text: './languages/a.txt' },
+      submatches: [{ end: 313, match: { text: 'cc' }, start: 311 }],
     },
+    type: 'match',
   }
   const remaining = ''
   const charsBefore = 26
@@ -162,14 +162,14 @@ test('toTextSearchResult - match at the end', () => {
 
 test('toTextSearchResult - short match', () => {
   const parsedLine = {
-    type: 'match',
     data: {
-      path: { text: './short.txt' },
-      lines: { text: 'abccc' },
-      line_number: 1,
       absolute_offset: 0,
-      submatches: [{ match: { text: 'cc' }, start: 2, end: 4 }],
+      line_number: 1,
+      lines: { text: 'abccc' },
+      path: { text: './short.txt' },
+      submatches: [{ end: 4, match: { text: 'cc' }, start: 2 }],
     },
+    type: 'match',
   }
   const remaining = ''
   const charsBefore = 26

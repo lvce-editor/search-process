@@ -21,6 +21,7 @@ export default [
   {
     rules: {
       '@typescript-eslint/prefer-readonly-parameter-types': 'off',
+      '@cspell/spellchecker': 'off',
     },
   },
 ]

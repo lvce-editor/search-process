@@ -21,14 +21,14 @@ test('execRipGrep - success', async () => {
   // @ts-ignore
   Exec.exec.mockImplementation(() => {
     return {
-      stdout: 'test output',
       stderr: '',
+      stdout: 'test output',
     }
   })
   const result = await ExecRipGrep.execRipGrep(['-i', 'test'], { cwd: '/test' })
   expect(result).toEqual({
-    stdout: 'test output',
     stderr: '',
+    stdout: 'test output',
   })
   expect(Exec.exec).toHaveBeenCalledWith('/test/rg', ['-i', 'test'], { cwd: '/test' })
 })

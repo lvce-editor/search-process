@@ -6,6 +6,6 @@ import * as Exec from '../Exec/Exec.ts'
 export const execRipGrep = async (args: readonly any[], options: any): Promise<ExecResult> => {
   Assert.array(args)
   Assert.object(options)
-  const { stdout, stderr } = await Exec.exec(RipGrepPath.ripGrepPath, args, options)
-  return { stdout, stderr }
+  const { stderr, stdout } = await Exec.exec(RipGrepPath.ripGrepPath, args, options)
+  return { stderr, stdout }
 }

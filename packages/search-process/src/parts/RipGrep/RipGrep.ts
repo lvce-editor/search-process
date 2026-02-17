@@ -11,20 +11,20 @@ export const spawn = (args: readonly string[], options: any): BaseChildProcess =
       throw new Error('stdout missing')
     }
     return {
-      on(event, listener): void {
-        childProcess.on(event, listener)
+      kill(): void {
+        childProcess.kill()
       },
       off(event, listener): void {
         childProcess.off(event, listener)
       },
+      on(event, listener): void {
+        childProcess.on(event, listener)
+      },
       once(event, listener): void {
         childProcess.once(event, listener)
       },
-      stdout: childProcess.stdout,
       stderr: childProcess.stderr,
-      kill(): void {
-        childProcess.kill()
-      },
+      stdout: childProcess.stdout,
     }
   } catch (error) {
     throw new VError(error, `Failed to spawn ripgrep`)

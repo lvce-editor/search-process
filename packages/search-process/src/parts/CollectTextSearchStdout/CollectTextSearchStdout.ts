@@ -36,16 +36,16 @@ export const collectStdout = async (
 
   const handleLine = (line: string): void => {
     const parsedLine = JSON.parse(line)
-    const { type, data } = parsedLine
+    const { data, type } = parsedLine
     switch (type) {
       case RipGrepParsedLineType.Begin:
         allSearchResults[data.path.text] = [
           {
-            type: TextSearchResultType.File,
-            start: 0,
             end: 0,
             lineNumber: 0,
+            start: 0,
             text: formatFile(data.path.text),
+            type: TextSearchResultType.File,
           },
         ]
         break
@@ -88,8 +88,8 @@ export const collectStdout = async (
   await processData(stdout, handleData)
   const results = Object.values(allSearchResults).flat()
   return {
+    limitHit,
     results,
     stats,
-    limitHit,
   }
 }

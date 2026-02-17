@@ -47,24 +47,24 @@ test(
     }
     // @ts-ignore
     expect(await TextSearch.search(options)).toEqual({
+      limitHit: false,
       results: [
         {
-          type: TextSearchResultType.File,
-          text: 'index.html',
+          end: 0,
           lineNumber: 0,
           start: 0,
-          end: 0,
+          text: 'index.html',
+          type: TextSearchResultType.File,
         },
         {
-          type: TextSearchResultType.Match,
+          end: 19,
           lineNumber: 6,
           start: 11,
-          end: 19,
           text: '    <title>Document</title>\n',
+          type: TextSearchResultType.Match,
         },
       ],
       stats: expect.any(Object),
-      limitHit: false,
     })
   },
   TIMEOUT_LONG,
