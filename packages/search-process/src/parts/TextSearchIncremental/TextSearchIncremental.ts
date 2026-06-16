@@ -11,7 +11,7 @@ import * as WaitForProcessToExit from '../WaitForProcessToExit/WaitForProcessToE
 // TODO maybe split text search and file search into two processes,
 // so that long file text search cannot block file search and
 // text and file search would be more independent
-// only the logic for ripgrep path and websocket / messageport handling
+// only the logic for ripgrep path and WebSocket / messageport handling
 //  would need to be the same
 // @deprecated use TextSearch.searchPull instead
 export const textSearchIncremental = async ({

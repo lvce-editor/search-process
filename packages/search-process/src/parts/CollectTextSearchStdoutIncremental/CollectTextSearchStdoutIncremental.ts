@@ -32,9 +32,7 @@ export const collectStdoutIncremental = async (
       const results = Object.values(allSearchResults).flat()
       return results.slice(minLineY, maxLineY)
     },
-    getResultCount() {
-      return numberOfResults
-    },
+    getResultCount: () => numberOfResults,
   }
 
   IncrementalSearchState.set(id, search)

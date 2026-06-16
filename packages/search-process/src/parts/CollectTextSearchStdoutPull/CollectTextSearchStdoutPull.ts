@@ -45,14 +45,12 @@ export const collectStdoutPull = async (
       hasUnfetchedResults = false
       return newItems
     },
-    getProgress() {
-      return {
-        done,
-        limitHit,
-        resultCount: numberOfResults,
-        stats,
-      }
-    },
+    getProgress: () => ({
+      done,
+      limitHit,
+      resultCount: numberOfResults,
+      stats,
+    }),
   }
 
   PullSearchState.set(searchId, search)
