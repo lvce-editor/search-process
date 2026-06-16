@@ -55,7 +55,7 @@ test('search - no results', async () => {
       stdout.emit('end')
       stdout.emit('close')
       emitter.emit('close')
-    })
+    }, 0)
     return childProcess
   })
   // @ts-ignore
@@ -108,8 +108,8 @@ test('search - one result', async () => {
         stdout.emit('end')
         stdout.emit('close')
         emitter.emit('close')
-      })
-    })
+      }, 0)
+    }, 0)
     return childProcess
   })
   // @ts-ignore
@@ -208,7 +208,7 @@ test('search - one result split across multiple chunks', async () => {
       stdout.emit('end')
       stdout.emit('close')
       emitter.emit('close')
-    })
+    }, 0)
     return childProcess
   })
   // @ts-ignore
@@ -294,7 +294,7 @@ test('search - error with parsing line', async () => {
 `,
       )
       emitter.emit('close')
-    })
+    }, 0)
     return childProcess
   })
   // @ts-ignore
@@ -333,7 +333,7 @@ test('search - error ripgrep not found', async () => {
       emitter.emit('error', error)
       stdout.emit('end')
       stdout.emit('close')
-    })
+    }, 0)
     return childProcess
   })
   // @ts-ignore
