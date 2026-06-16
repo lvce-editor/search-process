@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals'
 import type { IncrementalSearch } from '../src/parts/IncrementalSearch/IncrementalSearch.ts'
-import { get, set, remove } from '../src/parts/IncrementalSearchState/IncrementalSearchState.js'
+import { get, set, remove } from '../src/parts/IncrementalSearchState/IncrementalSearchState.ts'
 
 const mockSearch: IncrementalSearch = {
   dispose: () => {},
