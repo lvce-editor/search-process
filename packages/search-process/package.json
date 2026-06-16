@@ -60,7 +60,7 @@
     "ts-jest": "^29.4.11"
   },
   "optionalDependencies": {
-    "@lvce-editor/ripgrep": "^4.1.0"
+    "@lvce-editor/ripgrep": "^5.1.0"
   },
   "engines": {
     "node": ">=24"
