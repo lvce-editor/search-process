@@ -1,14 +1,20 @@
 import type { Rpc } from '@lvce-editor/rpc'
 
-let rpc: Rpc | undefined = undefined
+interface State {
+  rpc: Rpc | undefined
+}
+
+const state: State = {
+  rpc: undefined,
+}
 const rpcMap = new Map<string, Rpc>()
 
 export const get = (): Rpc | undefined => {
-  return rpc
+  return state.rpc
 }
 
 export const set = (value: Rpc): void => {
-  rpc = value
+  state.rpc = value
 }
 
 export const getById = (id: string): Rpc | undefined => {
