@@ -24,6 +24,7 @@ export const toTextSearchResult = (
       end: endColumnIndex - previewStart,
       endColumnIndex,
       lineNumber,
+      rowIndex: lineNumber - 1,
       start: startColumnIndex - previewStart,
       startColumnIndex,
       text: previewText,
