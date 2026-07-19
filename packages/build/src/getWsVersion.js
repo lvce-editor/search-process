@@ -6,8 +6,7 @@ export const getWsVersion = async (cwd) => {
   })
   const parsed = JSON.parse(stdout)
   const wsVersion =
-    parsed.dependencies['@lvce-editor/search-process'].dependencies['@lvce-editor/rpc'].dependencies['@lvce-editor/ipc'].dependencies[
-      '@lvce-editor/web-socket-server'
-    ].dependencies['ws'].version
+    parsed.dependencies['@lvce-editor/search-process'].dependencies['@lvce-editor/rpc'].dependencies['@lvce-editor/ipc']
+      .dependencies['@lvce-editor/web-socket-server'].dependencies['ws'].version
   return wsVersion
 }
