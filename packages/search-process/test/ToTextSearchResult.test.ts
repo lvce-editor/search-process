@@ -32,8 +32,10 @@ test('toTextSearchResult - match with bytes', () => {
   expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
       end: 8,
+      endColumnIndex: 8,
       lineNumber: 220,
       start: 5,
+      startColumnIndex: 5,
       text: 'ApplicationsFound=A k�vetkez� alkalmaz�sok olyan f�jlokat ',
       type: 2,
     },
@@ -69,8 +71,10 @@ test.skip('toTextSearchResult - match with text', () => {
   expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
       end: 24,
+      endColumnIndex: 31,
       lineNumber: 151,
       start: 21,
+      startColumnIndex: 28,
       text: 'Select Destination Location" wizard page\n',
       type: TextSearchResultType.Match,
     },
@@ -125,8 +129,10 @@ test.skip('toTextSearchResult - match in the middle', () => {
   expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
       end: 31,
+      endColumnIndex: 33,
       lineNumber: 1,
       start: 29,
+      startColumnIndex: 31,
       text: String.raw`Program to display the Fibonacci sequence up to n-th term\n`,
       type: TextSearchResultType.Match,
     },
@@ -152,8 +158,10 @@ test('toTextSearchResult - match at the end', () => {
   expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
       end: 28,
+      endColumnIndex: 313,
       lineNumber: 1,
       start: 26,
+      startColumnIndex: 311,
       text: 'aaaaaaaaaaaaaaaaaaaaaaaaaacc',
       type: TextSearchResultType.Match,
     },
@@ -177,8 +185,10 @@ test('toTextSearchResult - short match', () => {
   expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
       end: 4,
+      endColumnIndex: 4,
       lineNumber: 1,
       start: 2,
+      startColumnIndex: 2,
       text: 'abccc',
       type: TextSearchResultType.Match,
     },

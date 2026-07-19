@@ -58,8 +58,10 @@ test(
         },
         {
           end: 19,
+          endColumnIndex: 19,
           lineNumber: 6,
           start: 11,
+          startColumnIndex: 11,
           text: '    <title>Document</title>\n',
           type: TextSearchResultType.Match,
         },
