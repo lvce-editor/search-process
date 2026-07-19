@@ -16,7 +16,7 @@ fi
 
 function updateDependencies {
   echo "updating dependencies..."
-  ncu -u -x @types/node -x jest -x @jest/globals -x typescript
+  ncu -u -x @types/node -x jest -x @jest/globals -x typescript -x @babel/preset-typescript
 }
 
                                                        updateDependencies             &&
