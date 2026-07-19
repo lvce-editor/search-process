@@ -4,6 +4,14 @@ import { tmpdir } from 'node:os'
 
 // TODO mock this module when used in unit tests
 
+interface State {
+  console: Console | undefined
+}
+
+const state: State = {
+  console: undefined,
+}
+
 const createConsole = (): Console => {
   const logFile = `${tmpdir()}/log-shared-process.txt`
   const writeStream = createWriteStream(logFile)
@@ -11,13 +19,7 @@ const createConsole = (): Console => {
   return logger
 }
 
-interface State {
-  console?: ReturnType<typeof createConsole>
-}
-
-const state: State = {}
-
-const getOrCreateLogger = (): ReturnType<typeof createConsole> => {
+const getOrCreateLogger = (): Console => {
   if (!state.console) {
     state.console = createConsole()
   }

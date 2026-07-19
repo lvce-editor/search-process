@@ -1,15 +1,12 @@
-interface Rpc {
-  readonly dispose: () => Promise<void>
-  readonly invoke: (method: string, ...params: readonly any[]) => Promise<any>
-  readonly invokeAndTransfer: (method: string, ...params: readonly any[]) => Promise<any>
-  readonly send: (method: string, ...params: readonly any[]) => void
-}
+import type { Rpc } from '@lvce-editor/rpc'
 
 interface State {
-  rpc?: Rpc
+  rpc: Rpc | undefined
 }
 
-const state: State = {}
+const state: State = {
+  rpc: undefined,
+}
 const rpcMap = new Map<string, Rpc>()
 
 export const get = (): Rpc | undefined => {
