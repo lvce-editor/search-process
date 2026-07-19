@@ -39,8 +39,10 @@ test('text search', async () => {
       },
       {
         end: 5,
+        endColumnIndex: 5,
         lineNumber: 1,
         start: 4,
+        startColumnIndex: 4,
         text: 'let x = 1',
         type: 2,
       },
