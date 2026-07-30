@@ -117,12 +117,6 @@ export const waitForWebSocketToBeOpen = async (webSocket: WebSocket): Promise<vo
   await promise
 }
 
-export const waitForSocketToBeClosed = async (socket: Socket): Promise<void> => {
-  const { resolve, promise } = Promise.withResolvers()
-  socket.on('close', resolve)
-  await promise
-}
-
 export const getHandleMessage = (request: any): any => {
   return {
     headers: request.headers,
