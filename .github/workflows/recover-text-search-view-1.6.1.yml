@@ -26,6 +26,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm run build
+        env:
+          GIT_TAG: v1.6.1
       - run: npm run build:static
       - name: Verify package identity
         run: |
