@@ -1,7 +1,11 @@
 name: recover text-search-view v1.6.1 publish
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/recover-text-search-view-1.6.1.yml
 
 permissions:
   contents: read
