@@ -8,6 +8,7 @@ import * as IncrementalSearchState from '../IncrementalSearchState/IncrementalSe
 import { processData } from '../ProcessData/ProcessData.ts'
 import * as RipGrepParsedLineType from '../RipGrepParsedLineType/RipGrepParsedLineType.ts'
 import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultType.ts'
+import * as ToTextSearchContext from '../ToTextSearchContext/ToTextSearchContext.ts'
 import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts'
 
 export const collectStdoutIncremental = async (
@@ -53,6 +54,9 @@ export const collectStdoutIncremental = async (
             type: TextSearchResultType.File,
           },
         ]
+        break
+      case RipGrepParsedLineType.Context:
+        allSearchResults[data.path.text].push(ToTextSearchContext.toTextSearchContext(parsedLine))
         break
       case RipGrepParsedLineType.Match:
         const remaining = maxSearchResults - numberOfResults
