@@ -8,6 +8,7 @@ import { processData } from '../ProcessData/ProcessData.ts'
 import * as PullSearchState from '../PullSearchState/PullSearchState.ts'
 import * as RipGrepParsedLineType from '../RipGrepParsedLineType/RipGrepParsedLineType.ts'
 import * as TextSearchResultType from '../TextSearchResultType/TextSearchResultType.ts'
+import * as ToTextSearchContext from '../ToTextSearchContext/ToTextSearchContext.ts'
 import * as ToTextSearchResult from '../ToTextSearchResult/ToTextSearchResult.ts'
 
 export const collectStdoutPull = async (
@@ -69,6 +70,10 @@ export const collectStdoutPull = async (
           text: data.path.text,
           type: TextSearchResultType.File,
         })
+        maybeNotifyResultsFound()
+        break
+      case RipGrepParsedLineType.Context:
+        allSearchResults.push(ToTextSearchContext.toTextSearchContext(parsedLine))
         maybeNotifyResultsFound()
         break
       case RipGrepParsedLineType.Match:

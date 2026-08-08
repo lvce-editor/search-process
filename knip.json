@@ -1,0 +1,34 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    ".": {
+      "entry": ["scripts/*.js"],
+      "project": ["*.js", "scripts/*.js"]
+    },
+    "packages/build": {
+      "entry": ["src/build.js", "src/dev.js"],
+      "project": ["src/**/*.js"]
+    },
+    "packages/e2e": {
+      "entry": ["src/**/*.ts"],
+      "project": ["src/**/*.ts"]
+    },
+    "packages/memory": {
+      "entry": ["src/measureMemory.ts"],
+      "project": ["src/**/*.ts"]
+    },
+    "packages/search-process": {
+      "entry": ["src/searchProcessMain.ts", "test/**/*.test.ts"],
+      "project": ["src/**/*.ts", "test/**/*.ts"]
+    },
+    "packages/server": {
+      "entry": ["src/postinstall.js"],
+      "project": ["src/**/*.js"],
+      "ignoreDependencies": ["@lvce-editor/server"]
+    },
+    "packages/test-integration": {
+      "entry": ["test/**/*.test.ts", "fixtures/**/*.js"],
+      "project": ["src/**/*.ts", "test/**/*.ts", "fixtures/**/*.js"]
+    }
+  }
+}

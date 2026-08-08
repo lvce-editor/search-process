@@ -17,7 +17,7 @@ test('isEnoentError - returns true for Linux ENOENT error', () => {
 
 test('isEnoentError - returns false for non-ENOENT error', () => {
   const error = { code: 'OTHER_ERROR' }
-  expect(IsEnoentError.isEnoentError(error)).toBe(undefined)
+  expect(IsEnoentError.isEnoentError(error)).toBeUndefined()
 })
 
 test('isEnoentError - returns false for error without code', () => {

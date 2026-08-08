@@ -262,6 +262,57 @@ test('search - one result split across multiple chunks', async () => {
   )
 })
 
+test('search - includes context without counting it as a match', async () => {
+  // @ts-ignore
+  ToTextSearchResult.toTextSearchResult.mockImplementation(() => {
+    return [{ end: 6, lineNumber: 5, start: 0, text: 'needle appears\n', type: 2 }]
+  })
+  // @ts-ignore
+  RipGrep.spawn.mockImplementation(() => {
+    const emitter = new EventEmitter()
+    const stdout = new Readable({
+      read(): void {},
+    })
+    const childProcess = {
+      kill(): void {},
+      off(event: string, listener: any): void {
+        emitter.off(event, listener)
+      },
+      on(event: string, listener: any): void {
+        emitter.on(event, listener)
+      },
+      once(event: string, listener: any): void {
+        emitter.once(event, listener)
+      },
+      stderr: {},
+      stdout,
+    }
+    setTimeout(() => {
+      stdout.push(
+        `{"type":"begin","data":{"path":{"text":"./README.md"}}}
+{"type":"context","data":{"path":{"text":"./README.md"},"lines":{"text":"context before\\n"},"line_number":4,"submatches":[]}}
+{"type":"match","data":{"path":{"text":"./README.md"},"lines":{"text":"needle appears\\n"},"line_number":5,"submatches":[{"start":0,"end":6}]}}
+`,
+      )
+      stdout.emit('end')
+      stdout.emit('close')
+      emitter.emit('close')
+    }, 0)
+    return childProcess
+  })
+
+  // @ts-ignore
+  expect(await TextSearch.search('/test', 'needle')).toEqual({
+    limitHit: false,
+    results: [
+      { end: 0, lineNumber: 0, start: 0, text: 'README.md', type: 1 },
+      { end: 0, lineNumber: 4, start: 0, text: 'context before\n', type: 3 },
+      { end: 6, lineNumber: 5, start: 0, text: 'needle appears\n', type: 2 },
+    ],
+    stats: expect.any(Object),
+  })
+})
+
 test('search - error with parsing line', async () => {
   // @ts-ignore
   ToTextSearchResult.toTextSearchResult.mockImplementation(() => {
