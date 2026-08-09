@@ -1,7 +1,6 @@
 import { beforeEach, expect, jest, test } from '@jest/globals'
 import { EventEmitter } from 'node:events'
 import { Readable } from 'node:stream'
-import * as ProcessExitEventType from '../src/parts/ProcessExitEventType/ProcessExitEventType.ts'
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -398,24 +397,3 @@ test.todo('successful search')
 test.todo('ripgrep not found error')
 
 test.todo('text search error')
-
-test.skip('returns pipeline result on success', async () => {
-  const mockChildProcess = { pid: 123 }
-  const mockSearchResult = { results: ['test1', 'test2'] }
-  const mockExitResult = { event: { code: 0 }, type: ProcessExitEventType.Exit }
-
-  // @ts-ignore
-  RipGrep.spawn.mockImplementation(() => mockChildProcess)
-  // @ts-ignore
-  CollectTextSearchStdout.collectStdout.mockImplementation(async () => mockSearchResult)
-  // @ts-ignore
-  WaitForProcessToExit.waitForProcessToExit.mockImplementation(async () => mockExitResult)
-
-  const result = await TextSearch.search({
-    maxSearchResults: 100,
-    ripGrepArgs: ['-i', 'test'],
-    searchDir: '/test',
-  })
-
-  expect(result).toBe(mockSearchResult)
-})

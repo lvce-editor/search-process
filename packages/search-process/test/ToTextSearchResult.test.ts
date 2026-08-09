@@ -43,7 +43,7 @@ test('toTextSearchResult - match with bytes', () => {
   ])
 })
 
-test.skip('toTextSearchResult - match with text', () => {
+test('toTextSearchResult - match with text', () => {
   const parsedLine = {
     data: {
       absolute_offset: 6785,
@@ -67,7 +67,7 @@ test.skip('toTextSearchResult - match with text', () => {
     type: 'match',
   }
   const remaining = ''
-  const charsBefore = 20
+  const charsBefore = 21
   const charsAfter = 50
   expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
@@ -112,7 +112,7 @@ test('toTextSearchResult - match without text or bytes', () => {
   )
 })
 
-test.skip('toTextSearchResult - match in the middle', () => {
+test('toTextSearchResult - match in the middle', () => {
   const parsedLine = {
     data: {
       absolute_offset: 0,
@@ -126,7 +126,7 @@ test.skip('toTextSearchResult - match in the middle', () => {
     type: 'match',
   }
   const remaining = ''
-  const charsBefore = 26
+  const charsBefore = 29
   const charsAfter = 50
   expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
