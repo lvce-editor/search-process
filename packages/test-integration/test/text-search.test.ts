@@ -50,3 +50,48 @@ test('text search', async () => {
     ],
   })
 })
+
+test('text search left cuts result previews at a natural seam', async () => {
+  const { testDir, rpc, setFiles } = await setup({})
+  await setFiles({
+    'ParseMemory.test.ts': `  expect(ParseMemory.parseMemory('41700 2023 1199 224 0 5027 0')).toBe(`,
+  })
+  const result = await rpc.invoke('TextSearch.search', {
+    id: '1',
+    searchDir: testDir,
+    maxSearchResults: 100,
+    ripGrepArgs: [
+      '--hidden',
+      '--no-require-git',
+      '--smart-case',
+      '--stats',
+      '--json',
+      '--threads',
+      '1',
+      '--ignore-case',
+      '--fixed-strings',
+      '--',
+      '24',
+      '.',
+    ],
+  })
+  expect(result).toMatchObject({
+    limitHit: false,
+    results: [
+      {
+        text: 'ParseMemory.test.ts',
+        type: 1,
+      },
+      {
+        end: 35,
+        endColumnIndex: 53,
+        lineNumber: 1,
+        rowIndex: 0,
+        start: 33,
+        startColumnIndex: 51,
+        text: `...parseMemory('41700 2023 1199 224 0 5027 0')).toBe(`,
+        type: 2,
+      },
+    ],
+  })
+})
