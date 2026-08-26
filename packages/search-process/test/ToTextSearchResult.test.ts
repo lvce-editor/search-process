@@ -71,13 +71,13 @@ test('toTextSearchResult - match with text', () => {
   const charsAfter = 50
   expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
-      end: 24,
+      end: 27,
       endColumnIndex: 31,
       lineNumber: 151,
       rowIndex: 150,
-      start: 21,
+      start: 24,
       startColumnIndex: 28,
-      text: 'Select Destination Location" wizard page\n',
+      text: '...Select Destination Location" wizard page\n',
       type: TextSearchResultType.Match,
     },
   ])
@@ -130,13 +130,13 @@ test('toTextSearchResult - match in the middle', () => {
   const charsAfter = 50
   expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
-      end: 31,
+      end: 34,
       endColumnIndex: 33,
       lineNumber: 1,
       rowIndex: 0,
-      start: 29,
+      start: 32,
       startColumnIndex: 31,
-      text: String.raw`Program to display the Fibonacci sequence up to n-th term\n`,
+      text: String.raw`...Program to display the Fibonacci sequence up to n-th term\n`,
       type: TextSearchResultType.Match,
     },
   ])
@@ -160,13 +160,42 @@ test('toTextSearchResult - match at the end', () => {
   const charsAfter = 50
   expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
     {
-      end: 28,
+      end: 31,
       endColumnIndex: 313,
       lineNumber: 1,
       rowIndex: 0,
-      start: 26,
+      start: 29,
       startColumnIndex: 311,
-      text: 'aaaaaaaaaaaaaaaaaaaaaaaaaacc',
+      text: '...aaaaaaaaaaaaaaaaaaaaaaaaaacc',
+      type: TextSearchResultType.Match,
+    },
+  ])
+})
+
+test('toTextSearchResult - left cut uses a nearby natural seam and ellipsis', () => {
+  const line = `  expect(ParseMemory.parseMemory('41700 2023 1199 224 0 5027 0')).toBe(`
+  const parsedLine = {
+    data: {
+      absolute_offset: 0,
+      line_number: 5,
+      lines: { text: line },
+      path: { text: './ParseMemory.test.ts' },
+      submatches: [{ end: 53, match: { text: '24' }, start: 51 }],
+    },
+    type: 'match',
+  }
+  const remaining = ''
+  const charsBefore = 26
+  const charsAfter = 50
+  expect(ToTextSearchResult.toTextSearchResult(parsedLine, remaining, charsBefore, charsAfter)).toEqual([
+    {
+      end: 35,
+      endColumnIndex: 53,
+      lineNumber: 5,
+      rowIndex: 4,
+      start: 33,
+      startColumnIndex: 51,
+      text: `...parseMemory('41700 2023 1199 224 0 5027 0')).toBe(`,
       type: TextSearchResultType.Match,
     },
   ])
