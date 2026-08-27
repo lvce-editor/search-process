@@ -10,7 +10,7 @@ import { mkdir } from 'fs/promises'
 /**
  * @type {import('rollup').RollupOptions}
  */
-const options = {
+export const options = {
   input: join(root, 'packages/search-process/src/searchProcessMain.ts'),
   preserveEntrySignatures: 'strict',
   treeshake: {
