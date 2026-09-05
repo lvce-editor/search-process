@@ -2,6 +2,7 @@ import type { Rpc } from '@lvce-editor/rpc'
 import type { IncremetalStdoutResult } from '../IncrementalStdoutResult/IncrementalStdoutResult.ts'
 import type { TextSearchPullOptions } from '../TextSearchPullOptions/TextSearchPullOptions.ts'
 import * as CollectTextSearchStdoutPull from '../CollectTextSearchStdoutPull/CollectTextSearchStdoutPull.ts'
+import { ensurePath } from '../EnsurePath/EnsurePath.ts'
 import * as IsEnoentError from '../IsEnoentError/IsEnoentError.ts'
 import * as ProcessExitEventType from '../ProcessExitEventType/ProcessExitEventType.ts'
 import * as RipGrep from '../RipGrep/RipGrep.ts'
@@ -23,7 +24,7 @@ export const textSearchPull = async (
   }: TextSearchPullOptions,
 ): Promise<IncremetalStdoutResult> => {
   const childProcess = RipGrep.spawn(ripGrepArgs, {
-    cwd: searchDir,
+    cwd: ensurePath(searchDir),
   })
   const notifyResultsFound = (): void => {
     // @ts-ignore

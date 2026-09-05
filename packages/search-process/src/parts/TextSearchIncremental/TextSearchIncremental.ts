@@ -1,6 +1,7 @@
 import type { IncremetalStdoutResult } from '../IncrementalStdoutResult/IncrementalStdoutResult.ts'
 import type { TextSearchIncrementalOptions } from '../TextSearchIncrementalOptions/TextSearchIncrementalOptions.ts'
 import * as CollectTextSearchStdoutIncremental from '../CollectTextSearchStdoutIncremental/CollectTextSearchStdoutIncremental.ts'
+import { ensurePath } from '../EnsurePath/EnsurePath.ts'
 import * as IsEnoentError from '../IsEnoentError/IsEnoentError.ts'
 import * as ProcessExitEventType from '../ProcessExitEventType/ProcessExitEventType.ts'
 import * as RipGrep from '../RipGrep/RipGrep.ts'
@@ -24,7 +25,7 @@ export const textSearchIncremental = async ({
   const charsBefore = 26
   const charsAfter = 50
   const childProcess = RipGrep.spawn(ripGrepArgs, {
-    cwd: searchDir,
+    cwd: ensurePath(searchDir),
   })
   const pipeLinePromise = CollectTextSearchStdoutIncremental.collectStdoutIncremental(
     id,
