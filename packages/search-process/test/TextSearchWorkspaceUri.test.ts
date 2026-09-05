@@ -1,5 +1,5 @@
-import { beforeEach, expect, jest, test } from '@jest/globals'
 import type { Rpc } from '@lvce-editor/rpc'
+import { beforeEach, expect, jest, test } from '@jest/globals'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
