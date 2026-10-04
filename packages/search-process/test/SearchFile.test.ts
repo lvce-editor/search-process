@@ -1,4 +1,5 @@
 import { afterEach, expect, jest, test } from '@jest/globals'
+import { createHash } from 'node:crypto'
 import * as ErrorCodes from '../src/parts/ErrorCodes/ErrorCodes.ts'
 
 afterEach(() => {
@@ -56,6 +57,43 @@ nested/fileC`,
 fileB
 nested/fileC`,
   )
+})
+
+test('searchFile returns no results when the conditional hash matches', async () => {
+  exec.mockImplementation(() => ({ stdout: 'fileA\nfileB' }) as never)
+  const options = {
+    ifNonMatch: null,
+    ripGrepArgs: ['--files', '--hidden'],
+    searchPath: '/workspace',
+  }
+  const result = await SearchFile.searchFile(options)
+  expect(result).toEqual({
+    hash: createHash('sha256')
+      .update('/workspace')
+      .update('\0')
+      .update(JSON.stringify(options.ripGrepArgs))
+      .update('\0')
+      .update('fileA\nfileB')
+      .digest('hex'),
+    matchesCache: false,
+    results: 'fileA\nfileB',
+  })
+  if (typeof result === 'string') {
+    throw new TypeError('Expected a conditional search result')
+  }
+  await expect(SearchFile.searchFile({ ...options, ifNonMatch: result.hash })).resolves.toEqual({
+    hash: result.hash,
+    matchesCache: true,
+    results: '',
+  })
+})
+
+test('searchFile returns changed results when the conditional hash differs', async () => {
+  exec.mockImplementation(() => ({ stdout: 'fileA\nfileC' }) as never)
+  await expect(SearchFile.searchFile({ ifNonMatch: '0'.repeat(64), searchPath: '/workspace' })).resolves.toMatchObject({
+    matchesCache: false,
+    results: 'fileA\nfileC',
+  })
 })
 
 test('searchFile - error - ripgrep could not be found', async () => {

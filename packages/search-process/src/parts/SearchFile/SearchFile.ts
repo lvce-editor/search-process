@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import * as RipGrepPath from '../ActualRipGrepPath/ActualRipGrepPath.ts'
 import * as Assert from '../Assert/Assert.ts'
 import * as Character from '../Character/Character.ts'
@@ -14,6 +15,7 @@ import * as RipGrep from '../RipGrep/RipGrep.ts'
 // but the second time only a few hundred bytes of changes
 
 export const searchFile = async ({
+  ifNonMatch,
   limit = 100,
   ripGrepArgs = [],
   searchPath = '',
@@ -21,7 +23,8 @@ export const searchFile = async ({
   readonly searchPath?: string
   readonly limit?: number
   readonly ripGrepArgs?: readonly string[]
-}): Promise<string> => {
+  readonly ifNonMatch?: string | null
+}): Promise<string | { readonly hash: string; readonly matchesCache: boolean; readonly results: string }> => {
   try {
     Assert.string(searchPath)
     Assert.array(ripGrepArgs)
@@ -30,7 +33,22 @@ export const searchFile = async ({
     const { stdout } = await RipGrep.exec(ripGrepArgs, {
       cwd,
     })
-    return LimitString.limitString(stdout, limit)
+    const results = LimitString.limitString(stdout, limit)
+    if (ifNonMatch === undefined) {
+      return results
+    }
+    const hash = createHash('sha256')
+      .update(searchPath)
+      .update('\0')
+      .update(JSON.stringify(ripGrepArgs))
+      .update('\0')
+      .update(results)
+      .digest('hex')
+    return {
+      hash,
+      matchesCache: hash === ifNonMatch,
+      results: hash === ifNonMatch ? '' : results,
+    }
   } catch (error) {
     if (IsEnoentError.isEnoentError(error)) {
       Logger.info(`[search-process] ripgrep could not be found at "${RipGrepPath.ripGrepPath}"`)
