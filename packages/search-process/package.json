@@ -47,19 +47,19 @@
     }
   },
   "dependencies": {
-    "@lvce-editor/assert": "^1.5.1",
-    "@lvce-editor/rpc": "^6.4.0",
+    "@lvce-editor/assert": "^1.9.0",
+    "@lvce-editor/rpc": "^6.21.1",
     "@lvce-editor/verror": "^1.7.0",
-    "execa": "^9.6.1"
+    "execa": "^10.0.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@types/node": "^24.0.15",
     "jest": "^29.7.0",
-    "ts-jest": "^29.4.11"
+    "ts-jest": "^29.4.14"
   },
   "optionalDependencies": {
-    "@lvce-editor/ripgrep": "^5.2.0"
+    "@lvce-editor/ripgrep": "^5.7.0"
   },
   "engines": {
     "node": ">=24"
