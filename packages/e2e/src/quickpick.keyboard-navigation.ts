@@ -8,7 +8,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, QuickPick, Works
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file.txt`, '')
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   // act
   await QuickPick.open()
